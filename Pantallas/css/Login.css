@@ -1,0 +1,53 @@
+body {
+    background-color: #333232;
+}
+
+#Color {
+    background-color: red;
+}
+
+#Text {
+    font-size: 150%;
+    text-align: center;
+}
+
+#inputText {
+    border-radius: 15px;
+    margin-top: 20px;
+    height: 50%;
+    width: 94%;
+}
+
+#center {
+    margin: auto;
+    width: 60%;
+    /* border: 3px solid #73AD21; */
+    margin-top: 100px;
+    padding: 10px;
+}
+
+#Button {
+    font-size: 150%;
+    text-align: center;
+}
+
+#ButtonColor {
+    border-radius: 15px;
+    margin-top: 20px;
+    height: 50%;
+    width: 94%;
+    background-color: #972e25;
+    color: white;;
+}
+div a#Button > button#ButtonColor:hover{
+    background-color: #cf6971;
+}
+
+.vl {
+    border-left: 3px solid white;
+    height: 500px;
+    margin: auto;
+    margin-top: 43px;
+    margin-right: -5px;
+    border-radius: 16px;
+  }

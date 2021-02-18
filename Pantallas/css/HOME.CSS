@@ -1,0 +1,28 @@
+.bg-light {
+    background-color: #171717 !important;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+#Search {
+    width: 550px;
+    border-radius: 15px;
+}
+
+#Infocursos{
+    background-color: #333232f7;
+    /* width: 1536px; */
+    width: auto;
+    height: 300px;
+}
+
+#Infocursos2{
+    background-color: #333232;
+    /* width: 1536px; */
+    width: auto;
+    height: 300px;
+}
+
+
