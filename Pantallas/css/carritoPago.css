@@ -1,0 +1,88 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2/03/2021, 11:09:32 PM
+    Author     : FamiliaMoreno
+*/
+
+.form-box{
+    font-family: 'Roboto', sans-serif;
+    padding: 60px;
+    left: 0;
+    right: 0;
+    margin:  auto;
+     margin-right: 5%;
+    width: 50%!important;
+    position: relative;
+    border-radius: 10px;
+    color: #E6E6E6;
+    width: 50%;
+}
+
+#formIS{
+    margin-top: 25%;
+}
+
+#btnCarritoPago{
+    font-family: 'Roboto', sans-serif;
+    background-color: #972e25!important;
+    border: none!important;
+    margin-top: 20px;
+}
+
+
+.listaCarritoPago{
+    background-color: #3e3d3d;
+    color: whitesmoke;
+     margin:  auto;
+     margin-left: 5%;
+    padding: 20px;
+    border-radius: 2px;
+
+}
+
+#listaProductosCarritoPago{
+    list-style: none;
+    background-color: #4a4949;
+    padding: 20px;
+    border-radius: 2px;
+    width: 100%;
+    margin-top: 10px;
+}
+td{
+    padding: 10px!important;
+}
+.titlePrecioCarritoPago{
+    color: #dcdcdc;
+    padding-top: 0;
+}
+
+.titleTituloCarritoPago{
+    color:#9c9999;
+}
+
+
+#totalCarritoPago{
+    margin-top: 20px;
+}
+.boxMetodoPago{
+    margin-top: 5%!important;
+    margin-bottom: 15%!important;
+}
+@media(max-width: 768px){
+    .form-box{
+        width: 100%!important;
+        padding: 50px 30px 30px 30px;
+        margin: auto;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        width: 100%;
+        height: 100%;
+    }
+
+}

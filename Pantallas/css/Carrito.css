@@ -1,0 +1,145 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23/02/2021, 02:26:27 AM
+    Author     : Familia Moreno
+*/
+body{
+    background-color: transparent!important;
+}
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: #333232;
+    font-family: 'Roboto', sans-serif;
+}
+.Carrito {
+    width: 75%;
+    height: auto;
+    margin: 80px auto;
+    background: transparent;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+}
+.titulo {
+    height: 60px;
+    padding: 20px 30px;
+    color: #E6E6E6;
+    font-size: larger;
+    font-weight: bolder;
+    background-color:#171717;
+    border-radius: 10px 10px 0 0 ;
+}
+
+.item {
+    padding: 20px 30px;
+    height: auto;
+    display: flex;
+}
+
+.item:nth-child(even) {
+
+    background-color:#232323;
+}
+.item:nth-child(odd) {
+    background-color:#2b2b2b;
+}
+
+.item:last-child{
+    border-radius: 0 0 10px 10px;
+}
+
+.buttons {
+    position: relative;
+    padding-top: 30px;
+    margin-right: 60px;
+}
+
+.imagen {
+    margin-right: 50px;
+    margin-bottom: 30px;
+}
+
+.description {
+    padding-top: 10px;
+    margin-right: 60px;
+    width: 50%;
+}
+
+.description span {
+    display: block;
+    font-size: medium;
+    color: #dbe6e6;
+    font-weight: 400;
+}
+
+.description span:first-child {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size:large;
+    color: #eb6953;
+}
+.description span:last-child {
+    font-weight: 300;
+    font-size:small;
+    margin-top: 8px;
+    color: #a9b7c3;
+}
+
+.total-price {
+    width: 83px;
+    padding-top: 27px;
+    text-align: center;
+    font-size: large;
+    color: #E6E6E6;
+    font-weight: bold;
+}
+
+.total{
+    display: flex;
+    margin-top: 2rem;
+}
+.total div{
+    width: 25%;
+    text-align: -webkit-right;
+
+    font-size: 30px;
+    color:#E6E6E6;
+    padding:0;
+}
+
+.total span{
+    width: 100%;
+    text-align: -webkit-right;
+    color:#eb6953;
+    font-weight: bold;
+    font-size: large;
+    padding:0;
+}
+#btnCarrito{
+    background-color:#171717;
+    width: 25%;
+    border:none;
+    border-radius: 5px;
+    color:white;
+    height: 50px;
+    margin-top: 2rem;
+     font-weight: bold;
+    font-size: large;
+}
+#anchorBtnCarrito{
+    text-align: end;
+}
+
+.imgCursoCarrito{
+    width: 15%;
+    height: 10%;
+     object-fit: cover;
+     border-radius: 2px;
+     margin-right: 20px;
+}

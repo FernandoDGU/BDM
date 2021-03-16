@@ -1,0 +1,151 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4/03/2021, 03:05:37 AM
+    Author     : FamiliaMoreno
+*/
+
+.container-info{
+    margin-top: 0!important;
+}
+
+.row{
+    margin:0!important;
+    height: 100%;
+}
+#cursoVideo{
+    padding:0;
+}
+#cursoVideo video{
+    width: 100%;
+    vertical-align: -webkit-baseline-middle;
+}
+
+#contenidoCursoTitulo{
+    width: 100%;
+    background-color: #292828;
+    padding: 1rem;
+    color: #cf6955;
+    font-weight: bold;
+    margin: 0;
+    border-bottom: 0.1rem solid #171717;
+    
+}
+
+#boxListaCapitulos{
+    background-color: #292828;
+    padding:0;
+    overflow-y: scroll;
+}
+#boxListaCapitulos::-webkit-scrollbar {
+    width: 10px;
+}
+#boxListaCapitulos::-webkit-scrollbar-track {
+    background: #585757;
+}
+#boxListaCapitulos::-webkit-scrollbar-thumb {
+    background: #888;
+}
+#boxListaCapitulos::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+#listaCapitulos{
+    list-style: none;
+    padding:0;
+}
+#listaCapitulos li{
+    color: #d9d9d9;
+    padding: 1rem;
+}
+.cbCapituloCurso:checked{
+    background-color: white;
+}
+.tituloCapitulo{
+    margin-left: 1rem;
+    font-size: larger;
+}
+
+.capituloSeleccionado{
+    background: #171717;
+}
+
+.decoracion{
+    border-bottom: solid 2px #cf6955;
+    color:#cf6955;
+}
+
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+.menuCurso{
+    display: flex;
+    color: #7b4135;
+    padding-left: 1rem;
+    background-color: #272626;
+    
+}
+.menuCurso h6{
+    cursor:pointer;
+    margin: 1rem 1rem 0 0 ;
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+
+.contenidosCurso{
+    margin:2rem 2rem;
+}
+
+#informacionCurso h4{
+    color:#cfcfcf
+} 
+#informacionCurso p{
+    color:#848484
+}
+
+#informaciónProfesor h4{
+    color:#cfcfcf
+} 
+#informaciónProfesor p{
+    color:#848484
+}
+
+#recursosCurso h4{
+    color:#cfcfcf
+} 
+#recursosCurso p{
+    color:#848484
+}
+
+.imgProfesorCurso{
+    width: 50px;
+    height: 50px;
+    margin-right: 20px; 
+    object-fit: cover; 
+    border-radius: 100px;
+}
+.infoProfesor{
+    display: flex;
+    margin-bottom:2rem;
+    align-items: flex-end;
+}
+
+.archivoCurso{
+    color: whitesmoke;
+}
+.archivoCurso:hover{
+    color: #cfcfcf;
+    text-decoration: none;
+}
+.listaRecursos{
+    list-style: none;
+    padding:0;
+}

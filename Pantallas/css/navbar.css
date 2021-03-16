@@ -1,0 +1,68 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19/02/2021, 02:47:19 AM
+    Author     : Familia Moreno
+*/
+body {
+    background-color: #333232;
+     font-family: 'Roboto', sans-serif;
+}
+.navbar{
+    z-index: 9999;
+    position: sticky;
+    top: 0;
+}
+.nav-link {
+    color: white !important;
+}
+
+#Search {
+    width: 800px!important;
+    border-radius: 15px;
+}
+
+.nav-item{
+    
+}
+#btnBuscar{
+    border: none;
+}
+#btnBuscar:hover{
+    background-color: transparent;
+    opacity: 0.9;
+}
+.bg-light {
+    background-color: #171717 !important;
+}
+
+.dropdown-menu{
+    background: #171717!important;
+    border:none;
+    border-radius: 10px;
+}
+
+#btnInicioSesionNav{
+    width:100%!important;
+    background-color: #eb6953!important;
+    border-color: #eb6953;
+    margin-top: 0.5rem;
+
+}
+
+.form-check-label, .lblNav{
+    color: #E6E6E6;
+}
+.dropdown-item{
+     margin: 10px;
+    font-size: small;
+    color: #E6E6E6!important;
+    display:inline; 
+}
+.dropdown-item:hover{
+    color:#eb6953!important;
+    background: transparent;
+}

@@ -1,0 +1,99 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 9/03/2021, 05:07:39 AM
+    Author     : FamiliaMoreno
+*/
+.box{
+    margin-left: 15%!important;
+}
+
+.imgCurso{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.btnVerMas{
+    background-color: #cf6955!important;
+    border-color: #cf6955!important;
+}
+
+.boxGanancias{
+    color:white;
+    padding:0!important;
+    height: fit-content;
+    background-color: #252424;
+    border-radius: 5px;
+}
+.cabeceraListaAlumnos{   
+    border-bottom: solid 2px #171717;
+    width:100%;
+    padding: 1rem;
+    height: fit-content;
+    border-radius: 5px 5px 0 0;
+}
+.cabeceraListaAlumnos>h4, .cabeceraCursos>h4{
+    color: #cf6955;
+}
+.cabeceraListaAlumnos>h5, .cabeceraCursos>h5{
+    color: whitesmoke;
+}
+.cabeceraListaAlumnos>small, .cabeceraCursos>small{
+    color: #d8d3d3;
+}
+.listaAlumnos{
+    list-style: none;
+    padding: 15px;    
+}
+.listaAlumnos>li{
+    padding:1rem;
+}
+.listaAlumnos>li:first-child{
+    border-radius: 5px 5px 0 0;
+}
+.listaAlumnos>li:last-child{
+    border-radius: 0 0 5px 5px;
+}
+.listaAlumnos>li:nth-child(even){
+    background-color: #545454;
+}
+.listaAlumnos>li:nth-child(odd){
+    background-color: #403f3f;
+}
+.cajaProgresoTotal{
+    width: 100%;
+    height: 5px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+.cajaProgresoActual{
+    width: 25%;
+    height: 5px;
+    background-color: #cf6955;
+    border-radius: 5px;
+}
+.progresoLabel{
+    font-size: smaller;
+    color: #dadada;
+}
+.card{
+    border: none!important;
+
+}
+.card-body{    
+    background-color: #404040; 
+    border-bottom: solid 3px #4e4e4e;
+}
+
+.cabeceraCursos{
+    background-color: #252424;
+    padding: 1rem;
+    margin:0;
+    border-radius: 5px 5px 0 0;
+    border-bottom: solid 2px #171717;
+}

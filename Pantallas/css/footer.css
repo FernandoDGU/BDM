@@ -1,0 +1,21 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19/02/2021, 04:39:48 AM
+    Author     : Familia Moreno
+*/
+ .container-info{
+     width: 100%;
+     font-family: 'Roboto', sans-serif;
+     background-color:#E6E6E6;
+     padding:10px;
+     text-align: center;
+     margin-top: 3rem;
+ }
+ #logito{
+     width: 3%;
+     height: 3%;
+ }

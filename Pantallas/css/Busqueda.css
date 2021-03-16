@@ -1,0 +1,187 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23/02/2021, 04:40:16 AM
+    Author     : Familia Moreno
+*/
+
+body{
+    background-color: transparent!important;
+     width: 100%!important;
+    height: 100%!important;
+}
+html {
+    width: 100%!important;
+    height: 100%!important;
+    margin: 0!important;
+    background-color: #333232;
+    font-family: 'Roboto', sans-serif;
+}
+.boxCategorias{
+    background-color: #3e3d3d;    
+    padding-left: 3rem!important;
+    font-size: large;
+   
+}
+
+
+.boxCategorias>p{
+    color: #8c8b8b;
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: larger;
+}
+.boxFiltros>small{
+    color: #8c8b8b!important;
+   padding-bottom: 1rem;
+}
+.boxFiltros{
+     margin-top: 1rem;
+     padding-bottom: 1rem;
+     border-bottom: 1px solid #c7392e;
+}
+.listaCategorias{
+    list-style: none;
+    padding:0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+     height: 75%;
+    
+}
+.listaCategorias::-webkit-scrollbar {
+    width: 10px;
+}
+.listaCategorias::-webkit-scrollbar-track {
+    background: #585757;
+}
+.listaCategorias::-webkit-scrollbar-thumb {
+    background: #888;
+}
+.listaCategorias::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.listaCategorias>li{
+    margin-top: 1rem;
+}
+.listaCategorias a{
+    color:white;
+
+}
+.listaCategorias a:hover{
+    text-decoration: none;
+    color:#eb6953;
+}
+.Busqueda {
+    width: 100%;
+    margin:0!important;
+    background: transparent;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+}
+.titulo {
+    color: #E6E6E6;
+    font-size:x-large;
+    font-weight: bolder;
+    background-color: #232323;
+    padding: 1rem;
+}
+
+.item {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.item:nth-child(even) {
+    border-top:  1px solid #E1E8EE;
+    border-bottom:  1px solid #E1E8EE;
+}
+.item:last-child{
+    border-bottom:  none;
+}
+.item:first-child{
+     border-top:  1px solid #E1E8EE;
+}
+
+
+.buttons {
+    position: relative;
+    padding-top: 30px;
+    margin-right: 60px;
+}
+
+.imagen {
+    margin-right: 50px;
+    margin-bottom: 30px;
+}
+
+.description {
+    padding-top: 10px;
+    margin-right: 60px;
+    width: 50%;
+}
+
+.description span {
+    display: block;
+    font-size: medium;
+    color: #dbe6e6;
+    font-weight: 400;
+}
+
+.description span:first-child {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size:large;
+    color: #eb6953;
+}
+.description span:last-child {
+    font-weight: 300;
+    font-size:small;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    color: #a9b7c3;
+}
+
+.total-price {
+    width: 50%;
+    padding-top: 27px;
+    text-align: right;
+    font-size: large;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.page-link{
+    background-color:#E6E6E6!important;
+    color: #972e25!important;
+}
+
+.imgCursoBusqueda{
+    width: 15rem;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+    margin-right: 20px;
+    transition: all 0.25s;
+}
+.imgCursoBusqueda:hover{
+    object-fit: cover;
+    opacity: 0.5;
+}
+
+.productos{
+    padding: 0 3rem!important;
+    margin-top: 2rem;
+}
+.navPaginacion{
+    margin-top: 2rem;
+}
+
+.container-info{
+    margin-top: 0!important;
+}
