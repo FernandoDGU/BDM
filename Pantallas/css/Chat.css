@@ -676,7 +676,7 @@ html {
 #frame .content .message-input .wrap button {
   float: left;
   border: none;
-  width: 6.9%;
+  width: 90px;
   padding: 12px 0;
   cursor: pointer;
   background: #b02a1f;

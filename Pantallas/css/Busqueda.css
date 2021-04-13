@@ -42,6 +42,14 @@ html {
      margin-top: 1rem;
      padding-bottom: 1rem;
      border-bottom: 1px solid #c7392e;
+     width: 100%;
+}
+
+.btnFiltros{
+    word-break: break-all;
+}
+.btnFiltroItem{
+    font-size: small!important;
 }
 .listaCategorias{
     list-style: none;
@@ -184,4 +192,13 @@ html {
 
 .container-info{
     margin-top: 0!important;
+}
+
+@media(max-width: 1460px){
+    
+    .btnFiltroItem{
+        font-size: small;
+        padding: 0.5rem!important;
+    }
+    
 }

@@ -25,14 +25,14 @@ and open the template in the editor.
                 <div class="boxCategorias col-2">
                     <div class="boxFiltros">
                         <small>FILTRAR POR</small>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active">
+                        <div class="btn-group btn-group-toggle btnFiltros" data-toggle="buttons">
+                            <label class="btnFiltroItem btn btn-secondary active ">
                                 <input type="radio" name="options" id="opTitulo" autocomplete="off" checked> Titulo
                             </label>
-                            <label class="btn btn-secondary">
+                            <label class="btnFiltroItem btn btn-secondary">
                                 <input type="radio" name="options" id="opCategoria" autocomplete="off"> Categoria
                             </label>
-                            <label class="btn btn-secondary">
+                            <label class="btnFiltroItem btn btn-secondary">
                                 <input type="radio" name="options" id="opUsuario" autocomplete="off"> Usuario
                             </label>
                         </div>

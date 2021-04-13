@@ -59,7 +59,12 @@ html{
 #topImage{
     width:100px;
     height: 100px;
+    border-radius: 50px;
+    object-fit: cover;
    /* transition: opacity 1.3s ease-in-out;*/
+}
+#topImage:hover{
+    opacity: 0.9;
 }
 #btnInicioSesion, #btnRegistro{
     font-family: 'Roboto', sans-serif;

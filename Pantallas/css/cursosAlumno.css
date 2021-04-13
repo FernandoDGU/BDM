@@ -7,10 +7,11 @@ and open the template in the editor.
     Created on : 6/03/2021, 04:54:33 AM
     Author     : FamiliaMoreno
 */
-.container{
-    margin: 5%!important; 
-    margin-left: 28%!important;
+
+.box{
+    margin-left: 15%!important;
 }
+
 #tituloMisCursos{
     font-family: 'Anton', sans-serif;
     color: #cf6955;

@@ -28,11 +28,18 @@ html{
     line-height: 1.5;
     color: #495057;
     background-clip: padding-box;
-    
+
 }
 .inputTextarea{
     height: auto!important;
 }
+
+#formCrearCurso{
+    background-color: #272727;
+    padding: 2rem;
+    border-radius: 0.3rem;
+}
+
 .form-box{
     font-family: 'Roboto', sans-serif;
     left: 10%;
@@ -53,13 +60,19 @@ html{
 }
 
 #topImage{
-    width:100%;
-    height: 100%;
+    width:250px;
+    height: 300px;     
+    border-radius: 5px;
+    object-fit: cover;
     /* transition: opacity 1.3s ease-in-out;*/
+}
+
+#topImage:hover{
+    opacity: 0.9;
 }
 #btnAgregarCurso{
     font-family: 'Roboto', sans-serif;
-    background-color: #972e25!important;
+    background-color: #cf6955!important;
     border: none!important;
 }
 
@@ -150,7 +163,6 @@ html{
     margin-top: 15px;
     margin-bottom: 15px;
     padding: 20px;
-    border-radius: 5px;
 }
 #btnAgregarCapitulo{
     margin-top: 10px;
@@ -158,7 +170,7 @@ html{
     border: none;
 }
 .inputInfoCurso{
-    margin-top: 20px;
+    margin-top: 1rem;
 }
 #cbPrecioCapitulo{
     margin-right: 10px!important;
@@ -180,28 +192,32 @@ html{
 }
 .inputCapituloTitulo{
     color: #cf6955;
+    background-color: #4e4e4e;
+    padding: 0.5rem 1rem;
 }
-
-.inputCapituloDescripcion, .textareaCapituloDescripcion{
+.lblCapitulos{
+    background-color: #4e4e4e!important;
+    border: none!important;
+    color:white!important;
+}
+.inputCapituloDescripcion, .C{
     width: 100%!important;
 }
 .inputCapituloDescripcion,.textareaCapituloDescripcion::-webkit-scrollbar {
     width: 0px;
 }
-
+.textareaCapituloDescripcion{
+    background-color: #4e4e4e!important;
+    color:whitesmoke!important;
+    border: none!important;
+}
 #listaCapitulosAgregados{
     list-style: none;
     padding: 0;
-    background-color: #272727;
-
     border-radius: 0 0 5px 5px;
 }
 #listaCapitulosAgregados hr{
     background-color: white;
-}
-#listaCapitulosAgregados li{
-
-    padding: 1rem;    
 }
 
 #descripcionCapitulo,#tituloCapitulo:valid{
@@ -209,22 +225,102 @@ html{
     background-image: none!important;
 }
 
-#precioCurso{
-    width: 20%!important;
+#btnAgregarCapitulosCompletos{
+    background-color: #cf6955;
+    border: none;
 }
 
+#btnAgregarCapitulosCompletos:hover, #btnAgregarCurso:hover{
+    background-color: #d2998e;
+    border: none;
+}
 .cbPrecioCapituloAgregado{
     margin-right: 10px!important;
 }
-
+.CapitulosAgregados{    
+    background-color: #272727;
+    border-radius: 5px;
+}
 .CapitulosAgregados h5{
     background-color:#cf6955;
-    color: black;
+    color: #232323;
     padding:1rem;
     margin:0;
-    border-radius: 5px 5px 0 0;
+   /* border-radius: 5px 5px 0 0;*/
     font-weight: bold;
 }
 .agregarCapitulo h5{
     font-weight: bold;
+}
+.columNumeroCapitulo{
+    background-color: #232323;
+    padding: 1rem;    
+}
+.columInfoCapitulo{
+     background-color: #353535;
+     padding: 1rem;    
+}
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+.decoracion{
+    border-bottom: solid 2px #d8dfe5;
+    color:#d8dfe5!important;
+}
+.wom{
+    margin: 0!important;
+}
+.menuAuto{
+    display: flex;
+}
+
+#menuCrearCurso, #menuAgregarCapitulos, #menuFlechita{
+    margin-right: 10px;
+    color:#8a8f92;
+    text-align: center;
+    font-weight: bold;
+
+}
+#boxCategoriasGuardadas{
+    position: absolute;
+    height: 100%;
+}
+.listaCategorias{
+    list-style: none;
+    padding-left: 1rem;
+    height: calc(100% - 27px);
+    margin: 0;
+    overflow-y: scroll;
+}
+.listaCategorias::-webkit-scrollbar {
+    width: 0px;
+}
+.listaCategorias::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.listaCategorias::-webkit-scrollbar-thumb {
+    background: #888;
+}
+.listaCategorias::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.EliminarCategoria{
+    color: #cf6955;
+    font-weight: bolder;
+    font-size: x-large;
+    margin-right: 0.5rem;
+}
+
+.EliminarCategoria:hover{
+    text-decoration: none;
+    color: #d2998e;
+    cursor:pointer;
+}
+.itemCategoria{
+    display:flex;
+    align-items: flex-end;
 }

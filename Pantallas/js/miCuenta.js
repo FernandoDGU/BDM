@@ -3,25 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-function HandleBrowseClick()
-{
+function HandleBrowseClick() {
     var fileinput = document.getElementById("browse");
     fileinput.click();
-    var form = document.getElementById("formRegistro");
+
+    var form = document.getElementById("formMiCuenta");
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         event.stopPropagation();
     }, false);
 }
-function Handlechange()
-{
-    var fileinput = document.getElementById("browse");
-    //var textinput = document.getElementById("filename");
-    // textinput.value = fileinput.value;
 
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+    });
 }
+
 
 function previewFile() {
     const preview = document.querySelector('.imgFormulario');
