@@ -5,7 +5,16 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
+<?php 
+// if(session_id() == ''){ 
+// }else{
+//     session_start();
+//     $usuario = $_SESSION['username'];
+// }
+    
+?>
     <head>
+    
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Anton:400|Roboto:400,900|Playball:300,400">
         <!-- Bootstrap -->
@@ -33,86 +42,34 @@ and open the template in the editor.
                         </svg> </a> 
                 </form>
 
-
+                
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
                     </li>
-
-                <!--
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" href="#">Categorías</a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" type="button" href="#" >Categoría</a>
-                                <a class="dropdown-item" type="button" href="#" >Categoría</a>
-                                <a class="dropdown-item" type="button" href="#" >Categoría</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Aprendizaje</a>
-                    </li>
-
-                    <!-- <li class="nav-item dropdown active" ></li> -->
-                    <!-- <li class="nav-item dropdown active">  
-                        <a class="nav-link" href="Login.html">Iniciar sesión</a>
-    
-                        <div class="dropdown-menu dropdown-menu-right" id="panel">
-                            <a href=""></a>
-                        </div>
-                    </li> -->
-                    <!-- Si no está registrado 
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" href="#">Iniciar sesión</a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <form class="px-4 py-3">
-                                    <div class="form-group">
-                                        <label class="lblNav" for="exampleDropdownFormEmail1">Correo Electrónico</label>
-                                        <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="correo@ejemplo.com">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="lblNav" for="exampleDropdownFormPassword1">Contraseña</label>
-                                        <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Contraseña">
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                                        <label class="form-check-label" for="dropdownCheck">
-                                            Recuerdame
-                                        </label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary" id="btnInicioSesionNav">Iniciar Sesión</button>
-                                </form>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item"  href="Registro.php">¿No tienes una cuenta? Registrate</a>
-                            </div>
-                        </div>
-                    </li>-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="Registro.php">Iniciar sesión</a>
-                    </li>
+                    <?php //if(session_id() == ''){?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Registro.php">Iniciar sesión</a>
+                        </li>
+                    <?php //}else{?>
                     <!-- Si está registrado -->
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" href="#">Mi cuenta</a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="miCuenta.php" >Mi cuenta</a>
-                                <a class="dropdown-item" href="Chat.php">Mis mensajes</a>
-                                <a class="dropdown-item" href="crearCurso.php">Crear curso</a>
-                                <a class="dropdown-item" href="cursosAlumno.php">Mis cursos(Alumno)</a>
-                                <a class="dropdown-item" href="cursosEscuela.php">Mis cursos(Escuela)</a>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" href="#">Mi cuenta</a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="miCuenta.php" >Mi cuenta</a>
+                                    <a class="dropdown-item" href="Chat.php">Mis mensajes</a>
+                                    <a class="dropdown-item" href="crearCurso.php">Crear curso</a>
+                                    <a class="dropdown-item" href="cursosAlumno.php">Mis cursos(Alumno)</a>
+                                    <a class="dropdown-item" href="cursosEscuela.php">Mis cursos(Escuela)</a>
+                                    <a class="dropdown-item" >Cerrar sesión <?php //session_destroy();?></a>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
-               
-
-            </div>
-        </nav>
-        <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script> -->
-        <!-- jquery --->        
+                        </li>
+                    <?php //}?>
+                    </ul>
+                </div>
+            
+        </nav>   
         <script type="text/javascript" src="libs/jquery-3.5.1.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
