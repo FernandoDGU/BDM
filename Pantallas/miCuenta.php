@@ -6,11 +6,13 @@ and open the template in the editor.
 -->
 
 <?php 
-    session_start();
-    $usuario = $_SESSION['username'];
-    $nombreCom = $_SESSION['nombrecomp'];
-    $correo = $_SESSION['correo'];
-
+    if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
+        $correo = "Notemail@gmail.com";
+        $nombreCom = "notName";
+        $usuario = "notUser";
+    }else{
+   
+    }
 ?>
 <html>
     <head>
@@ -26,7 +28,7 @@ and open the template in the editor.
         <?php include("sidebar.php");?>
         <div class="container">
             <div class = "form-box">
-                <form class="needs-validation"  id="formMiCuenta" novalidate method="POST" action='' enctype="multipart/formdata">
+                <form class="needs-validation"  id="formMiCuenta" novalidate method="POST" action='Procedimientos/updateUsuario.php' enctype="multipart/formdata">
                     <div class="form-groupImage">  
                         <input type="file" id="browse" name="fileupload"  accept="image/*" onChange="previewFile();"/>
                         <!--<input type="image"onmouseout="this.src = 'images/user.png';" onmouseover="this.src = 'images/user-icon.png';"  
@@ -35,21 +37,21 @@ and open the template in the editor.
                     </div>
                     <div class="form-group">
                         <label for="uNombreCompleto">Nombre completo:</label>
-                        <input type="text" class="form-control" id="uNombreCompleto" placeholder="Ingrese el nombre de usuario" name="uNombreCompleto"
+                        <input type="text" class="form-control" id="uNombreCompleto" placeholder="Ingrese el nombre de usuario" name="miCuentaNombre"
                                required  value= <?php echo $nombreCom?>>
                         <div class="valid-feedback">Válido.</div>
                         <div class="invalid-feedback">Campo obligatorio.</div>
                     </div>
                     <div class="form-group">
                         <label for="uname">Nombre de usuario:</label>
-                        <input type="text" class="form-control" id="uname" placeholder="Ingrese el nombre de usuario" name="uname"
+                        <input type="text" class="form-control" id="uname" placeholder="Ingrese el nombre de usuario" name="miCuentaUser"
                                equired pattern="[A-Za-z0-9]{3,40}"  title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 40" value=<?php echo $usuario?>>
                         <div class="valid-feedback">Válido.</div>
                         <div class="invalid-feedback">Campo obligatorio.</div>
                     </div>
                     <div class="form-group">
                         <label for="coel">Correo Electrónico:</label>
-                        <input type="email" class="form-control" id="coel" placeholder="correo@ejemplo.com" name="correo" 
+                        <input type="email" class="form-control" id="coel" placeholder="correo@ejemplo.com" name="miCuentaCorreo" disabled
                                required  value=<?php echo $correo?>>
                         <div class="valid-feedback">Valido.</div>
                         <div class="invalid-feedback">Campo obligatorio.</div>

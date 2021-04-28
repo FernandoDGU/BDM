@@ -25,11 +25,12 @@
                }
         }
 
+        $_SESSION['idUser'] = $arreglo[0];
         $_SESSION['nombrecomp'] = $arreglo[1];
         $_SESSION['username'] = $arreglo[2];
         $_SESSION['correo'] = $arreglo[3];
         header("Location: ../index.php");
-        // echo $arreglo[1];
+        // echo $arreglo[0];
     }
 
 

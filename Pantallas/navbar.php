@@ -6,11 +6,17 @@ and open the template in the editor.
 -->
 <html>
 <?php 
-// if(session_id() == ''){ 
-// }else{
-//     session_start();
-//     $usuario = $_SESSION['username'];
-// }
+session_start();
+
+if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
+    $validate = 0;
+    $usuario = "notUser";
+}else{
+    $usuario = $_SESSION['username'];
+    $nombreCom =  $_SESSION['nombrecomp'];
+    $correo = $_SESSION['correo'];
+    $validate = 1;
+}
     
 ?>
     <head>
@@ -46,11 +52,12 @@ and open the template in the editor.
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
                     </li>
-                    <?php //if(session_id() == ''){?>
+                    <?php //if($validate == 0){?>
                         <li class="nav-item">
                             <a class="nav-link" href="Registro.php">Iniciar sesión</a>
                         </li>
                     <?php //}else{?>
+
                     <!-- Si está registrado -->
                         <li class="nav-item">
                             <div class="dropdown">
@@ -61,7 +68,8 @@ and open the template in the editor.
                                     <a class="dropdown-item" href="crearCurso.php">Crear curso</a>
                                     <a class="dropdown-item" href="cursosAlumno.php">Mis cursos(Alumno)</a>
                                     <a class="dropdown-item" href="cursosEscuela.php">Mis cursos(Escuela)</a>
-                                    <a class="dropdown-item" >Cerrar sesión <?php //session_destroy();?></a>
+                                    <a class="dropdown-item" >Cerrar sesión <?php //session_destroy();?></a> 
+                                    <!-- Checar para cerrar la sesión -->
                                 </div>
                             </div>
                         </li>
