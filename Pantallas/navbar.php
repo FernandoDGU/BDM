@@ -52,11 +52,11 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
                     </li>
-                    <?php //if($validate == 0){?>
+                    <?php if($validate == 0){?>
                         <li class="nav-item">
                             <a class="nav-link" href="Registro.php">Iniciar sesión</a>
                         </li>
-                    <?php //}else{?>
+                    <?php }else{?>
 
                     <!-- Si está registrado -->
                         <li class="nav-item">
@@ -68,12 +68,12 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
                                     <a class="dropdown-item" href="crearCurso.php">Crear curso</a>
                                     <a class="dropdown-item" href="cursosAlumno.php">Mis cursos(Alumno)</a>
                                     <a class="dropdown-item" href="cursosEscuela.php">Mis cursos(Escuela)</a>
-                                    <a class="dropdown-item" >Cerrar sesión <?php //session_destroy();?></a> 
+                                    <a class="dropdown-item" href="Procedimientos/cerrarSession.php">Cerrar sesión </a> 
                                     <!-- Checar para cerrar la sesión -->
                                 </div>
                             </div>
                         </li>
-                    <?php //}?>
+                    <?php }?>
                     </ul>
                 </div>
             
