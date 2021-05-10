@@ -15,6 +15,9 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
     $usuario = $_SESSION['username'];
     $nombreCom =  $_SESSION['nombrecomp'];
     $correo = $_SESSION['correo'];
+    $fecha = $_SESSION['fecha'];
+    $rol = $_SESSION['rol'];
+    $foto = $_SESSION['foto'];
     $validate = 1;
 }
     

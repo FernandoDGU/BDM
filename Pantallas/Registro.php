@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
 
+if(isset($_POST['btn'])){
+    print_r($_FILES);
+}
+?>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,8 +29,10 @@
                                 <input type="file" id="browse" name="imagenRegistro"  accept="image/*" onChange="previewFile();"/>
                                 <!--<input type="image" class="imgFormulario" id="topImage" onmouseout="this.src = 'images/user.png';" onmouseover="this.src = 'images/user-icon.png';"  
                                        src="images/user.png" onclick="HandleBrowseClick(); this.disabled = false" />-->
+                                       <button type="submit" name="btn">Agregar </button>
+
                                 <input type="image" class="imgFormulario" id="topImage"   
-                                       src="images/user.png" onclick="HandleBrowseClick(); this.disabled = false" />
+                                       src="images/user.png" name = "Foto" onclick="HandleBrowseClick(); this.disabled = false" />
                             </div>
                             <div class="form-group">
                                 <label for="uNombreCompleto">Nombre completo:</label>
@@ -57,8 +64,8 @@
                             </div>
                             <div class="form-groupRadio">
                                 <p> Usuario: </p>
-                                <label class="radio-inline"><input type="radio" name="optradio" checked>Profesor</label>
-                                <label class="radio-inline"><input type="radio" name="optradio">Alumno</label>
+                                <label class="radio-inline"><input type="radio" name="optradio" value = "Profesor"checked>Profesor</label>
+                                <label class="radio-inline"><input type="radio" name="optradio" value = "Alumno">Alumno</label>
                             </div>
                             <button type="submit" id="btnRegistro" class="btn btn-primary btn-block" onclick="checarValidacion(this.form);">Registrarse</button>
                         </form>

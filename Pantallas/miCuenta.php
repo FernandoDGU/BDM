@@ -30,15 +30,16 @@ and open the template in the editor.
             <div class = "form-box">
                 <form class="needs-validation"  id="formMiCuenta" novalidate method="POST" action='Procedimientos/updateUsuario.php' enctype="multipart/formdata">
                     <div class="form-groupImage">  
-                        <input type="file" id="browse" name="fileupload"  accept="image/*" onChange="previewFile();"/>
+                        <input type="file" id="browse" name="fileupload"  accept="image/*" onChange="previewFile();" value="<?php $foto?>"/>
                         <!--<input type="image"onmouseout="this.src = 'images/user.png';" onmouseover="this.src = 'images/user-icon.png';"  
                                src="images/user.png" id="topImage"  onclick="HandleBrowseClick(); this.disabled = true" />-->
+                               <img src="<?php $foto?>" alt="">
                         <input type="image" class="imgFormulario" id="topImage" src="images/user.png" onclick="HandleBrowseClick(); this.disabled = false" />
                     </div>
                     <div class="form-group">
                         <label for="uNombreCompleto">Nombre completo:</label>
                         <input type="text" class="form-control" id="uNombreCompleto" placeholder="Ingrese el nombre de usuario" name="miCuentaNombre"
-                               required  value= <?php echo $nombreCom?>>
+                               required  value= "<?php echo $nombreCom?>">
                         <div class="valid-feedback">Válido.</div>
                         <div class="invalid-feedback">Campo obligatorio.</div>
                     </div>
@@ -57,7 +58,7 @@ and open the template in the editor.
                         <div class="invalid-feedback">Campo obligatorio.</div>
                     </div>
 
-                    <div class="form-group">Este usuario ha sido miembro desde 03/03/21.</div>
+                    <div class="form-group">Este usuario ha sido miembro desde <?php echo $fecha?>.</div>
 
                     <button type="submit" id="btnModificarUsuario" class="btn btn-secondary " onclick="checarValidacion(this.form);">Modificar</button>
                     <button type="submit" id="btnEliminarUsuario" class="btn btn-primary ">Eliminar cuenta</button>
