@@ -7,7 +7,7 @@ session_start();
 $categoriaNomSelect = $_POST["Seleccionado"];
 echo "<li class='itemCategoria'>
     <a class='EliminarCategoria' onclick = 'EliminarCategoria(this)'> x </a> 
-    <h6>" .$categoriaNomSelect . "</h6>
+    <h6 class= 'nombreCateg'>" .$categoriaNomSelect . "</h6>
     </li>";
 //Validacion que no se repita el mismo nombre
 ?>
