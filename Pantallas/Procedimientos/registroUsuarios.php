@@ -10,10 +10,11 @@ $nombreCom = $_POST["nombreRegistro"];
 $username = $_POST["usernameRegistro"];
 $correo = $_POST["correoRegistro"];
 $pass = $_POST["passwordRegistro"];
-
+$image = $_FILES['imagenRegistro']['tmp_name'];
+$imgContent = addslashes(file_get_contents($image));
 
 //Imagenes 
-$imagen = $_POST["imagenRegistro"];
+//$imagen = $_POST["imagenRegistro"];
 // $imagen = $_FILES["imagenRegistro"]["tmp_name"];
 // $nombreFoto = $_FILES["imagenRegistro"]["name"];
 if(isset($_POST['btn'])){
@@ -23,7 +24,7 @@ if(isset($_POST['btn'])){
 
     // $imagen = $_FILES["imagenRegistro"]["tmp_name"];
    
-    echo 'Files: ';
+    echo $image;
     print_r($_FILES);
     echo 'End Files';
 }
@@ -36,8 +37,7 @@ if($typeUser == "Profesor"){
 }else{
     $type = 1;
 }
-
-$query = "CALL spUsuarios (1, null, '$nombreCom' ,'$username', '$correo', '$pass', '$imagen', '$type','1998-06-15');";
+$query = "CALL spUsuarios (1, null, '$nombreCom' ,'$username', '$correo', '$pass', '$imgContent', '$type','1998-06-15');";
 $result = $newConn->ExecuteQuery($query);
 
 

@@ -28,13 +28,13 @@ and open the template in the editor.
         <?php include("sidebar.php");?>
         <div class="container">
             <div class = "form-box">
-                <form class="needs-validation"  id="formMiCuenta" novalidate method="POST" action='Procedimientos/updateUsuario.php' enctype="multipart/formdata">
+                <form class="needs-validation"  id="formMiCuenta" novalidate method="POST" action='Procedimientos/updateUsuario.php' enctype="multipart/form-data">
                     <div class="form-groupImage">  
-                        <input type="file" id="browse" name="fileupload"  accept="image/*" onChange="previewFile();" value="<?php $foto?>"/>
+                        <input type="file" id="browse" name="imagenUpdate"  accept="image/*" onChange="previewFile();" value="<?php $foto?>"/>
                         <!--<input type="image"onmouseout="this.src = 'images/user.png';" onmouseover="this.src = 'images/user-icon.png';"  
                                src="images/user.png" id="topImage"  onclick="HandleBrowseClick(); this.disabled = true" />-->
-                               <img src="<?php $foto?>" alt="">
-                        <input type="image" class="imgFormulario" id="topImage" src="images/user.png" onclick="HandleBrowseClick(); this.disabled = false" />
+                               
+                        <input type="image" class="imgFormulario" id="topImage"  src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($foto)?>" onclick="HandleBrowseClick(); this.disabled = false" />
                     </div>
                     <div class="form-group">
                         <label for="uNombreCompleto">Nombre completo:</label>

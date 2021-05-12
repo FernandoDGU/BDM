@@ -1,10 +1,16 @@
 <?php 
+session_start();
+require("../Connection_db/classConecction.php");
 
+$newConn = new ConnectionMySQL();
+$newConn->CreateConnection();
 // $categoria = $_POST["categoria"]; 
-$categoria = $_POST["categoriaInput"];
+$categoriaNom = $_POST["categoriaNombre"];
+$categoriaDesc = $_POST["categoriaDesc"];
 echo "<li class='itemCategoria'>
     <a class='EliminarCategoria'> x </a> 
-    <h6>" .$categoria. "</h6>
-    </li>"
-
+    <h6>" .$categoriaNom . "</h6>
+    </li>";
+$query = "CALL sp_categorias (1, null, '$categoriaDesc' ,'$categoriaNom');";
+$result = $newConn->ExecuteQuery($query);
 ?>

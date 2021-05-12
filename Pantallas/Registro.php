@@ -23,7 +23,7 @@ if(isset($_POST['btn'])){
                     <div class = "form-box">
 
                     <!-- Registro --> <!--  Hay que cambiar la ruta para subirlo a github o puedes dejarlo así pero cambiar el nombre de la carpeta -->
-                        <form class="needs-validation" id="formRegistro" novalidate method="POST" action='Procedimientos/registroUsuarios.php' enctype="multipart/formdata">
+                        <form class="needs-validation" id="formRegistro" novalidate method="POST" action='Procedimientos/registroUsuarios.php' enctype="multipart/form-data">
                             <h3 class="titulo"> Registrate</h3>
                             <div class="form-groupImage">  
                                 <input type="file" id="browse" name="imagenRegistro"  accept="image/*" onChange="previewFile();"/>

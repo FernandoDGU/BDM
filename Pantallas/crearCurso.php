@@ -1,5 +1,5 @@
 <?php
-
+include("Procedimientos/mostrarCategorias.php");
 class Capitulo {
 
     public $Id = 0;
@@ -168,6 +168,18 @@ and open the template in the editor.
                     });
                     return false;
                 });
+                $('#NewCateg').click(function () {
+                    $.ajax({
+                        url: 'Procedimientos/RegistrarCategoria.php',
+                        type: 'POST',
+                        data: $('#formCrearCurso').serialize(),
+                        success: function (res) {
+                            $('#catGuardadas').append(res);
+                            //alert(res);
+                        }
+                    });
+                    return false;
+                });
             });
         </script>
         <div class="box">
@@ -180,7 +192,7 @@ and open the template in the editor.
                         <h6 id="menuAgregarCapitulos">Agregar capitulos</h6>
                     </div>
 
-                    <form class="needs-validation mt-4" id="formCrearCurso" novalidate method="post" action='Procedimientos/RegistrarCategoria.php' enctype="multipart/formdata">
+                    <form class="needs-validation mt-4" id="formCrearCurso" novalidate method="post" action='Procedimientos/RegistrarCategoria.php' enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-groupImage">  
@@ -270,8 +282,8 @@ and open the template in the editor.
 
                                     <div class="mt-2">
                                         <label for="categoriaInput">Agrega una nueva:</label>
-                                        <input type="categoria" class="inputText mb-2" id="categoriaInput" placeholder="Ingrese la categoría" name="categoriaInput">     
-                                        <textarea class="inputText inputTextarea mb-2" id="descripcionCortaCurso" rows="2" wrap="hard" placeholder="Ingrese una descripción de presentacion" name="DescCorta"
+                                        <input type="categoria" class="inputText mb-2" id="categoriaInput" name="categoriaNombre" placeholder="Ingrese la categoría" name="categoriaInput">     
+                                        <textarea class="inputText inputTextarea mb-2" id="descripcionCortaCurso" name="categoriaDesc" rows="2" wrap="hard" placeholder="Ingrese una descripción de presentacion" name="DescCorta"
                                                   maxlength="150"   pattern="[A-Za-z0-9]{3,150}"  title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 150"></textarea>
                                     </div>
                                     <div class="text-right">
@@ -314,7 +326,7 @@ and open the template in the editor.
                     </form>
                     <div class="agregarCapitulo hide mt-4" id="agregarCapitulo">
                         <h5>Agregar capitulos</h5>
-                        <div class="boxAgregarDatosCapitulos">                            
+                        <form class="boxAgregarDatosCapitulos" action="" method="POST" enctype="multipart/form-data">                            
                             <div class="inputInfoCurso">
                                 <label for="tituloCapitulo">Titulo del capitulo:</label>
                                 <input type="text" class="form-control" id="tituloCapitulo" placeholder="Ingrese el titulo del curso" name="tituloCurso"
@@ -340,7 +352,7 @@ and open the template in the editor.
                                 <input type="button" id="btnAgregarCapitulo" class="btn btn-primary" value="Agregar Capitulo">               
                             </div>
 
-                        </div>
+                        </form>
                         <div class="CapitulosAgregados">
                             <h5>Capitulos Guardados </h5>
                             <!-- <ul class="listaprueba">
@@ -403,17 +415,4 @@ and open the template in the editor.
         <!--<script src="js/validaciones.js"></script>-->
     </body>
 
-    <!-- Prueba Ajax -->
-    <script>
-        $('#NewCateg').click(function(){
-            $.ajax({
-                url: 'Procedimientos/RegistrarCategoria.php', 
-                type: 'POST',
-                data: $('crearCurso.php').serialize(),
-                success: function(res){
-                    $('#catGuardadas').html(res);
-                }
-            })
-        })
-    </script>
 </html>
