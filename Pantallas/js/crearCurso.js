@@ -140,3 +140,7 @@ function previewFile() {
         reader.readAsDataURL(file);
     }
 }
+
+function EliminarCategoria(e){
+    $(e).parent().remove();
+}

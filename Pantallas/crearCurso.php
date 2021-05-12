@@ -1,5 +1,4 @@
 <?php
-include("Procedimientos/mostrarCategorias.php");
 class Capitulo {
 
     public $Id = 0;
@@ -57,6 +56,8 @@ and open the template in the editor.
                 content: counter(headings);
             }
         </style>
+
+<?php require("Procedimientos/mostrarCategorias.php"); ?>
     </head>
     <body>
         <!-- SideBar -->
@@ -168,6 +169,7 @@ and open the template in the editor.
                     });
                     return false;
                 });
+                //Este lo hice yo pinche meco
                 $('#NewCateg').click(function () {
                     $.ajax({
                         url: 'Procedimientos/RegistrarCategoria.php',
@@ -175,11 +177,31 @@ and open the template in the editor.
                         data: $('#formCrearCurso').serialize(),
                         success: function (res) {
                             $('#catGuardadas').append(res);
+                            // $('#sbCategorias').load(location.href+" #sbCategorias>*","");
                             //alert(res);
                         }
                     });
                     return false;
                 });
+
+                $('#NewCateg2').click(function(){
+                    var conceptName = $('#sbCategorias').find(":selected").text();
+                    alert(conceptName);
+                    $.ajax({
+                        url: 'Procedimientos/selectCategoria.php',
+                        type: 'POST',
+                        data: {
+                            'Seleccionado' :
+                            $('#sbCategorias option:selected').text()},
+                        success: function (res) {
+                            $('#catGuardadas').append(res);
+                            
+                        }
+                        
+                    });
+                    return false;
+                });
+                
             });
         </script>
         <div class="box">
@@ -241,19 +263,14 @@ and open the template in the editor.
                                     <div id="boxCategoriasGuardadas">
                                         <h6>Categorías guardadas:</h6>
                                         <ul class="mt-2 listaCategorias" id="catGuardadas">
-                                            <li class="itemCategoria">
-                                                <a class="EliminarCategoria"> x </a> 
+                                            <!-- <li class="itemCategoria">
+                                                <a class="EliminarCategoria" onclick = "EliminarCategoria(this)"> x </a> 
                                                 <h6>Categoria</h6>
                                             </li>
                                             <li class="itemCategoria">
-                                                <a class="EliminarCategoria"> x </a> 
-                                                <h6>Categoria</h6>
-                                            </li>
-                                            <li class="itemCategoria">
-                                                <a class="EliminarCategoria"> x </a> 
-                                                <h6>Categoria</h6>
-                                            </li>
-
+                                                <a class="EliminarCategoria" onclick = "EliminarCategoria(this)"> x </a> 
+                                                <h6>Categoria2</h6>
+                                            </li> -->
                                         </ul>
                                     </div>
                                 </div>
@@ -261,23 +278,28 @@ and open the template in the editor.
                                     <label for="categoria">Elige una categoría:</label>
                                     <div class="custom-select">
                                         <select id="sbCategorias">
-                                            <option value="0">Categoríaa</option>
-                                            <!-- <option value="1">Otro</option>
-                                            <option value="2">Categoríaaa</option>
-                                            <option value="3">Categoríaaaa</option>
-                                            <option value="4">Categoríaaaaa</option>
-                                            <option value="5">Categoría</option>
-                                            <option value="6">Categoría</option>
-                                            <option value="7">Categoría</option>
-                                            <option value="8">Categoría</option>
-                                            <option value="9">Categoría</option>
-                                            <option value="10">Categoría</option>
-                                            <option value="11">Categoría</option>
-                                            <option value="12">Categoría</option> -->
+                                        
+                                        <?php 
+                                        if($row == NULL){?>
+                                            <option value="0">No hay categorias</option>   
+                                        <?php 
+                                        }else{
+                                            ?>
+                                            <option value="0">Escoge una categoria</option>
+                                            <?php //for ($i= 0; $i< count($row)-2*(count($row)/3); $i++){
+                                               $i = 0;
+                                               foreach($row as $key => $value){
+
+                                            ?>
+                                            <option  value= "<?php $value['id_categoria'] ?>"> <?php echo $value['nombre'];?> </option> 
+                                            <!-- <option value="1">Otro</option>-->
+
+                                        <?php $i++;}
+                                        }?>
                                         </select>                                               
                                     </div>
                                     <div class="text-right mt-2">
-                                        <a class="btn btn-secondary">+</a>
+                                        <a class="btn btn-secondary" id="NewCateg2">+</a>
                                     </div>
 
                                     <div class="mt-2">
