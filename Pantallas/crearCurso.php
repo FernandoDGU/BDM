@@ -209,6 +209,26 @@ and open the template in the editor.
                 return false;
             });
 
+            //Ajax curso
+            $('#btnGuardarCurso').click(function() {
+                $.ajax({
+                    url: 'Procedimientos/RegistrarCurso.php',
+                    type: 'POST',
+                    data: $('#formCrearCurso').serialize(),
+                    success: function(res) {
+                            alert("Datos cargados con exito");
+                            $("#tituloCurso").attr('disabled', 'disabled');
+                            $("#descripcionCorta").attr('disabled', 'disabled');
+                            $("#precioCurso").attr('disabled', 'disabled');
+                            $("#topImage").attr('disabled', 'disabled');
+                            $("#browse").attr('disabled', 'disabled');
+                            $("#btnGuardarCurso").attr('disabled', 'disabled');
+                            $("#cbPrecioCurso").attr('disabled', 'disabled');
+                    }
+                });
+                return false;
+            });
+
             var column1RelArray = [];
 
             $('#btnAgregarCategorias').click(function(){
@@ -221,14 +241,41 @@ and open the template in the editor.
                     
                 //     // column1RelArray.push($('#catGuardadas').children('li:nth-child('+i+')').children('h6:nth-child(1)'));
                 // }
-
+                var array = [];
+                var jsonTarget;
                 var targetImages = document.getElementById("catGuardadas").querySelectorAll("h6");
                 for(var i= 0; i< targetImages.length; i++){
-                    console.log(targetImages[i].textContent);
+                    //console.log(targetImages[i].textContent);
+                    array[i] = targetImages[i].textContent
+                    
                 }
+                jsonTarget = JSON.stringify(array);
+                console.log(jsonTarget);
+                $.ajax({
+                    url: 'Procedimientos/RCat_Curso.php',
+                    type: 'POST',
+                    data: {data: jsonTarget},
+                    success: function(res) {
+                            alert(res);
+
+                    }
+                });
+                return false;
             });
 
-          
+            // Agregar categorias-cursos
+            $('#btnGuardarCurso').click(function() {
+                $.ajax({
+                    url: 'Procedimientos/RCat_Curso.php',
+                    type: 'POST',
+                    data: {data: targetImages},
+                    success: function(res) {
+                            alert("Categorias cargadas con exito");
+
+                    }
+                });
+                return false;
+            });
 
         });
     </script>
@@ -244,12 +291,12 @@ and open the template in the editor.
                     <h6 id="menuAgregarCapitulos">Agregar capitulos</h6>
                 </div>
                 <!-- Agregar un curso -->
-                <form class="needs-validation mt-4" id="formCrearCurso" novalidate method="post" action='Procedimientos/RegistrarCurso.php' enctype="multipart/form-data">
+                <form class="needs-validation mt-4" id="formCrearCurso" novalidate method="post" action='' enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-4">
                             <div class="form-groupImage">
                                 <input id="txtId" type="text" value="<?php echo $idUser?>" class="d-none invisible" name="idusario">
-                                <input type="file" id="browse" name="fileupload" accept="image/*" onChange="previewFile();" />
+                                <input type="file" id="browse" name="fileupload" accept="image/*" onChange="previewFile();" required/>
                                 <!-- <input type="image"onmouseout="this.src = 'images/imagen.png';" onmouseover="this.src = 'images/imagen-icon.png     ';"  
                                            src="images/imagen.png" id="topImage"  onclick="HandleBrowseClick();
                                                    this.disabled = false" />-->
@@ -260,14 +307,14 @@ and open the template in the editor.
                         <div class="col-8">
                             <div class="form-group">
                                 <label for="tituloCurso">Titulo del curso:</label>
-                                <input type="text" class="form-control" id="tituloCurso" placeholder="Ingrese el titulo del curso" name="tituloCurso" maxlength="150" required pattern="[A-Za-z0-9]{3,150}" title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 150">
+                                <textarea type="text" class="form-control inputTextarea" id="tituloCurso" rows="1" wrap="hard" placeholder="Ingrese el titulo del curso" name="tituloCurso" maxlength="150" required pattern="[A-Za-z0-9]{3,150}" title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 150"></textarea>
                                 <div class="valid-feedback">Válido.</div>
                                 <div class="invalid-feedback">Campo obligatorio.</div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-8">
                                     <label for="descripcionLarga">Descripción corta:</label>
-                                    <textarea class="form-control inputTextarea" id="descripcionLarga" rows="2" wrap="hard" placeholder="Ingrese una descripción" name="descripcionCorta" maxlength="50" required pattern="[A-Za-z0-9]{3,500}" title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 500" ></textarea>
+                                    <textarea class="form-control inputTextarea" id="descripcionCorta" rows="2" wrap="hard" placeholder="Ingrese una descripción" name="descripcionCorta" maxlength="50" required pattern="[A-Za-z0-9]{3,500}" title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 500" ></textarea>
                                     <div class="valid-feedback">Válido.</div>
                                     <div class="invalid-feedback">Campo obligatorio</div>
                                 </div>
@@ -293,6 +340,7 @@ and open the template in the editor.
                         
                     </div>
                 </form>
+
                 <!-- Agregar una categoria -->
                 <form class="needs-validation mt-4" id="formCrearCategoria" novalidate method="post" action='Procedimientos/RegistrarCategoria.php' enctype="multipart/form-data">
                     <div class="form-group">
@@ -310,7 +358,6 @@ and open the template in the editor.
                                                 <a class="EliminarCategoria" onclick = "EliminarCategoria(this)"> x </a> 
                                                 <h6 class = "nombreCateg">Categoria2</h6>
                                             </li>
-
 
                                     </ul>
                                 </div>

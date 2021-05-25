@@ -14,10 +14,16 @@ $idUsuario = $_POST["idusario"];
 $image = $_FILES['fileupload']['tmp_name'];
 $imgContent = addslashes(file_get_contents($image));
 
-$query = "CALL sp_cursos (1, 'null', '$idUsuario', '$tituloCurso', '$precio',
- '$imagen', '$imgContent', '$descLarga', '$desCorta', 0, 1);";
+
+// $query = "CALL sp_cursos (1, 'null', '$idUsuario', '$tituloCurso', '$precio',
+//  '$imgContent', '$descLarga', '$desCorta', 0, 1);";
+$query = "CALL sp_cursos (1, null, '$idUsuario', '$tituloCurso', '$precio', '$imgContent', '$descLarga', '$desCorta', 0, 1);";
 $result = $newConn->ExecuteQuery($query);
 
-
+if($result){
+    echo "Todo esta bien";
+}else{
+    echo "Nada esta bien :(";
+}
 
 ?> 

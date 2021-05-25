@@ -23,7 +23,7 @@ function checarValidacion(form) {
     var isValidForm = form.checkValidity();
     if (isValidForm) {
         alert("Parece que todo salió bien!");
-        form.submit();
+        // form.submit();
     } else {
         alert("Faltan campos de validar");
         form.addEventListener('submit', function (event) {
