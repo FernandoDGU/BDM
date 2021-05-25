@@ -40,6 +40,19 @@ html{
     border-radius: 0.3rem;
 }
 
+#formCrearCategoria{
+    background-color: #272727;
+    padding: 2rem;
+    border-radius: 0.3rem;
+}
+
+#formRecursosCurso{
+    background-color: #272727;
+    padding: 2rem;
+    border-radius: 0.3rem;
+}
+
+
 .form-box{
     font-family: 'Roboto', sans-serif;
     left: 10%;
@@ -70,7 +83,19 @@ html{
 #topImage:hover{
     opacity: 0.9;
 }
-#btnAgregarCurso{
+#btnAgregarMultimedia{
+    font-family: 'Roboto', sans-serif;
+    background-color: #cf6955!important;
+    border: none!important;
+}
+
+#btnGuardarCurso{
+    font-family: 'Roboto', sans-serif;
+    background-color: #cf6955!important;
+    border: none!important;
+}
+
+#btnAgregarCategorias{
     font-family: 'Roboto', sans-serif;
     background-color: #cf6955!important;
     border: none!important;

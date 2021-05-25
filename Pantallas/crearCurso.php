@@ -211,7 +211,7 @@ and open the template in the editor.
 
             var column1RelArray = [];
 
-            $('#btnAgregarCurso').click(function(){
+            $('#btnAgregarCategorias').click(function(){
                 // $('#catGuardadas li').each(function() {
                 //     column1RelArray.push($(this).children('.itemCategoria').children('.nombreCateg'));
                 //     alert($('.itemCategoria > h6').text());
@@ -234,6 +234,8 @@ and open the template in the editor.
     </script>
     <div class="box">
         <div class="container mt-5 mb-5">
+        <!-- ID USER OCULTO -->
+
 
             <div class="form-box">
                 <div class="menuAuto">
@@ -241,11 +243,12 @@ and open the template in the editor.
                     <h6 id="menuFlechita">></h6>
                     <h6 id="menuAgregarCapitulos">Agregar capitulos</h6>
                 </div>
-
-                <form class="needs-validation mt-4" id="formCrearCurso" novalidate method="post" action='Procedimientos/RegistrarCategoria.php' enctype="multipart/form-data">
+                <!-- Agregar un curso -->
+                <form class="needs-validation mt-4" id="formCrearCurso" novalidate method="post" action='Procedimientos/RegistrarCurso.php' enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-4">
                             <div class="form-groupImage">
+                                <input id="txtId" type="text" value="<?php echo $idUser?>" class="d-none invisible" name="idusario">
                                 <input type="file" id="browse" name="fileupload" accept="image/*" onChange="previewFile();" />
                                 <!-- <input type="image"onmouseout="this.src = 'images/imagen.png';" onmouseover="this.src = 'images/imagen-icon.png     ';"  
                                            src="images/imagen.png" id="topImage"  onclick="HandleBrowseClick();
@@ -263,24 +266,35 @@ and open the template in the editor.
                             </div>
                             <div class="row">
                                 <div class="form-group col-8">
-                                    <label for="descripcionLarga">Descripción:</label>
-                                    <textarea class="form-control" id="descripcionLarga" rows="3" wrap="hard" placeholder="Ingrese una descripción" name="descripcionLarga" maxlength="500" required pattern="[A-Za-z0-9]{3,500}" title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 500"></textarea>
+                                    <label for="descripcionLarga">Descripción corta:</label>
+                                    <textarea class="form-control inputTextarea" id="descripcionLarga" rows="2" wrap="hard" placeholder="Ingrese una descripción" name="descripcionCorta" maxlength="50" required pattern="[A-Za-z0-9]{3,500}" title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 500" ></textarea>
                                     <div class="valid-feedback">Válido.</div>
                                     <div class="invalid-feedback">Campo obligatorio</div>
                                 </div>
 
                                 <div class="inputInfoCurso form-group col-4">
                                     <label for="precioCapitulo">Precio:</label>
-                                    <input type="number" min="1" max="99999" step="1" class="form-control" id="precioCurso" maxlength="10" required pattern="[0-9]{10}" title="Ingresa un precio máximo de 99999">
+                                    <input type="number" min="1" max="99999" step="1" class="form-control" id="precioCurso" maxlength="10" required pattern="[0-9]{10}" title="Ingresa un precio máximo de 99999" name="Precio">
                                     <div class="valid-feedback">Válido.</div>
                                     <div class="invalid-feedback">Campo obligatorio</div>
                                     <input id="cbPrecioCurso" type="checkbox" /><label>Gratis</label>
                                 </div>
+                                <div class="form-group col-12">
+                                    <label for="descripcionLarga">Descripción:</label>
+                                    <textarea class="form-control inputTextarea" id="descripcionLarga" rows="3" wrap="hard" placeholder="Ingrese una descripción" name="descripcionLarga" maxlength="250" required pattern="[A-Za-z0-9]{3,250}" title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 100"></textarea>
+                                    <div class="valid-feedback">Válido.</div>
+                                    <div class="invalid-feedback">Campo obligatorio</div>
+                                </div>
                             </div>
-
-
+                            <div class="text-right mt-5">
+                                <button type="submit" id="btnGuardarCurso" class="btn btn-primary" onclick="checarValidacion(this.form);">Guardar curso</button>
+                            </div>
                         </div>
+                        
                     </div>
+                </form>
+                <!-- Agregar una categoria -->
+                <form class="needs-validation mt-4" id="formCrearCategoria" novalidate method="post" action='Procedimientos/RegistrarCategoria.php' enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-4">
@@ -338,11 +352,16 @@ and open the template in the editor.
                                 <div class="text-right">
                                     <a class="btn btn-secondary" id="NewCateg">+</a>
                                 </div>
-
+                                <div class="text-right mt-5">
+                                    <button type="submit" id="btnAgregarCategorias" class="btn btn-primary">Guardar categorias</button>
+                                </div>  
                             </div>
                         </div>
                     </div>
-                    <hr style="background-color:whitesmoke;">
+
+                </form>
+                 <!-- Agregar recursos -->
+                <form class="needs-validation mt-4" id="formCrearCategoria" novalidate method="post" action='Procedimientos/RegistrarCategoria.php' enctype="multipart/form-data">
                     <div class="inputInfoCurso">
                         <label for="videoCapitulo">Agregar recurso multimedia:</label><br>
                         <ul id="listaRecursos">
@@ -370,16 +389,17 @@ and open the template in the editor.
                         </div>
                     </div>
                     <div class="text-right mt-5">
-                        <button type="submit" id="btnAgregarCurso" class="btn btn-primary ">Agregar curso</button>
+                        <button type="submit" id="btnAgregarMultimedia" class="btn btn-primary ">Agregar multimedia</button>
                     </div>
+                                      
                 </form>
-               
             </div>
         </div>
     </div>
 
     <!--js -->
     <script src="js/crearCurso.js"></script>
+    <script src="js/validaciones.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!--<script src="js/validaciones.js"></script>-->
 </body>

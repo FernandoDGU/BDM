@@ -144,3 +144,10 @@ function previewFile() {
 function EliminarCategoria(e){
     $(e).parent().remove();
 }
+
+function validarCosto(){
+    var validate = document.getElementById("precioCurso");
+    if(validate.value < 0){
+        alert("El precio no puede ser negativo")
+    }
+}

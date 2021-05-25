@@ -8,6 +8,7 @@ $newConn->CreateConnection();
 // $categoria = $_POST["categoria"]; 
 $categoriaNom = $_POST["categoriaNombre"];
 $categoriaDesc = $_POST["categoriaDesc"];
+
 echo "<li class='itemCategoria'>
     <a class='EliminarCategoria' onclick = 'EliminarCategoria(this)'> x </a> 
     <h6>" .$categoriaNom . "</h6>

@@ -12,6 +12,7 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
     $validate = 0;
     $usuario = "notUser";
 }else{
+    $idUser = $_SESSION['idUser'];
     $usuario = $_SESSION['username'];
     $nombreCom =  $_SESSION['nombrecomp'];
     $correo = $_SESSION['correo'];
