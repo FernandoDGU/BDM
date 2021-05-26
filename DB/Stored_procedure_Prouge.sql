@@ -79,7 +79,7 @@ DELIMITER ;
 
 -- SP CATEGORIAS --
 DROP PROCEDURE IF EXISTS sp_categorias;
-
+select * from categorias
 DELIMITER //
 CREATE PROCEDURE sp_categorias (
 		pOpc	INT, 
@@ -90,7 +90,8 @@ CREATE PROCEDURE sp_categorias (
 BEGIN 
 	IF pOpc = 1 THEN #Insertar categoria
 		INSERT INTO Categorias(descripcion, nombre)
-		VALUES (pDesc, pNom);
+		VALUES (pDesc, pNom);        
+        SELECT LAST_INSERT_ID() as idCategoria;
 	END IF;
     
     IF pOpc = 2 THEN #Traer todas las categorias
@@ -111,7 +112,7 @@ CALL sp_categorias (2,null ,null,null);
 CALL sp_categorias (3,2 ,null,null);
 
 -- SP CURSOS -- 
-
+-- select * from cursos
 DROP PROCEDURE IF EXISTS sp_cursos;
 DELIMITER // 
 CREATE PROCEDURE sp_cursos (
@@ -131,11 +132,12 @@ BEGIN
 		IF pOpc = 1 THEN #INSERTAR CURSO
 			INSERT INTO Cursos(id_usuario, titulo, costo, imagen, descripcion, descripcion_corta, fecha_mod, curso_activo)
             VALUES (pId_user, pTitulo, pCosto, pImagen, pDesc,pDesc_c, now(), pcurso_a);
-        END IF;
+			SELECT LAST_INSERT_ID() as idCurso;
+       END IF;
         
         IF pOpc = 2 THEN #TRAER TODOS LOS CURSOS
 			SELECT id_curso, id_usuario, titulo, costo, imagen, descripcion, descripcion_corta, fecha_mod, curso_activo
-            FROM Cursos;
+            FROM Cursos;          
         END IF; 
         
         IF pOpc = 3 THEN #Traer un curso
@@ -164,7 +166,8 @@ DELIMITER ;
 
 -- SELECT * FROM Cursos;
 CALL sp_cursos (1, null, 2, 'Hola todos3', '500', null, 'ola', 'olax2', 0, 1);
-
+CALL sp_curso_categoria(1, null, 67, 27);
+-- SELECT * FROM  Curso_Categoria;
 -- SP CURSO CATEGORIA --
 DROP PROCEDURE IF EXISTS sp_curso_categoria;
 
@@ -263,7 +266,7 @@ DELIMITER ;
 
 CALL sp_comentarios (1, null,1, 4, 'Que buen curso', 100, 0);
 CALL sp_comentarios (2, null,1, 4, 'Que buen curso', 100, 0);
-
+select*from categorias
 
 
 -- Sp Multimedia -- 
@@ -567,6 +570,7 @@ CALL spUsuarios (6, null, null, null, 'prueba@gmail.com', 'Fer1234%', null, null
 
 -- Update datos
 CALL spUsuarios (2, 2, 'Itzel Tiznao', 'Itzel008', 'Itzel@gmail.com', null, null, 1, '2021-03-26');
+select * from usuarios
 
 -- Pruebas varias
 CALL spUsuarios (1, null,'LALA' ,'prueba@gmail', 'hola', 'hola.jpg', 1, '2021-03-26');

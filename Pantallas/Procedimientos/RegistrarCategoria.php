@@ -9,13 +9,15 @@ $newConn->CreateConnection();
 $categoriaNom = $_POST["categoriaNombre"];
 $categoriaDesc = $_POST["categoriaDesc"];
 
-echo "<li class='itemCategoria'>
-    <a class='EliminarCategoria' onclick = 'EliminarCategoria(this)'> x </a> 
-    <h6>" .$categoriaNom . "</h6>
-    </li>";
 $query = "CALL sp_categorias (1, null, '$categoriaDesc' ,'$categoriaNom');";
 $result = $newConn->ExecuteQuery($query);
+if ($result) {    
+        mysqli_data_seek($result, 0);
+        $row = mysqli_fetch_row($result);   
+} else {
+    echo "Nada esta bien :(";
+}
 
-
+echo "<li id = ".$row[0]." class='itemCategoria'><h4 class='d-none invisible'>$row[0]</h4><a class='EliminarCategoria' onclick = 'EliminarCategoria(this)'> x </a> <h6>" .$categoriaNom . "</h6></li>";
 
 ?>

@@ -1,4 +1,4 @@
--- CREATE DATABASE Prouge;
+ CREATE DATABASE Prouge;
 
 USE Prouge;
 

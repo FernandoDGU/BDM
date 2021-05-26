@@ -151,3 +151,10 @@ function validarCosto(){
         alert("El precio no puede ser negativo")
     }
 }
+
+function prevenirDefault(form){
+      form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }, false);
+}

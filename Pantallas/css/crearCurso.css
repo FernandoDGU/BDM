@@ -66,6 +66,8 @@ html{
 .form-groupImage{
     text-align: center;
     margin-bottom:10px;
+    height: 100%;
+    width: 100%;
 }
 
 #browse{
@@ -74,7 +76,7 @@ html{
 
 #topImage{
     width:250px;
-    height: 300px;     
+    height: calc(100% - 83px);     
     border-radius: 5px;
     object-fit: cover;
     /* transition: opacity 1.3s ease-in-out;*/

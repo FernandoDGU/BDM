@@ -5,7 +5,9 @@ session_start();
 // $newConn = new ConnectionMySQL();
 // $newConn->CreateConnection();
 $categoriaNomSelect = $_POST["Seleccionado"];
+$idCategoriaSelect = $_POST["idSeleccionado"];
 echo "<li class='itemCategoria'>
+    <input  type='text' value=".$idCategoriaSelect." >
     <a class='EliminarCategoria' onclick = 'EliminarCategoria(this)'> x </a> 
     <h6 class= 'nombreCateg'>" .$categoriaNomSelect . "</h6>
     </li>";
