@@ -23,7 +23,26 @@ function checarValidacion(form) {
     var isValidForm = form.checkValidity();
     if (isValidForm) {
         alert("Parece que todo salió bien!");
+        return  true;
         //form.submit();
+    } else {
+        alert("Faltan campos de validar");
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }, false);
+        form.classList.add('was-validated');
+        return false;
+    }
+    
+}
+
+
+function checarValidacionSubmit(form) {
+    var isValidForm = form.checkValidity();
+    if (isValidForm) {
+        alert("Parece que todo salió bien!");
+        form.submit();
     } else {
         alert("Faltan campos de validar");
         form.addEventListener('submit', function (event) {

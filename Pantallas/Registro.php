@@ -26,13 +26,12 @@ if(isset($_POST['btn'])){
                         <form class="needs-validation" id="formRegistro" novalidate method="POST" action='Procedimientos/registroUsuarios.php' enctype="multipart/form-data">
                             <h3 class="titulo"> Registrate</h3>
                             <div class="form-groupImage">  
-                                <input type="file" id="browse" name="imagenRegistro"  accept="image/*" onChange="previewFile();"/>
+                                <input type="file" id="browse" name="imagenRegistro"  accept="image/*" onChange="previewFile();" required/>
                                 <!--<input type="image" class="imgFormulario" id="topImage" onmouseout="this.src = 'images/user.png';" onmouseover="this.src = 'images/user-icon.png';"  
                                        src="images/user.png" onclick="HandleBrowseClick(); this.disabled = false" />-->
-                                       <button type="submit" name="btn">Agregar </button>
 
                                 <input type="image" class="imgFormulario" id="topImage"   
-                                       src="images/user.png" name = "Foto" onclick="HandleBrowseClick(); this.disabled = false" />
+                                       src="images/user.png" name = "Foto" onclick="HandleBrowseClick(); this.disabled = false" required/>
                             </div>
                             <div class="form-group">
                                 <label for="uNombreCompleto">Nombre completo:</label>
@@ -67,7 +66,7 @@ if(isset($_POST['btn'])){
                                 <label class="radio-inline"><input type="radio" name="optradio" value = "Profesor"checked>Profesor</label>
                                 <label class="radio-inline"><input type="radio" name="optradio" value = "Alumno">Alumno</label>
                             </div>
-                            <button type="submit" id="btnRegistro" class="btn btn-primary btn-block" onclick="checarValidacion(this.form);">Registrarse</button>
+                            <button type="submit" id="btnRegistro" class="btn btn-primary btn-block" onclick="checarValidacionSubmit(this.form);">Registrarse</button>
                         </form>
                     </div>  
                 </div>

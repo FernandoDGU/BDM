@@ -11,6 +11,7 @@ $categoriaDesc = $_POST["categoriaDesc"];
 
 $query = "CALL sp_categorias (1, null, '$categoriaDesc' ,'$categoriaNom');";
 $result = $newConn->ExecuteQuery($query);
+
 if ($result) {    
         mysqli_data_seek($result, 0);
         $row = mysqli_fetch_row($result);   
