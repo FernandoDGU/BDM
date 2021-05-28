@@ -76,10 +76,10 @@ BEGIN
 END //
 
 DELIMITER ; 
-
+-- CALL spUsuarios (6, null, null, null,' ', ' ', null, null, null);
 -- SP CATEGORIAS --
 DROP PROCEDURE IF EXISTS sp_categorias;
-select * from categorias
+
 DELIMITER //
 CREATE PROCEDURE sp_categorias (
 		pOpc	INT, 
@@ -104,15 +104,29 @@ BEGIN
         FROM Categorias
         WHERE id_categoria = pIdCat;
     END IF;
+    
+	IF pOpc = 4 THEN #TRAER UNA CATEGORIA
+		SELECT nombre
+        FROM Categorias;
+    END IF;
+	
+    IF pOpc = 5 THEN #TRAER UNA CATEGORIA
+		SELECT id_categoria
+        FROM Categorias
+        WHERE nombre = pNom;
+    END IF;
+  
 END //
 DELIMITER ; 
-
-CALL sp_categorias (1,null ,"Nueva categoria","Prueba");
+-- Select * from categorias;
+CALL sp_categorias (1,null ,"Itzel","Una crack");
 CALL sp_categorias (2,null ,null,null);
 CALL sp_categorias (3,2 ,null,null);
+CALL sp_categorias (4,null ,null,null);
+CALL sp_categorias (5,null ,null,'A');
 
 -- SP CURSOS -- 
--- select * from cursos
+
 DROP PROCEDURE IF EXISTS sp_cursos;
 DELIMITER // 
 CREATE PROCEDURE sp_cursos (
@@ -137,7 +151,7 @@ BEGIN
         
         IF pOpc = 2 THEN #TRAER TODOS LOS CURSOS
 			SELECT id_curso, id_usuario, titulo, costo, imagen, descripcion, descripcion_corta, fecha_mod, curso_activo
-            FROM Cursos;          
+            FROM Cursos;
         END IF; 
         
         IF pOpc = 3 THEN #Traer un curso
@@ -160,14 +174,24 @@ BEGIN
             
         END IF; 
         
+        IF pOpc = 5 THEN #Last id
+			SELECT id_curso 
+            FROM Cursos
+            WHERE id_curso =  (SELECT LAST_INSERT_ID());
+        END IF; 
+        
 END //
 
 DELIMITER ;
-
+-- Select id_curso from Cursos where id_curso = (SELECT LAST_INSERT_ID());
 -- SELECT * FROM Cursos;
-CALL sp_cursos (1, null, 2, 'Hola todos3', '500', null, 'ola', 'olax2', 0, 1);
-CALL sp_curso_categoria(1, null, 67, 27);
--- SELECT * FROM  Curso_Categoria;
+ -- SELECT LAST_INSERT_ID(), titulo FROM Cursos;
+CALL sp_cursos (1, null, 1, 'Hola', '100', null, 'hola', 'holax2', 0, 1);
+CALL sp_cursos (5, null, 1, 'Hola', '100', null, 'hola', 'holax2', 0, 1);
+CALL sp_cursos (3, 1, 2, 'Hola', '100', null, 'hola', 'holax2', 0, 1);
+
+
+
 -- SP CURSO CATEGORIA --
 DROP PROCEDURE IF EXISTS sp_curso_categoria;
 
@@ -203,6 +227,7 @@ BEGIN
 	END IF;
 END //
 DELIMITER ;
+-- select * from Curso_Categoria;
 
 -- SP Mensajes --
 DROP PROCEDURE IF EXISTS sp_mensajes;
@@ -226,14 +251,39 @@ BEGIN
     IF pOpc = 2 THEN #Traer todos los mensajes por usuarios
 		SELECT id_mensaje, emisor, receptor, mensaje, fecha_mensaje
 		FROM Mensajes
-        WHERE id_mensaje = pIdmensaje
-        AND emisor = pEmisor 
+        WHERE emisor = pEmisor
         AND receptor = pReceptor;
+    END IF;
+    
+    IF pOpc = 3 THEN #Traeme todos los usuarios con los que tengo mensajes
+		SELECT u.id_usuario, u.username 
+        FROM Usuarios u
+        INNER JOIN Mensajes m
+        WHERE m.receptor = u.id_usuario
+        AND m.emisor = pEmisor
+        group by u.id_usuario;
     END IF;
     
 END //
 DELIMITER ;
+-- Emisor Receptor
+-- CALL sp_mensajes(1, null, 22, 24, 'Hola', null);
+-- CALL sp_mensajes(1, null, 20, 22, 'Hola como estas', null);
+-- CALL sp_mensajes(2, null, 22, 24, null, null);
+-- CALL sp_mensajes(3, null, 24, null, null, null);
 
+-- View      IF pOpc = 3 THEN #Traeme todos los usuarios con los que tengo mensajes
+
+DROP VIEW IF EXISTS vMensajes;
+
+CREATE VIEW vMensajes AS
+SELECT  u.username, u.id_usuario
+FROM 	Usuarios u
+INNER JOIN Mensajes m
+WHERE u.id_usuario = m.receptor
+group by u.id_usuario;
+
+-- SELECT * FROM vMensajes
 -- SP Comentarios --
 
 DROP PROCEDURE IF EXISTS sp_comentarios;
@@ -266,7 +316,7 @@ DELIMITER ;
 
 CALL sp_comentarios (1, null,1, 4, 'Que buen curso', 100, 0);
 CALL sp_comentarios (2, null,1, 4, 'Que buen curso', 100, 0);
-select*from categorias
+
 
 
 -- Sp Multimedia -- 
@@ -367,7 +417,8 @@ DELIMITER ;
 
 -- SELECT * FROM Cursos;
 -- SELECT * FROM Ventas;
-CALL sp_ventas(1, null, 3, 5, 0,  getCosto(5))
+CALL sp_ventas(1, null, 2, 3, 0,  getCosto(3))
+-- SELECT * FROM vCursos_best_vendidos;
 
 -- SP PROGRESO USUARIO -- 
 DROP PROCEDURE IF EXISTS sp_progreso_usuario
@@ -540,13 +591,31 @@ END //
 DELIMITER ; 
 -- SELECT * FROM Cursos;
 -- SELECT * FROM Ventas;
--- SELECT getVentasCursos(2);
-
+-- SELECT getVentasCursos(1);
 
 -- Funcion para traer id del curso mediante el nombre? --
 
+-- Función para traer si existe un usuario con el mismo correo 
+DROP FUNCTION IF EXISTS getCorreoRepetido;
+DELIMITER //
+CREATE FUNCTION getCorreoRepetido(
+	pCorreoUsuario	VARCHAR(30)
+)
+RETURNS BOOL
+READS SQL DATA
+BEGIN 
+	DECLARE CorreoRepit BOOL;
+    SELECT 	correo INTO CorreoRepit
+    FROM 	Usuarios u
+    WHERE 	u.correo = pCorreoUsuario;
+    
+    return CorreoRepit;
+END //
 
+DELIMITER ;
 
+-- SELECT 1 FROM Usuarios WHERE correo = 'fer_2delunaghotmail.com'
+-- SELECT getCorreoRepetido('prueba@gmail.com');
 
 
 -- Triggers Es como validacion que despues de ejecutar algo--
@@ -570,7 +639,6 @@ CALL spUsuarios (6, null, null, null, 'prueba@gmail.com', 'Fer1234%', null, null
 
 -- Update datos
 CALL spUsuarios (2, 2, 'Itzel Tiznao', 'Itzel008', 'Itzel@gmail.com', null, null, 1, '2021-03-26');
-select * from usuarios
 
 -- Pruebas varias
 CALL spUsuarios (1, null,'LALA' ,'prueba@gmail', 'hola', 'hola.jpg', 1, '2021-03-26');

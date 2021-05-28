@@ -1,4 +1,4 @@
- CREATE DATABASE Prouge;
+-- CREATE DATABASE Prouge;
 
 USE Prouge;
 
@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS Usuarios;
 
 -- DESCRIBE Usuarios;
 
+-- select * from Cursos;
 -- select * from Usuarios;
 CREATE TABLE IF NOT EXISTS Usuarios
 (
@@ -88,10 +89,11 @@ CREATE TABLE IF NOT EXISTS Comentarios
 CREATE TABLE IF NOT EXISTS Multimedia
 (
 	id_multimedia		INT 			AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT 'Identificador multimedia',
-    id_curso			INT 			NOT NULL COMMENT 'Curso al que pertenece la mutlimedia',
+    id_curso			INT 			NOT NULL COMMENT 'Curso al que pertenece la multimedia', -- Cambiar por nivel/curso
     nombre_archivo		VARCHAR(100)	NOT NULL COMMENT 'Nombre del archivo',
     tipo_archivo		VARCHAR(30) 	NOT NULL COMMENT 'Tipo de archivo (imagen, pdf)',
-    direccion_archivo	VARCHAR(200) 	NOT NULL COMMENT 'Ruta en donde se encuentra el archivo',
+    extension			VARCHAR(25)		NOT NULL COMMENT 'Extension del archivo',
+    direccion_archivo	VARCHAR(200) 	NOT NULL COMMENT 'Ruta en donde se encuentra el archivo', -- ruta
     
      FOREIGN KEY (id_curso) REFERENCES Cursos(id_curso)
 );
@@ -104,7 +106,7 @@ CREATE TABLE IF NOT EXISTS Curso_Niveles
     costo			FLOAT 			NOT NULL COMMENT 'Costo del nivel',
     titulo			VARCHAR(100) 	NULL COMMENT 'Titulo del nivel',
     descripcion		VARCHAR(250) 	NULL COMMENT 'Descripción del nivel',
-    video			VARCHAR(250)	NULL COMMENT 'Ruta del video',
+    video			VARCHAR(250)	NULL COMMENT 'Ruta del video', -- Tal vez quitar y dejarlo en multimedia
     
 	FOREIGN KEY (id_curso) REFERENCES Cursos(id_curso)
 );
