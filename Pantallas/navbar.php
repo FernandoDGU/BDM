@@ -69,9 +69,13 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="miCuenta.php" >Mi cuenta</a>
                                     <a class="dropdown-item" href="Chat.php">Mis mensajes</a>
-                                    <a class="dropdown-item" href="crearCurso.php">Crear curso</a>
-                                    <a class="dropdown-item" href="cursosAlumno.php">Mis cursos(Alumno)</a>
-                                    <a class="dropdown-item" href="cursosEscuela.php">Mis cursos(Escuela)</a>
+                                    <!-- Rol 0 es escuela, 1 es estudiante  -->
+                                    <?php if($rol == 0){?>
+                                            <a class="dropdown-item" href="crearCurso.php">Crear curso</a>
+                                            <a class="dropdown-item" href="cursosEscuela.php">Mis cursos(Escuela)</a>
+                                    <?php }else{?>
+                                            <a class="dropdown-item" href="cursosAlumno.php">Mis cursos(Alumno)</a>
+                                    <?php }?>
                                     <a class="dropdown-item" href="Procedimientos/cerrarSession.php">Cerrar sesión </a> 
                                     <!-- Checar para cerrar la sesión -->
                                 </div>
