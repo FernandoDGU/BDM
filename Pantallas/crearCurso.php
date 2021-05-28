@@ -189,6 +189,8 @@ and open the template in the editor.
                     data: frmData,
                     success: function(res) {
                         $('#catGuardadas').append(res);
+                        $('#categoriaInput').val("");
+                        $('#descripcionCategoria').val("");
                         // $('#sbCategorias').load(location.href+" #sbCategorias>*","");
                         //alert(res);
                     }
@@ -199,6 +201,7 @@ and open the template in the editor.
             $('#NewCateg2').click(function() {
                 var conceptName = $('#sbCategorias').find(":selected").text();
                 var seleccionado = $('#sbCategorias option:selected').text();
+
                 alert($('#sbCategorias').val(seleccionado));
                 console.log($('#sbCategorias').val(seleccionado));
                 $.ajax({
@@ -206,7 +209,7 @@ and open the template in the editor.
                     type: 'POST',
                     data: {
                         'Seleccionado': seleccionado,
-                        'idSeleccionado': $('#sbCategorias').val(seleccionado)
+                        'idSeleccionado': $('#sbCategorias').val($('#sbCategorias option:selected'))
                     },
                     success: function(res) {
                         $('#catGuardadas').append(res);
@@ -217,7 +220,6 @@ and open the template in the editor.
             });
 
             //Ajax curso             
-
             $('#btnGuardarCurso').click(function() {
 
                 if (checarValidacion(this.form)) {
@@ -247,7 +249,6 @@ and open the template in the editor.
                             $("#btnGuardarCurso").attr('disabled', 'disabled');
                             $("#cbPrecioCurso").attr('disabled', 'disabled');
                             $("#btnAgregarCategorias").removeAttr('disabled');
-
                         }
                     });
                 }
@@ -410,8 +411,8 @@ and open the template in the editor.
                                             foreach ($row as $key => $value) {
                                                 $i = $value['id_categoria'];
                                             ?>
-                                                <option value="<?php $i ?>"> <?php echo $value['nombre']; ?> </option>
-                                                <!-- <option value="1">Otro</option>-->
+                                            <option value="<?php $i ?>"> <?php echo $value['nombre']; ?> </option>
+                                            <!-- <option value="1">Otro</option>-->
                                         <?php
                                             }
                                         }

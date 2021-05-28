@@ -9,13 +9,12 @@
     $password = $_POST["passwordLogin"];
 
     $query = "CALL spUsuarios (6, null, null, null,'$correo', '$password', null, null, null);";
-
     $result = $newConn->ExecuteQuery($query);
-
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 
+    // Rows es por renglones 8 son
     if($row == NULL){
-        echo "No hay registros";
+        echo "1";
     }else{
         if(count($row) != 0){
             foreach ($row as $key => $value) {
@@ -33,9 +32,11 @@
         $_SESSION['rol'] = $arreglo[6];
         $_SESSION['foto'] = $arreglo[5];
         header("Location: ../index.php");
+        echo "2";
         // echo $arreglo[1];
         // echo $_SESSION['nombrecomp'];
     }
+
 
 
 ?>
