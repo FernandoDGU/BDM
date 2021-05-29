@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Mensajes</title>
-
+        
         <!-- Boostrap
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -19,111 +19,45 @@
         crossorigin="anonymous"></script>  -->
         <!--Css  -->
         <link rel="stylesheet" href="css/Chat.css">
+
     </head>
 
     <body>
-        <!-- <h1>Esta es una prueba en php para ver si jala esta madre </h1>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            <?php require("Procedimientos/userMensajes.php"); ?>
     
+        });
+
+    </script>
+
+            <input id="txtId" type="text" value="<?php echo $idUser ?>" class="d-none invisible" name="idusariochats">
+        <!-- <h1>Esta es una prueba en php para ver si jala esta madre </h1>
+        
         <marquee direction="up">Este texto se mueve de abajo hacia arriba</marquee>
         <marquee direction="left">lalalal</marquee> -->
         <!-- SideBar -->
         <?php include("sidebar.php"); ?>
-
-
-
-
-        <!--
-         <br />
-         <div class="input-group mb-3">
-             <button class="btn btn-outline-secondary" type="button">Button</button>
-             <select class="form-select" id="inputGroupSelect03" aria-label="Example select with button addon">
-                 <option selected>Todos los mensajes</option>
-                 <option value="1">One</option>
-                 <option value="2">Two</option>
-                 <option value="3">Three</option>
-             </select>
-         </div>
-         <div class="input-group mb-3">
-             <input type="text" class="form-control" placeholder="Buscar" aria-label="Recipient's username" aria-describedby="button-addon2">
-             <button class="btn btn-outline-secondary" type="button" id="button-addon2"><img src="https://img.icons8.com/material-outlined/24/000000/search--v2.png" /></button>
-         </div>-->
         <div id="frame">
             <div id="sidepanel">
 
                 <div id="contacts">
                     <ul>
+                    <?php ?>
+                    <?php if ($rowuser == NULL) { ?>
+                    
+                    <?php }else{?>
+                        <?php foreach($rowuser as $key => $value){?>
                         <li class="contact">
-                            <div class="wrap">
-                                <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">Louis Litt</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="contact active">
                             <div class="wrap">
                                 <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
                                 <div class="meta">
-                                    <p class="name">Harvey Specter</p>                                   
+                                    <p class="name"><?php echo $value['username']?></p>                                   
                                 </div>
                             </div>
                         </li>
-                        <li class="contact">
-                            <div class="wrap">
-                                <img src="http://emilcarlsson.se/assets/rachelzane.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">Rachel Zane</p>                                  
-                                </div>
-                            </div>
-                        </li>
-                        <li class="contact">
-                            <div class="wrap">
-                                <img src="http://emilcarlsson.se/assets/donnapaulsen.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">Donna Paulsen</p>                                    
-                                </div>
-                            </div>
-                        </li>
-                        <li class="contact">
-                            <div class="wrap">
-                                <img src="http://emilcarlsson.se/assets/jessicapearson.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">Jessica Pearson</p>                                   
-                                </div>
-                            </div>
-                        </li>
-                        <li class="contact">
-                            <div class="wrap">
-                                <img src="http://emilcarlsson.se/assets/haroldgunderson.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">Harold Gunderson</p>                                 
-                                </div>
-                            </div>
-                        </li>
-                        <li class="contact">
-                            <div class="wrap">
-                                <img src="http://emilcarlsson.se/assets/danielhardman.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">Daniel Hardman</p>                                   
-                                </div>
-                            </div>
-                        </li>
-                        <li class="contact">
-                            <div class="wrap">  
-                                <img src="http://emilcarlsson.se/assets/katrinabennett.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">Katrina Bennett</p>                                   
-                                </div>
-                            </div>
-                        </li>
-                        <li class="contact">
-                            <div class="wrap">                               
-                                <img src="http://emilcarlsson.se/assets/charlesforstman.png" alt="" />
-                                <div class="meta">
-                                    <p class="name">Charles Forstman</p>                                   
-                                </div>
-                            </div>
-                        </li>
+                        <?php }?>
+                    <?php }?>
                         <li class="contact">
                             <div class="wrap">                               
                                 <img src="http://emilcarlsson.se/assets/jonathansidwell.png" alt="" />
@@ -137,6 +71,7 @@
             </div>
             <div class="content">
                 <div class="contact-profile">
+               
                     <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
                     <p>Harvey Specter</p>
                     <div class="social-media">
@@ -146,48 +81,27 @@
                     </div>
                 </div>
                 <div class="messages">
-                    <ul>
-                        <li class="sent">
-                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                            <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
-                        </li>
-                        <li class="replies">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                            <p>When you're backed against the wall, break the god damn thing down.</p>
-                        </li>
-                        <li class="replies">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                            <p>Excuses don't win championships.</p>
-                        </li>
-                        <li class="sent">
-                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                            <p>Oh yeah, did Michael Jordan tell you that?</p>
-                        </li>
-                        <li class="replies">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                            <p>No, I told him that.</p>
-                        </li>
-                        <li class="replies">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                            <p>What are your choices when someone puts a gun to your head?</p>
-                        </li>
-                        <li class="sent">
-                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                            <p>What are you talking about? You do what they say or they shoot you.</p>
-                        </li>
-                        <li class="replies">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                            <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
-                        </li>
-                    </ul>
+                        <ul>  
+                            <!-- Mensaje del emisor  -->
+                            <li class="sent">
+                                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                                <p>When you're backed against the wall, break the god damn thing down.</p>
+                            </li>
+                            <!-- Mensaje del receptor -->
+                            <li class="replies">
+                                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                                <p>When you're backed against the wall, break the god damn thing down.</p>
+                            </li>
+                            
+                        </ul>
                 </div>
+                               
                 <div class="message-input">
                     <div class="wrap">
                         <input type="text" placeholder="Write your message..." />
                         <button class="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="25" viewBox="0 0 36 41.998">
                             <path id="Sustracción_1" data-name="Sustracción 1" d="M-12130-16V-33.851l13-2.648-13-2.648V-58l36,21-36,21Z" transform="translate(12129.999 57.999)" fill="#e6e6e6"/>
                             </svg>
-
                         </button>
                     </div>
                 </div>

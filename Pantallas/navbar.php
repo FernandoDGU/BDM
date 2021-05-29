@@ -20,6 +20,7 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
     $rol = $_SESSION['rol'];
     $foto = $_SESSION['foto'];
     $validate = 1;
+    $_POST["IdPrueba"] = $idUser;
 }
     
 ?>
