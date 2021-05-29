@@ -72,7 +72,20 @@ BEGIN
         SELECT PassRepetida AS Result;
             
     END IF;
-    
+        IF pOpc = 9 THEN #Traer imagen de perfil
+		SELECT Imagen
+        FROM Usuarios
+        WHERE id_usuario = pIdUser;
+    END IF;
+      IF pOpc = 10 THEN 
+		-- REPLACE Usuarios sin imagen VALUES(pIdUser, pUsername, pCorreo, pPass, pImg, pROL, pFecha);
+        UPDATE Usuarios
+        SET nombrecomp = pNombreCom,
+			username = pUsername, 
+            rol = pRol,
+            fecha = Now()
+		WHERE id_usuario = pIdUser and correo = pCorreo;
+	END IF;
 END //
 
 DELIMITER ; 
@@ -231,7 +244,7 @@ DELIMITER ;
 
 -- SP Mensajes --
 DROP PROCEDURE IF EXISTS sp_mensajes;
-
+-- select * from usuarios
 DELIMITER // 
 CREATE PROCEDURE sp_mensajes (
 	pOpc 			INT, 
@@ -256,7 +269,7 @@ BEGIN
     END IF;
     
     IF pOpc = 3 THEN #Traeme todos los usuarios con los que tengo mensajes
-		SELECT u.id_usuario, u.username 
+		SELECT u.id_usuario, u.username, u.imagen
         FROM Usuarios u
         INNER JOIN Mensajes m
         WHERE m.receptor = u.id_usuario
@@ -267,10 +280,13 @@ BEGIN
 END //
 DELIMITER ;
 -- Emisor Receptor
--- CALL sp_mensajes(1, null, 22, 24, 'Hola', null);
+-- CALL sp_mensajes(1, null, 2, 3, 'jojo', null);
 -- CALL sp_mensajes(1, null, 20, 22, 'Hola como estas', null);
--- CALL sp_mensajes(2, null, 22, 24, null, null);
--- CALL sp_mensajes(3, null, 24, null, null, null);
+-- CALL sp_mensajes(2, null, 3, 2, null, null);
+-- CALL sp_mensajes(2, null, 2, 3, null, null);
+-- CALL sp_mensajes(2, null, 3, 3, null, null);
+-- CALL sp_mensajes(2, null, 1, 2, null, null);
+-- CALL sp_mensajes(3, null, 2, null, null, null);
 
 -- View      IF pOpc = 3 THEN #Traeme todos los usuarios con los que tengo mensajes
 

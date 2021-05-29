@@ -45,6 +45,7 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
 
                         </a>
                 </ul>
+               
                 <form class="form-inline my-lg-6 ml-auto">
                     <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" id="Search"  >
                     <a id="btnBuscar" href="Busqueda.php">    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 48 48">

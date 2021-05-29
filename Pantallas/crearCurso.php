@@ -180,7 +180,8 @@ and open the template in the editor.
                 let frmData = new FormData();
                 frmData.append("categoriaNombre", $('#categoriaInput').val());
                 frmData.append("categoriaDesc", $('#descripcionCategoria').val());
-                $.ajax({
+               
+        $.ajax({
                     url: 'Procedimientos/RegistrarCategoria.php',
                     contentType: false,
                     processData: false,
@@ -189,8 +190,6 @@ and open the template in the editor.
                     data: frmData,
                     success: function(res) {
                         $('#catGuardadas').append(res);
-                        $('#categoriaInput').val("");
-                        $('#descripcionCategoria').val("");
                         // $('#sbCategorias').load(location.href+" #sbCategorias>*","");
                         //alert(res);
                     }
@@ -200,16 +199,13 @@ and open the template in the editor.
 
             $('#NewCateg2').click(function() {
                 var conceptName = $('#sbCategorias').find(":selected").text();
-                var seleccionado = $('#sbCategorias option:selected').text();
-
-                alert($('#sbCategorias').val(seleccionado));
-                console.log($('#sbCategorias').val(seleccionado));
+               
                 $.ajax({
                     url: 'Procedimientos/selectCategoria.php',
                     type: 'POST',
                     data: {
-                        'Seleccionado': seleccionado,
-                        'idSeleccionado': $('#sbCategorias').val($('#sbCategorias option:selected'))
+                        'Seleccionado':  $('#sbCategorias option:selected').text(),
+                        'idSeleccionado': $('#sbCategorias option:selected').val()
                     },
                     success: function(res) {
                         $('#catGuardadas').append(res);
@@ -220,6 +216,7 @@ and open the template in the editor.
             });
 
             //Ajax curso             
+
             $('#btnGuardarCurso').click(function() {
 
                 if (checarValidacion(this.form)) {
@@ -249,6 +246,7 @@ and open the template in the editor.
                             $("#btnGuardarCurso").attr('disabled', 'disabled');
                             $("#cbPrecioCurso").attr('disabled', 'disabled');
                             $("#btnAgregarCategorias").removeAttr('disabled');
+
                         }
                     });
                 }
@@ -380,7 +378,6 @@ and open the template in the editor.
                             <div class="col-4">
                                 <div id="boxCategoriasGuardadas">
                                     <h6>Categorías guardadas:</h6>
-
                                     <ul class="mt-2 listaCategorias" id="catGuardadas">
                                         <li class="itemCategoria">
                                             <a class="EliminarCategoria" onclick="EliminarCategoria(this)"> x </a>
@@ -390,13 +387,12 @@ and open the template in the editor.
                                             <a class="EliminarCategoria" onclick="EliminarCategoria(this)"> x </a>
                                             <h6 class="nombreCateg">Categoria2</h6>
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-8">
                                 <label for="categoria">Elige una categoría:</label>
-                                <div class="custom-select">
+                                <div class="">
                                     <select id="sbCategorias">
 
                                         <?php if ($row == NULL) { ?>
@@ -411,8 +407,8 @@ and open the template in the editor.
                                             foreach ($row as $key => $value) {
                                                 $i = $value['id_categoria'];
                                             ?>
-                                            <option value="<?php $i ?>"> <?php echo $value['nombre']; ?> </option>
-                                            <!-- <option value="1">Otro</option>-->
+                                                <option value="<?php $i ?>"> <?php echo $value['nombre']; ?> </option>
+                                                <!-- <option value="1">Otro</option>-->
                                         <?php
                                             }
                                         }

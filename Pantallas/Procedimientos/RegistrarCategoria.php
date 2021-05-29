@@ -13,7 +13,7 @@ $query = "CALL sp_categorias (1, null, '$categoriaDesc' ,'$categoriaNom');";
 $result = $newConn->ExecuteQuery($query);
 
 if ($result) {    
-        mysqli_data_seek($result, 0);
+        //mysqli_data_seek($result, 0);
         $row = mysqli_fetch_row($result);   
 } else {
     echo "Nada esta bien :(";
