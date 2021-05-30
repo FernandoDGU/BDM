@@ -3,6 +3,7 @@
 require("../Connection_db/classConecction.php");
 $newConn = new ConnectionMySQL();
 $newConn->CreateConnection(); 
+
 $mensaje = $_POST["textMensaje"];
 $id_emisor = $_POST["idEmisor"];
 $id_receptor = $_POST["idReceptor"];

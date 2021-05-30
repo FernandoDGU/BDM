@@ -14,7 +14,6 @@ $result = $newConn2->ExecuteQuery($query);
 //echo $userId;
 $rowuser = mysqli_fetch_all($result, MYSQLI_ASSOC);
 if($rowuser == NULL){
-    echo "1";
 }else{
     
     if(count($rowuser) != 0){

@@ -56,16 +56,19 @@
                     frmData.append("idReceptor", $(this).find('h5').text());
                     frmData.append("idEmisor", $('#txtId').val());
                     $.ajax({
-                        url: 'Procedimientos/mensajeEmisor.php',
+                        url: 'Procedimientos/MensajeEmisor.php',
                         contentType: false,
                         processData: false,
                         cache: false,
                         type: 'POST',
                         data: frmData,
                         success: function (res) {
-                            $('#boxMensajes').append(res);
+                            $('.boxMensajes').html("");
+                            $('.boxMensajes').append(res);
                             $('#nombreUR').text(usuarioR);
                             $('#idReceptor').text(idReceptor);
+                            document.getElementById('textMensaje').disabled = false;
+                            document.getElementById('btnEnviarMensaje').disabled = false;
                             //$('#imgReceptor').attr('src', '/images/new-logo.jpg');
                         }
                     });
@@ -116,30 +119,30 @@
             <div class="content">
                 <div class="contact-profile">
 
-                    <img id="imgReceptor" src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                    <p id="nombreUR">Harvey Specter</p>
+                    <!-- <img id="imgReceptor" src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" /> -->
+                    <p id="nombreUR" style="margin-left: 10px;font-size: 150%"> Selecciona uno</p>
                     <p id="idReceptor" class="d-none">hola</p>
                 </div>
                 <div class="messages">
                     <ul class="boxMensajes">  
                         <!-- Mensaje del emisor  -->
-                        <li class="sent">
+                        <!-- <li class="sent">
                             <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
                             <p>When you're backed against the wall, break the god damn thing down.</p>
-                        </li>
+                        </li> -->
                         <!-- Mensaje del receptor -->
-                        <li class="replies">
+                        <!-- <li class="replies">
                             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
                             <p>When you're backed against the wall, break the god damn thing down.</p>
-                        </li>
+                        </li> -->
 
                     </ul>
                 </div>
 
                 <form class="message-input">
                     <div class="wrap">
-                        <input type="text" id="textMensaje" placeholder="Escribe un mensaje..." />
-                        <button id="btnEnviarMensaje" class="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="25" viewBox="0 0 36 41.998">
+                        <input type="text" id="textMensaje" placeholder="Escribe un mensaje..." disabled/>
+                        <button id="btnEnviarMensaje" class="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="25" viewBox="0 0 36 41.998" disabled>
                             <path id="Sustracción_1" data-name="Sustracción 1" d="M-12130-16V-33.851l13-2.648-13-2.648V-58l36,21-36,21Z" transform="translate(12129.999 57.999)" fill="#e6e6e6"/>
                             </svg>
                         </button>
@@ -235,7 +238,8 @@
                                             if ($.trim(message) == '') {
                                                 return false;
                                             }
-                                            $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+                                            // Le quite la imagen <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                                            $('<li class="sent"><p>' + message + '</p></li>').appendTo($('.messages ul'));
                                             //$('.message-input input').val(null);
                                             $('.contact.active .preview').html('<span>You: </span>' + message);
                                             $(".messages").animate({scrollTop: $(document).height()}, "fast");

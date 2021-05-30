@@ -72,7 +72,8 @@ BEGIN
         SELECT PassRepetida AS Result;
             
     END IF;
-        IF pOpc = 9 THEN #Traer imagen de perfil
+    
+     IF pOpc = 9 THEN #Traer imagen de perfil
 		SELECT Imagen
         FROM Usuarios
         WHERE id_usuario = pIdUser;
@@ -86,6 +87,7 @@ BEGIN
             fecha = Now()
 		WHERE id_usuario = pIdUser and correo = pCorreo;
 	END IF;
+    
 END //
 
 DELIMITER ; 
@@ -244,7 +246,7 @@ DELIMITER ;
 
 -- SP Mensajes --
 DROP PROCEDURE IF EXISTS sp_mensajes;
--- select * from usuarios
+
 DELIMITER // 
 CREATE PROCEDURE sp_mensajes (
 	pOpc 			INT, 
@@ -268,27 +270,59 @@ BEGIN
         AND receptor = pReceptor;
     END IF;
     
-    IF pOpc = 3 THEN #Traeme todos los usuarios con los que tengo mensajes
-		SELECT u.id_usuario, u.username, u.imagen
+    IF pOpc = 3 THEN #Traeme todos los usuarios a los que mande mensaje y los que me mandaron mensaje
+		 SELECT  DISTINCT id_usuario, username, imagen
+    FROM (
+		
+		-- SELECT u.id_usuario, u.username, u.imagen
+        -- FROM Usuarios u
+        -- INNER JOIN Mensajes m
+        -- WHERE m.receptor = u.id_usuario
+        -- AND m.emisor = pEmisor
+        
+        -- UNION ALL 
+		
+        SELECT u.id_usuario, u.username, u.imagen
         FROM Usuarios u
         INNER JOIN Mensajes m
-        WHERE m.receptor = u.id_usuario
-        AND m.emisor = pEmisor
-        group by u.id_usuario;
+        WHERE m.receptor = pEmisor
+		AND m.emisor = u.id_usuario
+        )Usuarios order by id_usuario;
+    END IF;
+    
+    IF pOpc = 4 THEN  #Traeme todos los mensajes entre estos usuarios y ordenalos por tiempo 
+    
+    SELECT id_mensaje, emisor, receptor, mensaje, fecha_mensaje
+    FROM (
+    
+		SELECT id_mensaje, emisor, receptor, mensaje, fecha_mensaje
+        FROM Mensajes
+        WHERE emisor = pEmisor
+        AND receptor = pReceptor
+        
+        UNION ALL
+        
+        SELECT id_mensaje, emisor, receptor, mensaje, fecha_mensaje
+        FROM Mensajes
+        WHERE emisor = pReceptor
+        AND receptor = pEmisor
+        )Mensajes order by fecha_mensaje;
     END IF;
     
 END //
 DELIMITER ;
 -- Emisor Receptor
--- CALL sp_mensajes(1, null, 2, 3, 'jojo', null);
+-- CALL sp_mensajes(1, null, 24, 22, 'Ya te conteste', null);
 -- CALL sp_mensajes(1, null, 20, 22, 'Hola como estas', null);
--- CALL sp_mensajes(2, null, 3, 2, null, null);
--- CALL sp_mensajes(2, null, 2, 3, null, null);
--- CALL sp_mensajes(2, null, 3, 3, null, null);
--- CALL sp_mensajes(2, null, 1, 2, null, null);
--- CALL sp_mensajes(3, null, 2, null, null, null);
+-- CALL sp_mensajes(2, null, 22, 20, null, null);
+-- CALL sp_mensajes(2, null, 22, 24, null, null);
 
--- View      IF pOpc = 3 THEN #Traeme todos los usuarios con los que tengo mensajes
+
+-- CALL sp_mensajes(3, null, 3, null, null, null);
+-- CALL sp_categorias (2, null, null, null);
+-- CALL sp_mensajes(4, null, 22, 20, null, null);
+-- CALL sp_mensajes(4, null, 2, 3, null, null);
+
 
 DROP VIEW IF EXISTS vMensajes;
 

@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS Usuarios;
 
 -- DESCRIBE Usuarios;
 
--- select * from Cursos;
+-- select * from Mensajes;
 -- select * from Usuarios;
 CREATE TABLE IF NOT EXISTS Usuarios
 (

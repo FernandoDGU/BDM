@@ -49,6 +49,27 @@ and open the template in the editor.
                     $("#menuRecursosCurso").addClass("decoracion");
                     $("#recursosCurso").removeClass("hide");
                 });
+
+
+                // Mandar mensaje al profesor
+                $("#ProfesorMensaje").click(function(){
+                    let frmData = new FormData();
+                    frmData.append("IdAlumno", $('#txtId').val());
+                    frmData.append("IdProfesor", $('#txtIdProfe').val());
+                    frmData.append("nombreCurso", $('#NombreCurso').val());
+                    NombreCurso
+                    $.ajax({
+                        url: 'Procedimientos/MensajeProfesor.php',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        type: 'POST',
+                        data: frmData,
+                        success: function (res) {
+                                alert(res);
+                        }
+                    });
+                });
             });
         </script>
 
@@ -57,7 +78,7 @@ and open the template in the editor.
         <!-- Navbar -->
         <?php include("navbar.php"); ?>
         <div class="row">
-
+        <input id="txtId" type="text" value="<?php echo $idUser ?>" class="d-none invisible" name="idusario">
             <div class="col-4" id="boxListaCapitulos">
                 <h5 id="contenidoCursoTitulo">Contenido del curso</h5>
                 <ul id="listaCapitulos">
@@ -92,7 +113,7 @@ and open the template in the editor.
                     </div>
                     <div class="contenidosCurso">
                         <div  id="informacionCurso">
-                            <h4>Photoshop desde cero para principiantes</h4>
+                            <h4 id= "NombreCurso">Photoshop desde cero para principiantes</h4>
                             <p>Aprende los tres pilares de Photoshop: capas, máscaras y selecciones. Entonces crea fotomontajes profesionales.</p>
                         </div>
                         <div class="hide"  id="informaciónProfesor">                          
@@ -100,8 +121,8 @@ and open the template in the editor.
                                     <img class="imgProfesorCurso" src="images/icn1.png">
                                     <h4>Nombre del profesor</h4>
                                  </div>
-                                    <a href="Chat.php" class="btn btn-secondary">Enviarle un mensaje</a>
-                              
+                                    <a href="Chat.php" class="btn btn-secondary" id="ProfesorMensaje">Enviarle un mensaje</a>
+                                    <input id="txtIdProfe" type="text" value="2" class="d-none invisible" name="idProfesor">
                         </div>
                         <div class="hide"  id="recursosCurso">
                             <h4>Recursos compartidos</h4><hr style="background-color: whitesmoke">
