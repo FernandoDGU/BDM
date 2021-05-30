@@ -7,13 +7,18 @@ and open the template in the editor.
     Created on : 26/02/2021, 06:50:47 AM
     Author     : FamiliaMoreno
 */
-
+#aCrearCurso{
+    color: #f1f1f1;
+    background-color: #151515;
+    border-left: 0.5rem solid #b02a1f;
+}
 body {
     background-color: transparent!important;
 }
 html{
     background-color: #333232;
 }
+
 .box{
     margin-left: 15%!important;
 }
@@ -21,7 +26,7 @@ html{
     width:100%;
     border-radius:.25rem;
     border: 1px solid #ced4da;
-    height:calc(1.5em + .75rem + 2px);
+    height:calc(1.5em + .75rem + 2px)!important;
     padding: .375rem .75rem;
     font-size: 1rem;
     font-weight: 400;
@@ -34,25 +39,11 @@ html{
     height: auto!important;
 }
 
-#formCrearCurso{
+#formCrearCategoria, #formRecursosCurso, #formCrearCurso{
     background-color: #272727;
     padding: 2rem;
     border-radius: 0.3rem;
 }
-
-#formCrearCategoria{
-    background-color: #272727;
-    padding: 2rem;
-    border-radius: 0.3rem;
-}
-
-#formRecursosCurso{
-    background-color: #272727;
-    padding: 2rem;
-    border-radius: 0.3rem;
-}
-
-
 .form-box{
     font-family: 'Roboto', sans-serif;
     left: 10%;
@@ -75,7 +66,7 @@ html{
 }
 
 #topImage{
-    width:250px;
+    width:100%;
     height: calc(100% - 83px);     
     border-radius: 5px;
     object-fit: cover;
@@ -102,7 +93,9 @@ html{
     background-color: #cf6955!important;
     border: none!important;
 }
-
+.dropdownCategoria{
+    color: white;
+}
 @media(max-width: 768px){
     .form-box{
         width: 100%!important;
@@ -312,9 +305,16 @@ html{
     font-weight: bold;
 
 }
-#boxCategoriasGuardadas{
+#boxCategoriasGuardadas, #boxRecursosGuardados{
     position: absolute;
     height: 100%;
+    width: 90%;
+}
+#inputGroupSelect01{
+    margin:0!important;
+}
+#listaRecursos, #listaEnlaces{
+    padding: 0!important;
 }
 .listaCategorias{
     list-style: none;
@@ -322,9 +322,11 @@ html{
     height: calc(100% - 27px);
     margin: 0;
     overflow-y: scroll;
+    background-color: #2f2f2f;
+    border-radius: 3px;
 }
 .listaCategorias::-webkit-scrollbar {
-    width: 0px;
+    width: 2px;
 }
 .listaCategorias::-webkit-scrollbar-track {
     background: #f1f1f1;

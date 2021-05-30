@@ -18,7 +18,7 @@ and open the template in the editor.
     left: 0;
     background-color: #111;
     overflow-x: hidden;
-    padding-top: 15%;
+    padding-top: 5%;
 
 }
 
@@ -28,11 +28,11 @@ and open the template in the editor.
     font-size: 25px;
     color: #818181;
     display: block;
-    margin-bottom: 2rem;
 }
 
 .sidenav a:hover {
     color: #f1f1f1;
+    background-color: #151515;
     text-decoration: none;
 }
 

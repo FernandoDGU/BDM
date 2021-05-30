@@ -1,6 +1,6 @@
 <?php
 
-class Capitulo {
+/*class Capitulo {
 
     public $Id = 0;
     public $Titulo = "";
@@ -34,7 +34,7 @@ if (isset($_GET['action'])) {
         $id = $_GET['id'];
         unset($capitulos[$id]);
     }
-}
+}*/
 ?>
 
 <html>
@@ -69,7 +69,7 @@ if (isset($_GET['action'])) {
                     </div>
                     <div class="agregarCapitulo mt-4" id="agregarCapitulo">
                         <h5>Agregar capitulos</h5>
-                        <form class="boxAgregarDatosCapitulos" action="" method="POST" enctype="multipart/form-data">
+                        <form class="boxAgregarDatosCapitulos mb-5" action="" method="POST" enctype="multipart/form-data">
                             <div class="inputInfoCurso">
                                 <label for="tituloCapitulo">Titulo del capitulo:</label>
                                 <input type="text" class="form-control" id="tituloCapitulo" placeholder="Ingrese el titulo del curso" name="tituloCurso" maxlength="150" pattern="[A-Za-z0-9]{3,150}" title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 150">
@@ -81,7 +81,7 @@ if (isset($_GET['action'])) {
                             <div class="inputInfoCurso">
                                 <label>Video:</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFileLang" lang="es">
+                                    <input type="file" class="custom-file-input" id="customFileLang1" lang="es">
                                     <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
                                 </div>
                             </div>
@@ -93,41 +93,108 @@ if (isset($_GET['action'])) {
                             </div>
 
                         </form>
-                        <div class="CapitulosAgregados">
+                        <h5>Recursos extra</h5>
+                        <form class="needs-validation mt-4" id="formRecursosCurso" novalidate method="post" action='Procedimientos/RegistrarCategoria.php' enctype="multipart/form-data">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div id="boxRecursosGuardados">
+                                            <label>Recursos guardados:</label>
+                                            <ul class="listaCategorias" id="recGuardadas">
+                                                <!--<li class="itemCategoria">
+                                                    <a class="EliminarCategoria" onclick="EliminarCategoria(this)"> x </a>
+                                                    <h6 class="nombreCateg">Categoria</h6>
+                                                </li>-->
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+
+                                        <div class="">
+                                            <label for="videoCapitulo">Agregar recurso multimedia:</label><br>
+                                            <div class="input-group mb-3 w-100">
+                                                <div class="input-group-prepend">
+                                                    <label class="input-group-text" for="inputGroupSelect01">Tipo de archivo</label>
+                                                </div>
+                                                <select class="custom-select" id="inputGroupSelect01">
+                                                    <option selected>Elige</option>
+                                                    <option value="1">Imagen</option>
+                                                    <option value="2">Video</option>
+                                                    <option value="3">PDF</option>
+                                                    <option value="3">TXT</option>
+                                                </select>
+                                            </div>
+                                            <ul id="listaRecursos">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="customFileLang1" lang="es">
+                                                    <label class="custom-file-label" for="customFileLang1">Seleccionar Archivo</label>
+                                                </div>
+                                            </ul>
+                                            <div class="text-right">
+                                                <a id="agregarRecurso" class="btn btn-secondary">+</a>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <label for="videoCapitulo">Agregar enlace de referencia:</label><br>
+                                            <ul id="listaEnlaces">
+                                                <div class="boxEnlace">
+                                                    <label for="tituloEnlace">Titulo:</label>
+                                                    <input class="form-control" type="text" placeholder="Ingrese el titulo del enlace" maxlength="150">
+                                                    <label class="mt-3" for="enlaceURL">URL:</label>
+                                                    <input class="form-control" type="text" placeholder="Ingrese la URL" maxlength="150">
+                                                </div>
+                                            </ul>
+                                            <div class="text-right">
+                                                <a id="agregarEnlace" class="btn btn-secondary">+</a>
+                                            </div>
+                                        </div>
+                                        <div class="text-right mt-5">
+                                            <button type="submit" id="btnAgregarMultimedia" class="btn btn-primary ">Agregar multimedia</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </form>
+                       <!-- <div class="CapitulosAgregados">
                             <h5>Capitulos Guardados </h5>
                             <!-- <ul class="listaprueba">
                              <li class="cap">test</li>
                              <li class="cap">test</li>
                              <li class="cap">test</li>
-                             </ul>-->
+                             </ul>
                             <ul id="listaCapitulosAgregados">
-                                <?php
+                                <?php/*
                                 $contador = 0;
 
                                 foreach ($capitulos as $key => &$cap) {
 
-                                    $contador++;
+                                    $contador++;*/
                                     ?>
-                                    <li id="<?php echo $cap->Id ?>">
+                                    <li id="<?php// echo $cap->Id ?>">
                                         <div class="row wom">
                                             <div class="col-2 columNumeroCapitulo">
                                                 <p class="">
-                                                    Capitulo <?php echo $contador ?>
+                                                    Capitulo <?php //echo $contador ?>
                                                 </p>
                                             </div>
                                             <div class="col-10 columInfoCapitulo">
-                                                <input class="inputCapituloTitulo  mb-2" id="" name="capituloTitulo" type="text" value="<?php echo $cap->Titulo ?>">
+                                                <input class="inputCapituloTitulo  mb-2" id="" name="capituloTitulo" type="text" value="<?php //echo $cap->Titulo ?>">
                                                 <br>
-                                                <!--<p class="inputCapituloDescripcion  mb-2"></p>-->
-                                                <textarea class="textareaCapituloDescripcion form-control  mb-2" id="" name="capituloDescripcion"> <?php echo $cap->Descripcion ?></textarea>
-                                                <!--<input type="file" class="videoCapituloAgregado  mb-2" id="" name="capituloVideo" accept="video/*" pattern="[A-Za-z0-9]" title="Sube un archivo"> -->
+                                                <!--<p class="inputCapituloDescripcion  mb-2"></p>
+                                                <textarea class="textareaCapituloDescripcion form-control  mb-2" id="" name="capituloDescripcion"> <?php// echo $cap->Descripcion ?></textarea>
+                                                <!--<input type="file" class="videoCapituloAgregado  mb-2" id="" name="capituloVideo" accept="video/*" pattern="[A-Za-z0-9]" title="Sube un archivo"> 
                                                 <div class="custom-file mb-2">
                                                     <input type="file" class="custom-file-input" id="customFile" name="filename">
-                                                    <label class="custom-file-label lblCapitulos" for="customFile" value="<?php echo $cap->video ?>"><?php echo $cap->video ?></label>
+                                                    <label class="custom-file-label lblCapitulos" for="customFile" value="<?php //echo $cap->video ?>"><?php //echo $cap->video ?></label>
                                                 </div>
                                                 <input class="cbPrecioCapituloAgregado mb-2" type="checkbox"><label>Gratis</label>
                                                 <div class="text-right">
-                                                    <a class="btn btn-secondary btnEliminarCapitulo" href="crearCurso.php?id=<?php echo $key ?>&action=delete">
+                                                    <a class="btn btn-secondary btnEliminarCapitulo" href="crearCurso.php?id=<?php //echo $key ?>&action=delete">
                                                         Retirar
                                                     </a>
                                                 </div>
@@ -136,11 +203,11 @@ if (isset($_GET['action'])) {
 
                                     </li>
                                     <?php
-                                }
+                                //}
                                 ?>
                             </ul>
 
-                        </div>
+                        </div>-->
                         <div class="text-right">
                             <input type="button" id="btnAgregarCapitulosCompletos" class="btn btn-primary" value="Guardar Capitulos">
                         </div>

@@ -11,6 +11,7 @@ and open the template in the editor.
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--Css  -->
     <link rel="stylesheet" href="css/CursoPrev.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- jquery --->        
     <script type="text/javascript" src="libs/jquery-3.5.1.min.js" ></script>
     <!-- checar los comentarios y capitulos---> 
@@ -42,6 +43,17 @@ and open the template in the editor.
                 $(".contenedorCapitulos").addClass("show");
                 $(".contenedorCapitulos").removeClass("hide");
             });
+            $("#likeIcon").click(function () {
+                $("#checkLike").attr('checked', 'checked');
+                $(this).css({'color': '#eb6953'});
+                $("#dislikeIcon").css({'color': '#925d54'});
+
+            });
+            $("#dislikeIcon").click(function () {
+                $("#checkLike").removeAttr('checked');
+                $(this).css({'color': '#eb6953'});
+                $("#likeIcon").css({'color': '#925d54'});
+            });
         });
     </script>
 
@@ -56,15 +68,17 @@ and open the template in the editor.
                 <h1>Photoshop desde cero para principiantes</h1>
                 <h5>Programas de diseño</h5>
                 <h6>Patricia Salazar</h6>
-                <div class="estrellasCurso">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <small>3.0</small>
-                </div>
-
+                 <small id="smallLikes">3,739</small>
+                <i
+                    class="fa fa-thumbs-up" 
+                    id="likesCurso"
+                    ></i>
+               <small id="smallDislikes">345</small>
+                <i  
+                    class="fa fa-thumbs-down" 
+                    id="dislikesCurso"
+                    ></i>
+                
                 <hr style="background-color: #5d5d5d;">
                 <p>Aprende los tres pilares de Photoshop: capas, máscaras y selecciones. Entonces crea fotomontajes profesionales</p>
                 <h3>$320.00MX</h3>
@@ -111,13 +125,17 @@ and open the template in the editor.
             <h3 id="tituloCalificar">¡Califica el curso!</h3>
 
             <div class="inputComentar">
-                <div class="estrellasCalificar">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
+                <i
+                    class="fa fa-thumbs-up" 
+                    id="likeIcon"></i>
+                <i  
+                    class="fa fa-thumbs-down" 
+                    id="dislikeIcon"></i>
+                <input 
+                    id="checkLike" 
+                    class="d-none" 
+                    type="checkbox" 
+                    checked>
                 <input type="text" placeholder="Escribe un comentario">
                 <button>Comentar</button>
             </div>
@@ -134,14 +152,6 @@ and open the template in the editor.
                         <div class="tituPONE">
                             <h5>Edgardo Gabriel de la Cruz</h5><small class="comentarioPositivo">POSITIVO</small>
                         </div>
-                        <div class="estrellasComentarios">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <small>3.0</small>
-                        </div>
                         <p>Varias cosas de las que no tenía conocimiento, me abrió más oportunidad de expansión
                             sobre mis herramientas a la hora de usar, estoy muy agradecido, es un curso muy completo
                             de los conocimientos necesarios que necesitaría un principiante.
@@ -154,32 +164,14 @@ and open the template in the editor.
                         <div class="tituPONE">
                             <h5>Francisco Muriel Sabariego</h5><small class="comentarioNegativo">NEGATIVO</small>
                         </div>
-                        <div class="estrellasComentarios">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <small>2.0</small>
-                        </div>
                         <p>este curso me fue de gran ayuda pues aprendí vastante, ahora solo falta practicar mucho. Gracias</p>
                     </div>
                 </li>
-
-
                 <li class="comentario">
                     <img class="imgUsuarioComentario" src="images/icn1.png">
                     <div class="infoComentario">                       
                         <div class="tituPONE">
                             <h5>Jessy Fernando Orellana</h5><small class="comentarioPositivo">POSITIVO</small>
-                        </div>
-                        <div class="estrellasComentarios">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <small>3.0</small>
                         </div>
                         <p>El curso es bueno para introducirte al programa, lo que siento es que le falto
                             un poco mas de detalle en las imágenes, pero para empezar a conocer la plataforma
@@ -192,14 +184,6 @@ and open the template in the editor.
                         <div class="tituPONE">
                             <h5>Alvaro Cabrera Rodríguez</h5><small class="comentarioPositivo">POSITIVO</small>
                         </div>
-                        <div class="estrellasComentarios">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <small>3.0</small>
-                        </div>
                         <p>Excelente. Llevaba muchísimos años usando Photoshop de forma autónoma
                             y me ayudó a comprender cosas que no entendía y, sobretodo, muchas otras 
                             que desconocía.</p>
@@ -211,14 +195,6 @@ and open the template in the editor.
                         <div class="tituPONE">
                             <h5>Juan Carlos Pérez Llano</h5><small class="comentarioPositivo">POSITIVO</small>
                         </div>
-                        <div class="estrellasComentarios">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <small>3.0</small>
-                        </div>
                         <p>Al profesor no se le entiende muy bien, hay palabras que acelera y que traduce en spanish-english.</p>
                     </div>
                 </li>
@@ -228,14 +204,6 @@ and open the template in the editor.
                         <div class="tituPONE">
                             <h5>Rogelio Moreno Borondo</h5><small class="comentarioPositivo">POSITIVO</small>
                         </div>
-                        <div class="estrellasComentarios">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <small>3.0</small>
-                        </div>
                         <p>Muy bueno para gente como yo yo que tienía los conocimientos justos.</p>
                     </div>
                 </li>
@@ -244,14 +212,6 @@ and open the template in the editor.
                     <div class="infoComentario">
                         <div class="tituPONE">
                             <h5>Jose Manuel Lorenzo Cid</h5><small class="comentarioPositivo">POSITIVO</small>
-                        </div>
-                        <div class="estrellasComentarios">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <small>3.0</small>
                         </div>
                         <p>Buen Curso. Las explicaciones y la forma de impartir el curso son correctas.</p>
                     </div>
@@ -263,6 +223,7 @@ and open the template in the editor.
     </div>
     <!-- Footer -->
     <?php include("footer.php"); ?>
+
 
 </body>
 

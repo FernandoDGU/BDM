@@ -7,7 +7,11 @@ and open the template in the editor.
     Created on : 24/02/2021, 02:57:42 AM
     Author     : Familia Moreno
 */
-
+#aMensajes {
+    color: #f1f1f1;
+    background-color: #151515;
+    border-left: 0.5rem solid #b02a1f;
+}
 body{
     background-color: transparent!important;
 }

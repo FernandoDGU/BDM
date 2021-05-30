@@ -5,27 +5,26 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-<?php 
-session_start();
+    <?php
+    session_start();
 
-if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
-    $validate = 0;
-    $usuario = "notUser";
-}else{
-    $idUser = $_SESSION['idUser'];
-    $usuario = $_SESSION['username'];
-    $nombreCom =  $_SESSION['nombrecomp'];
-    $correo = $_SESSION['correo'];
-    $fecha = $_SESSION['fecha'];
-    $rol = $_SESSION['rol'];
-    $foto = $_SESSION['foto'];
-    $validate = 1;
-    $_POST["IdPrueba"] = $idUser;
-}
-    
-?>
+    if (!isset($_SESSION['username']) || $_SESSION['username'] == '') {
+        $validate = 0;
+        $usuario = "notUser";
+    } else {
+        $idUser = $_SESSION['idUser'];
+        $usuario = $_SESSION['username'];
+        $nombreCom = $_SESSION['nombrecomp'];
+        $correo = $_SESSION['correo'];
+        $fecha = $_SESSION['fecha'];
+        $rol = $_SESSION['rol'];
+        $foto = $_SESSION['foto'];
+        $validate = 1;
+        $_POST["IdPrueba"] = $idUser;
+    }
+    ?>
     <head>
-    
+
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Anton:400|Roboto:400,900|Playball:300,400">
         <!-- Bootstrap -->
@@ -45,7 +44,7 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
 
                         </a>
                 </ul>
-               
+
                 <form class="form-inline my-lg-6 ml-auto">
                     <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" id="Search"  >
                     <a id="btnBuscar" href="Busqueda.php">    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 48 48">
@@ -54,45 +53,45 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] == ''){
                         </svg> </a> 
                 </form>
 
-                
+
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
                     </li>
-                    <?php if($validate == 0){?>
+                    <?php if ($validate == 0) { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="Registro.php">Iniciar sesión</a>
                         </li>
-                    <?php }else{?>
+                    <?php } else { ?>
 
-                    <!-- Si está registrado -->
+                        <!-- Si está registrado -->
                         <li class="nav-item">
                             <div class="dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" href="#">Mi cuenta</a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="miCuenta.php" >Mi cuenta</a>
-                                    <a class="dropdown-item" href="Chat.php">Mis mensajes</a>
+                                    <a class="dropdown-item" href="Chat.php">Mensajes</a>
                                     <!-- Rol 0 es escuela, 1 es estudiante  -->
-                                    <?php if($rol == 0){?>
-                                            <a class="dropdown-item" href="crearCurso.php">Crear curso</a>
-                                            <a class="dropdown-item" href="cursosEscuela.php">Mis cursos(Escuela)</a>
-                                    <?php }else{?>
-                                            <a class="dropdown-item" href="cursosAlumno.php">Mis cursos(Alumno)</a>
-                                    <?php }?>
+                                    <?php if ($rol == 0) { ?>
+                                        <a class="dropdown-item" href="cursosEscuela.php">Mis cursos</a>
+                                        <a class="dropdown-item" href="crearCurso.php">Crear curso</a>
+                                    <?php } else { ?>
+                                        <a class="dropdown-item" href="cursosAlumno.php">Mis cursos</a>
+                                    <?php } ?>
                                     <a class="dropdown-item" href="Procedimientos/cerrarSession.php">Cerrar sesión </a> 
                                     <!-- Checar para cerrar la sesión -->
                                 </div>
                             </div>
                         </li>
-                    <?php }?>
-                    </ul>
-                </div>
-            
+                    <?php } ?>
+                </ul>
+            </div>
+
         </nav>   
         <script type="text/javascript" src="libs/jquery-3.5.1.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-        
+
     </body>
 </html>
 

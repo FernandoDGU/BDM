@@ -7,7 +7,7 @@ session_start();
 $categoriaNomSelect = $_POST["Seleccionado"];
 $idCategoriaSelect = $_POST["idSeleccionado"];
 echo "<li class='itemCategoria'>
-    <h4 >$idCategoriaSelect</h4>
+    <h4 class='d-none invisible' >$idCategoriaSelect</h4>
     <a class='EliminarCategoria' onclick = 'EliminarCategoria(this)'> x </a> 
     <h6 class= 'nombreCateg'>" .$categoriaNomSelect . "</h6>
     </li>";

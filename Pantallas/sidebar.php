@@ -15,15 +15,16 @@ and open the template in the editor.
         <!-- Navbar -->
         <?php include("navbar.php"); ?>
         <div class="sidenav">
-            <a href="miCuenta.php">Mi cuenta</a>
+            <a id="aMiCuenta" href="miCuenta.php">Mi cuenta</a>
+            <a id="aMensajes" href="Chat.php">Mensajes</a>
             <!-- Rol 0 es escuela, 1 es estudiante  -->
             <?php if($rol == 0){?>
-                <a href="cursosEscuela.php">Mis cursos(Escuela)</a>
-                <a href="crearCurso.php">Agregar Curso</a>
+                <a id="aCursosE" href="cursosEscuela.php">Mis cursos</a>
+                <a id="aCrearCurso" href="crearCurso.php">Crear curso</a>
             <?php }else{?>
-            <a href="cursosAlumno.php">Mis cursos(Alumno)</a>
+            <a id="aCursosA" href="cursosAlumno.php">Mis cursos</a>
             <?php }?>
-            <a href="Chat.php">Mensajes</a>
+            
             
         </div>
     </body>

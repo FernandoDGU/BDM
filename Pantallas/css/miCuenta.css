@@ -7,6 +7,11 @@ and open the template in the editor.
     Created on : 22/02/2021, 07:45:38 PM
     Author     : Familia Moreno
 */
+#aMiCuenta{
+    color: #f1f1f1;
+    background-color: #151515;
+    border-left: 0.5rem solid #b02a1f;
+}
 body {
     background-color: #333232;
 }
