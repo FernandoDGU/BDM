@@ -15,8 +15,15 @@ and open the template in the editor.
     <!-- jquery --->        
     <script type="text/javascript" src="libs/jquery-3.5.1.min.js" ></script>
     <!-- checar los comentarios y capitulos---> 
+
+    <?php require("Procedimientos/getComentarios.php"); ?>
     <script type="text/javascript">
         $(document).ready(function () {
+
+
+
+
+
             var seccionComentariosLongitud = $(".seccionComentarios").children().length;
             if (seccionComentariosLongitud < 6) {
                 $(".seccionComentarios").css({'overflow-y': 'hidden', 'height': 'auto'});
@@ -54,6 +61,30 @@ and open the template in the editor.
                 $(this).css({'color': '#eb6953'});
                 $("#likeIcon").css({'color': '#925d54'});
             });
+
+            $('#btnComentar').click(function(){
+                let frmData = new FormData();
+                frmData.append("comentario", $('#txtComentario').val());
+                frmData.append("id_usuario", $('#txtId').val());
+                frmData.append("id_curso", $('#txtIdCurso').val());
+                // frData.append("voto", $('#checkLike').checkdate());
+                if(document.getElementsByName('CheckLikes')[0].checked)
+                {frmData.append( 'CheckLikes', $('input[name=CheckLikes]').val());}
+                $.ajax({
+                        url: 'Procedimientos/Comentario.php',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        type: 'POST',
+                        data: frmData,
+                        success: function (res) {
+                            alert("Comentario con exito");
+                            $('#txtComentario').val("");
+                        }
+                    });
+                return false;
+            })
+
         });
     </script>
 
@@ -65,6 +96,12 @@ and open the template in the editor.
     <div class="container">
         <div class="row contenedorCurso">
             <div class="infoCurso col-lg-6 col-sm-12 ">
+
+            <input id="txtId" type="text" value="<?php echo $idUser ?>" class="d-none invisible" name="idusario">
+
+            <!-- Cambiar al id del curso cuando lo tengamos-->
+            <input id="txtIdCurso" type="text" value="1" class="d-none invisible" name="idCurso">
+
                 <h1>Photoshop desde cero para principiantes</h1>
                 <h5>Programas de diseño</h5>
                 <h6>Patricia Salazar</h6>
@@ -121,26 +158,30 @@ and open the template in the editor.
                 </div>
             </div> 
         </div>
-        <div class="calCurso">
-            <h3 id="tituloCalificar">¡Califica el curso!</h3>
+        <!-- Ingresar comentarios -->
+        <form class="needs-validation"  id="formComentar" novalidate method="POST" enctype="multipart/form-data">
+            <div class="calCurso">
+                <h3 id="tituloCalificar">¡Califica el curso!</h3>
 
-            <div class="inputComentar">
-                <i
-                    class="fa fa-thumbs-up" 
-                    id="likeIcon"></i>
-                <i  
-                    class="fa fa-thumbs-down" 
-                    id="dislikeIcon"></i>
-                <input 
-                    id="checkLike" 
-                    class="d-none" 
-                    type="checkbox" 
-                    checked>
-                <input type="text" placeholder="Escribe un comentario">
-                <button>Comentar</button>
+                <div class="inputComentar">
+                    <i
+                        class="fa fa-thumbs-up" 
+                        id="likeIcon"></i>
+                    <i  
+                        class="fa fa-thumbs-down" 
+                        id="dislikeIcon"></i>
+                        <input 
+                        id="checkLike" 
+                        class="d-none" 
+                        type="checkbox" 
+                        checked name = "CheckLikes">
+                    <input type="text" id = "txtComentario" placeholder="Escribe un comentario">
+                    <button id="btnComentar">Comentar</button>
+                </div>
             </div>
-        </div>
+        </form>
 
+        <!-- Mostrar comentarios -->
         <div class="contenedorComentarios col-12">
             <h2 class="tituloComentario">Comentario de los alumnos</h2>
             <!--<hr style="align-self: center; width: 76%; background-color: #5d5d5d;">-->
@@ -167,56 +208,6 @@ and open the template in the editor.
                         <p>este curso me fue de gran ayuda pues aprendí vastante, ahora solo falta practicar mucho. Gracias</p>
                     </div>
                 </li>
-                <li class="comentario">
-                    <img class="imgUsuarioComentario" src="images/icn1.png">
-                    <div class="infoComentario">                       
-                        <div class="tituPONE">
-                            <h5>Jessy Fernando Orellana</h5><small class="comentarioPositivo">POSITIVO</small>
-                        </div>
-                        <p>El curso es bueno para introducirte al programa, lo que siento es que le falto
-                            un poco mas de detalle en las imágenes, pero para empezar a conocer la plataforma
-                            esta bien</p>
-                    </div>
-                </li>
-                <li class="comentario">
-                    <img class="imgUsuarioComentario" src="images/icn1.png">
-                    <div class="infoComentario">                       
-                        <div class="tituPONE">
-                            <h5>Alvaro Cabrera Rodríguez</h5><small class="comentarioPositivo">POSITIVO</small>
-                        </div>
-                        <p>Excelente. Llevaba muchísimos años usando Photoshop de forma autónoma
-                            y me ayudó a comprender cosas que no entendía y, sobretodo, muchas otras 
-                            que desconocía.</p>
-                    </div>
-                </li>
-                <li class="comentario">
-                    <img class="imgUsuarioComentario" src="images/icn1.png">
-                    <div class="infoComentario">                       
-                        <div class="tituPONE">
-                            <h5>Juan Carlos Pérez Llano</h5><small class="comentarioPositivo">POSITIVO</small>
-                        </div>
-                        <p>Al profesor no se le entiende muy bien, hay palabras que acelera y que traduce en spanish-english.</p>
-                    </div>
-                </li>
-                <li class="comentario">
-                    <img class="imgUsuarioComentario" src="images/icn1.png">
-                    <div class="infoComentario">
-                        <div class="tituPONE">
-                            <h5>Rogelio Moreno Borondo</h5><small class="comentarioPositivo">POSITIVO</small>
-                        </div>
-                        <p>Muy bueno para gente como yo yo que tienía los conocimientos justos.</p>
-                    </div>
-                </li>
-                <li class="comentario">
-                    <img class="imgUsuarioComentario" src="images/icn1.png">
-                    <div class="infoComentario">
-                        <div class="tituPONE">
-                            <h5>Jose Manuel Lorenzo Cid</h5><small class="comentarioPositivo">POSITIVO</small>
-                        </div>
-                        <p>Buen Curso. Las explicaciones y la forma de impartir el curso son correctas.</p>
-                    </div>
-                </li>
-
             </ul>
 
         </div>

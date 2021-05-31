@@ -21,8 +21,6 @@
         <link rel="stylesheet" href="css/Chat.css">
 
         <?php require("Procedimientos/userMensajes.php"); ?>
-
-
     </head>
 
     <body>

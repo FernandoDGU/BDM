@@ -31,6 +31,8 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] == '') {
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#btnModificarUsuario').click(function () {
+                    if (checarValidacionNotAlert(this.form)) {
+
                     let frmData = new FormData();
                     
                     let imageData = $('#browse')[0].files[0];                
@@ -48,12 +50,48 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] == '') {
                         type: 'POST',
                         data: frmData,
                         success: function (res) {
-                            alert(res);
+                            alert("Datos actualizados");
                             //window.location.reload();
                         }
                     });
                     return false;
+                }
                 });
+
+
+                $('#btnCambiarContraseña').click(function(){
+                    if (checarValidacionNotAlert(this.form)) {
+                        let frmData = new FormData();
+                        // Name y id
+                        // Correo y contraseña corretos
+                        frmData.append("miCuentaCorreo", $('#coelUpdate').val());
+                        frmData.append("pswdActual", $('#pwdActual').val());
+
+                        // Cambio de contraseña
+                        frmData.append("pwdNueva", $('#pwdNueva').val());
+                        $.ajax({
+                            url: 'Procedimientos/cambiarPass.php',
+                            contentType: false,
+                            processData: false,
+                            cache: false,
+                            type: 'POST',
+                            data: frmData,
+                            success: function (res) {
+                                if (res == "1") {
+                                    alert("Contraseña actual incorrecta");
+                                } else if(res == "2"){  
+                                    alert("La contraseña actual no puede ser igual a la antigua");
+                                }else{
+                                    alert(res);
+                                    $('#pwdActual').val("");
+                                    $('#pwdNueva').val("");
+                                }
+                            }
+                        });
+                        return false;
+                     }
+                });
+    
             });      
         </script>
         <div class="container">
@@ -84,39 +122,42 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] == '') {
                     </div>
                     <div class="form-group">
                         <label for="coel">Correo Electrónico:</label>
-                        <input type="email" class="form-control" id="coel" placeholder="correo@ejemplo.com" name="miCuentaCorreo" disabled
+                        <input type="email" class="form-control" id="coelUpdate" placeholder="correo@ejemplo.com" name="miCuentaCorreo" disabled
                                required  value=<?php echo $correo ?>>
                         <div class="valid-feedback">Valido.</div>
                         <div class="invalid-feedback">Campo obligatorio.</div>
                     </div>
 
-                    <div class="form-group">Este usuario ha sido miembro desde <?php echo $fecha ?>.</div>
+                    <div class="form-group">Última modificación:  <?php echo $fecha ?>.</div>
 
-                    <button type="submit" id="btnModificarUsuario" class="btn btn-secondary " onclick="checarValidacion(this.form);">Modificar</button>
-                    <button type="submit" id="btnEliminarUsuario" class="btn btn-primary ">Eliminar cuenta</button>
+                    <div class="text-center">
+                        <button type="submit" id="btnModificarUsuario" class="btn btn-secondary" >Modificar</button>
+                    </div>
                 </form>
-                <hr style="background-color: whitesmoke;">
-                <div class="">
-                    <button type="button" class="collapsible">Cambiar contraseña</button>
-                    <div class="content">
-                        <div class="form-group mt-3">
-                            <input type="password" class="form-control" id="pwdActual" placeholder="Ingrese la contraseña actual" name="pswd"  
-                                   pattern="(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ].*" required title="Debe tener al menos una mayúscula, una minúscula y un dígito">
-                            <div class="valid-feedback">Válido.</div>
-                            <div class="invalid-feedback">Campo obligatorio</div>
-                        </div>
+                <form class="needs-validation"  id="formMiPass" novalidate method="POST" enctype="multipart/form-data">
+                    <hr style="background-color: whitesmoke;">
+                    <div class="">
+                        <button type="button" class="collapsible">Cambiar contraseña</button>
+                        <div class="content">
+                            <div class="form-group mt-3">
+                                <input type="password" class="form-control" id="pwdActual" placeholder="Ingrese la contraseña actual" name="pswdActual"  
+                                    pattern="(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ].*" required title="Debe tener al menos una mayúscula, una minúscula y un dígito">
+                                <div class="valid-feedback">Válido.</div>
+                                <div class="invalid-feedback">Campo obligatorio</div>
+                            </div>
 
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="pwdNueva" placeholder="Ingrese la contraseña nueva" name="pswd"  
-                                   pattern="(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ].*" required title="Debe tener al menos una mayúscula, una minúscula y un dígito" >
-                            <div class="valid-feedback">Válido.</div>
-                            <div class="invalid-feedback">Campo obligatorio</div>
-                            <div class="text-right mt-3">                                
-                                <input type="button" id="btnCambiarContraseña" class="btn btn-primary" value="Guardar Cambios">               
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="pwdNueva" placeholder="Ingrese la contraseña nueva" name="pswdNueva"  
+                                maxlength="25" pattern="^(?=(?:.*\d){1})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){1})(?=(?:.*[¡”#$%&/=’?!'()<>+@¿:;,._+*{°}-]){1})\S{8,20}$" required title="Debe tener al menos 8 carácteres, entre ellos una mayúscula, una minúscula, un dígito y un carácter especial" >
+                                <div class="valid-feedback">Válido.</div>
+                                <div class="invalid-feedback">Campo obligatorio</div>
+                                <div class="text-right mt-3">                                
+                                    <input type="button" id="btnCambiarContraseña" class="btn btn-primary" value="Guardar Cambios">               
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>  
         </div>
 

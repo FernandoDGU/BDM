@@ -11,7 +11,7 @@ if(!$result)
 }else{
  
     if($row == NULL){
-        echo "No hay registros";
+        // echo "No hay registros";
     }else{
              if(count($row) != 0){
                  foreach($row as $key => $value){

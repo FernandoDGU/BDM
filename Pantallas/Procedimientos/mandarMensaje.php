@@ -1,5 +1,5 @@
 <?php 
-// Se supone que esto te debe de traer los mensajes del usuario emisor osea tu
+// Mandar mensajes a un usuario
 require("../Connection_db/classConecction.php");
 $newConn = new ConnectionMySQL();
 $newConn->CreateConnection(); 

@@ -1,8 +1,5 @@
 <?php
 
-// Se supone que esto te debe de traer los mensajes del usuario emisor osea tu
-
-
 // Nueva adaptacion para clasificar si el mensaje es mío y ponerlo en diferentes 
 require("../Connection_db/classConecction.php");
 $newConn = new ConnectionMySQL();

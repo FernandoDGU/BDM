@@ -52,3 +52,21 @@ function checarValidacionSubmit(form) {
     }
     form.classList.add('was-validated');
 }
+
+
+function checarValidacionNotAlert(form) {
+    var isValidForm = form.checkValidity();
+    if (isValidForm) {
+        return  true;
+        //form.submit();
+    } else {
+        alert("Faltan campos de validar");
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }, false);
+        form.classList.add('was-validated');
+        return false;
+    }
+    
+}

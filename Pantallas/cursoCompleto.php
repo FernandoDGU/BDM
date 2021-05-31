@@ -66,7 +66,6 @@ and open the template in the editor.
                         type: 'POST',
                         data: frmData,
                         success: function (res) {
-                                alert(res);
                         }
                     });
                 });
@@ -78,6 +77,7 @@ and open the template in the editor.
         <!-- Navbar -->
         <?php include("navbar.php"); ?>
         <div class="row">
+        
         <input id="txtId" type="text" value="<?php echo $idUser ?>" class="d-none invisible" name="idusario">
             <div class="col-4" id="boxListaCapitulos">
                 <h5 id="contenidoCursoTitulo">Contenido del curso</h5>
@@ -122,6 +122,7 @@ and open the template in the editor.
                                     <h4>Nombre del profesor</h4>
                                  </div>
                                     <a href="Chat.php" class="btn btn-secondary" id="ProfesorMensaje">Enviarle un mensaje</a>
+                                    <!-- Cambiar al id del profesor -->
                                     <input id="txtIdProfe" type="text" value="2" class="d-none invisible" name="idProfesor">
                         </div>
                         <div class="hide"  id="recursosCurso">
