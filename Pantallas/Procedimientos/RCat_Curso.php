@@ -10,6 +10,8 @@ $newConn->CreateConnection();
 $data = json_decode(stripslashes($_POST['data']));
 $idCurso = $_POST["idCurso"];
 $arrayLargo = $_POST["arrayLargo"];
+$_SESSION["idCurso"] = $idCurso;
+
 
 foreach ($data as $key => $value) {
     $sql = "CALL sp_curso_categoria (1, null, '$idCurso', '$data[$key]');";

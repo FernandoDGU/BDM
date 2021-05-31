@@ -280,7 +280,8 @@ and open the template in the editor.
                         array[i] = targetImages[i].textContent;
 
                     }
-
+                    let frmData = new FormData();
+                    frmData.append("idCurso", $('#cursoId').val());
                     jsonTarget = JSON.stringify(array);
                     console.log(jsonTarget);
                     console.log(jsonTarget);
@@ -294,7 +295,7 @@ and open the template in the editor.
                         },
                         success: function (res) {
                             alert(res);
-
+                            window.location = "crearCapitulos.php";
                         }
                     });
                     return false;

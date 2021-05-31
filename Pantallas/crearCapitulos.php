@@ -43,16 +43,7 @@ if (isset($_GET['action'])) {
         <title>Crear capitulos</title>
         <!--Css  -->
         <link rel="stylesheet" href="css/crearCurso.css">
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-                $(".custom-file-input").on("change", function () {
-                    var fileName = $(this).val().split("\\").pop();
-                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-                });
-
-            });
-        </script>
+        
 
     </head>
     <body>
@@ -72,7 +63,7 @@ if (isset($_GET['action'])) {
                         <form class="boxAgregarDatosCapitulos mb-5" action="" method="POST" enctype="multipart/form-data">
                             <div class="inputInfoCurso">
                                 <label for="tituloCapitulo">Titulo del capitulo:</label>
-                                <input type="text" class="form-control" id="tituloCapitulo" placeholder="Ingrese el titulo del curso" name="tituloCurso" maxlength="150" pattern="[A-Za-z0-9]{3,150}" title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 150">
+                                <input type="text" class="form-control" id="tituloCapitulo" placeholder="Ingrese el titulo del curso" name="tituloCapitulo" maxlength="150" pattern="[A-Za-z0-9]{3,150}" title="Letras y números. Tamaño mínimo: 3. Tamaño máximo: 150">
                             </div>
                             <div class="inputInfoCurso">
                                 <label for="descripcionCapitulo">Descripción:</label>
@@ -80,19 +71,22 @@ if (isset($_GET['action'])) {
                             </div>
                             <div class="inputInfoCurso">
                                 <label>Video:</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFileLang1" lang="es">
-                                    <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+                                <div class="">
+                                    <input type="file" class="" id="customFileLang1" lang="es">
+                                    <!-- <label class="" for="customFileLang">Seleccionar Archivo</label> -->
                                 </div>
                             </div>
                             <div class="inputInfoCurso">
-                                <input id="cbPrecioCapitulo" type="checkbox"><label>Gratis</label>
+                                <input id="cbPrecioCapitulo" name = "cbPrecioCapitulo" type="checkbox"><label>Gratis</label>
                             </div>
                             <div class="inputInfoCurso text-right">
                                 <input type="button" id="btnAgregarCapitulo" class="btn btn-primary" value="Agregar Capitulo">
                             </div>
 
                         </form>
+
+
+
                         <h5>Recursos extra</h5>
                         <form class="needs-validation mt-4" id="formRecursosCurso" novalidate method="post" action='Procedimientos/RegistrarCategoria.php' enctype="multipart/form-data">
                             <div class="form-group">
@@ -162,20 +156,20 @@ if (isset($_GET['action'])) {
                         </form>
                        <!-- <div class="CapitulosAgregados">
                             <h5>Capitulos Guardados </h5>
-                            <!-- <ul class="listaprueba">
+                            <ul class="listaprueba">
                              <li class="cap">test</li>
                              <li class="cap">test</li>
                              <li class="cap">test</li>
                              </ul>
                             <ul id="listaCapitulosAgregados">
-                                <?php/*
+                                <?php /*
                                 $contador = 0;
 
                                 foreach ($capitulos as $key => &$cap) {
 
                                     $contador++;*/
                                     ?>
-                                    <li id="<?php// echo $cap->Id ?>">
+                                    <li id="<?php // echo $cap->Id ?>">
                                         <div class="row wom">
                                             <div class="col-2 columNumeroCapitulo">
                                                 <p class="">
@@ -185,9 +179,9 @@ if (isset($_GET['action'])) {
                                             <div class="col-10 columInfoCapitulo">
                                                 <input class="inputCapituloTitulo  mb-2" id="" name="capituloTitulo" type="text" value="<?php //echo $cap->Titulo ?>">
                                                 <br>
-                                                <!--<p class="inputCapituloDescripcion  mb-2"></p>
-                                                <textarea class="textareaCapituloDescripcion form-control  mb-2" id="" name="capituloDescripcion"> <?php// echo $cap->Descripcion ?></textarea>
-                                                <!--<input type="file" class="videoCapituloAgregado  mb-2" id="" name="capituloVideo" accept="video/*" pattern="[A-Za-z0-9]" title="Sube un archivo"> 
+                                                <p class="inputCapituloDescripcion  mb-2"></p>
+                                                <textarea class="textareaCapituloDescripcion form-control  mb-2" id="" name="capituloDescripcion"> <?php // echo $cap->Descripcion ?></textarea>
+                                                <input type="file" class="videoCapituloAgregado  mb-2" id="" name="capituloVideo" accept="video/*" pattern="[A-Za-z0-9]" title="Sube un archivo"> 
                                                 <div class="custom-file mb-2">
                                                     <input type="file" class="custom-file-input" id="customFile" name="filename">
                                                     <label class="custom-file-label lblCapitulos" for="customFile" value="<?php //echo $cap->video ?>"><?php //echo $cap->video ?></label>
@@ -216,5 +210,50 @@ if (isset($_GET['action'])) {
             </div>
         </div>
 
+           <!--js -->
+            <script src="js/validaciones.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $(".custom-file-input").on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                });
+
+
+                $('#btnAgregarCapitulo').click(function(){
+                        let frmData = new FormData();
+                        // descripcionCapitulo customFileLang1
+                        frmData.append("tituloCapitulo", $('#tituloCapitulo').val());
+                        frmData.append("descripcionCapitulo", $('#descripcionCapitulo').val());
+
+                        if(document.getElementsByName('cbPrecioCapitulo')[0].checked)
+                        {frmData.append( 'cbPrecioCapitulo', $('input[name=cbPrecioCapitulo]').val());}
+
+                        // frmData.append("customFileLang1", $('#customFileLang1').val());
+                        frmData.append('customFileLang1', $('#customFileLang1')[0].files[0]);
+
+                        $.ajax({
+                            url: 'Procedimientos/addCapitulo.php',
+                            contentType: false,
+                            processData: false,
+                            cache: false,
+                            type: 'POST',
+                            data: frmData,
+                            success: function (res) {
+                                alert(res);
+                            },error: function(XHR,text,errorthrow){
+                                debugger;
+                            }
+                        });
+                        return false;
+
+                });
+
+
+            });
+        </script>
     </body>
 </html>
