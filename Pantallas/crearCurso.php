@@ -213,7 +213,6 @@ and open the template in the editor.
                         success: function (res) {
                             $('#catGuardadas').append(res);
                         }
-
                     });
                     return false;
                 });

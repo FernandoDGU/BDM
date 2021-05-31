@@ -379,7 +379,7 @@ DELIMITER //
 CREATE PROCEDURE sp_multimedia(
 	pOpc INT, 
     pid_multimedia 	INT, 
-    pid_curso 		INT,
+    pid_nivel 		INT,
     pnombre_archivo	VARCHAR(100),
     ptipo_archivo	VARCHAR(30),
     pdireccion_archivo VARCHAR(200)
@@ -387,15 +387,15 @@ CREATE PROCEDURE sp_multimedia(
 BEGIN 
 	
     IF pOpc = 1 THEN #INSERTAR DATOS
-		INSERT INTO Multimedia(id_curso, nombre_archivo, tipo_archivo, direccion_archivo)
-        VALUES (pid_curso, pnombre_archivo, ptipo_archivo, pdireccion_archivo);
+		INSERT INTO Multimedia(id_curso_nivel, nombre_archivo, tipo_archivo, direccion_archivo)
+        VALUES (pid_nivel, pnombre_archivo, ptipo_archivo, pdireccion_archivo);
 	END IF;
     
     IF pOpc = 2 THEN #TRAER TODA LA MULTIMEDIA POR CURSO
-		SELECT id_multimedia, id_curso, nombre_archivo, tipo_archivo, direccion_archivo
+		SELECT id_multimedia, id_curso_nivel, nombre_archivo, tipo_archivo, direccion_archivo
         FROM Multimedia
         WHERE id_multimedia = pid_multimedia
-        AND id_curso = pid_curso;
+        AND id_curso_nivel = pid_curso;
         
     END IF; 
 END //
@@ -410,7 +410,7 @@ CREATE PROCEDURE sp_curso_niveles(
     pid_curso_nivel INT,
     pid_curso		INT,
     pno_nivel 		INT,
-    pcosto			FLOAT,
+    pcosto			FLOAT, -- 1 costo , 0 gratis 
     ptitulo			VARCHAR(100),
     pdescripcion	VARCHAR(250),
     pvideo			VARCHAR(250)
@@ -429,6 +429,10 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
+-- select * from  Curso_Niveles;
+-- Call sp_curso_niveles(1, null, 1, 0, 300, 'Hola', 'desc', 'video/Hola/Hi');
+
+
 
 -- SP Ventas --
 DROP PROCEDURE IF EXISTS sp_ventas;
@@ -516,20 +520,23 @@ SELECT * FROM view_prueba;
 -- [Vista traer calificacion] -- HOME
 DROP VIEW IF EXISTS vCursos_promedio; 
 CREATE VIEW vCursos_promedio AS 
-SELECT  c.id_curso, c.id_usuario, c.titulo, costo, c.imagen, c.descripcion, c.descripcion_corta, c.fecha_mod, c.curso_activo, AVG(co.calificacion) as calificacion
+SELECT  c.id_curso, c.id_usuario, c.titulo, costo, c.imagen, c.descripcion, c.descripcion_corta, c.fecha_mod, c.curso_activo, AVG(co.calificacion * 10) as calificacion
 FROM Cursos c
 INNER JOIN Comentarios co
 ON c.id_curso = co.id_curso
 group by c.id_curso;
 
 select * FROM vCursos_promedio;
-
--- [Vista cursos mejor calificados] -- HOME
+-- Select * from Cursos;
+-- Select * from Comentarios;
+-- [Vista cursos mejor calificados] -- HOME Cambios para que se cuenten los likes 
 DROP VIEW IF EXISTS vCursos_best;
 CREATE VIEW vCursos_best AS
 SELECT id_curso, id_usuario, titulo, costo, imagen, descripcion, descripcion_corta, fecha_mod, curso_activo, calificacion
 FROM vCursos_promedio
-WHERE calificacion >= 60;
+order by calificacion LIMIT 10;
+-- WHERE calificacion >= 7;
+-- SELECT * FROM vCursos_best;
 
 -- Vista Cursos Categorias -- 
 

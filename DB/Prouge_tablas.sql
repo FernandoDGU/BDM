@@ -91,13 +91,13 @@ CREATE TABLE IF NOT EXISTS Comentarios
 CREATE TABLE IF NOT EXISTS Multimedia
 (
 	id_multimedia		INT 			AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT 'Identificador multimedia',
-    id_curso			INT 			NOT NULL COMMENT 'Curso al que pertenece la multimedia', -- Cambiar por nivel/curso
+    id_curso_nivel		INT 			NOT NULL COMMENT 'Curso al que pertenece la multimedia', -- Cambiar por nivel/curso
     nombre_archivo		VARCHAR(100)	NOT NULL COMMENT 'Nombre del archivo',
     tipo_archivo		VARCHAR(30) 	NOT NULL COMMENT 'Tipo de archivo (imagen, pdf)',
     extension			VARCHAR(25)		NOT NULL COMMENT 'Extension del archivo',
     direccion_archivo	VARCHAR(200) 	NOT NULL COMMENT 'Ruta en donde se encuentra el archivo', -- ruta
     
-     FOREIGN KEY (id_curso) REFERENCES Cursos(id_curso)
+     FOREIGN KEY (id_curso_nivel) REFERENCES Curso_Niveles(id_curso_nivel)
 );
 
 CREATE TABLE IF NOT EXISTS Curso_Niveles 

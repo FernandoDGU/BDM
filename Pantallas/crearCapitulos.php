@@ -107,21 +107,22 @@ if (isset($_GET['action'])) {
 
                                         <div class="">
                                             <label for="videoCapitulo">Agregar recurso multimedia:</label><br>
-                                            <div class="input-group mb-3 w-100">
-                                                <div class="input-group-prepend">
-                                                    <label class="input-group-text" for="inputGroupSelect01">Tipo de archivo</label>
-                                                </div>
-                                                <select class="custom-select" id="inputGroupSelect01">
+                                            <!-- <div class="input-group mb-3 w-100"> -->
+                                                <!-- <div class="input-group-prepend"> -->
+                                                    <!-- <label class="input-group-text" for="inputGroupSelect01">Tipo de archivo</label> -->
+                                                <!-- </div> -->
+                                                <!-- <select class="custom-select" id="inputGroupSelect01">
                                                     <option selected>Elige</option>
                                                     <option value="1">Imagen</option>
                                                     <option value="2">Video</option>
                                                     <option value="3">PDF</option>
                                                     <option value="3">TXT</option>
-                                                </select>
-                                            </div>
+                                                </select> -->
+
+                                            <!-- </div> -->
                                             <ul id="listaRecursos">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="customFileLang1" lang="es">
+                                                    <input type="file" class="custom-file-input" id="Archivo" lang="es">
                                                     <label class="custom-file-label" for="customFileLang1">Seleccionar Archivo</label>
                                                 </div>
                                             </ul>
@@ -251,6 +252,35 @@ if (isset($_GET['action'])) {
                         return false;
 
                 });
+
+                $('#agregarRecurso').click(function(){
+                    let frmData = new FormData();
+                    frmData.append("archivo", $('#Archivo').val());
+
+                    $.ajax({
+                        url: 'Procedimientos/RegistrarCategoria.php',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        type: 'POST',
+                        data: frmData,
+                        success: function (res) {
+                            $('#catGuardadas').append(res);
+                            // $('#sbCategorias').load(location.href+" #sbCategorias>*","");
+                            //alert(res);
+                        }
+                    });
+                    return false;
+                });
+
+                $('#agregarEnlace').click(function(){       
+                    alert("Boton agregar Enlace")
+
+
+                });
+
+                
+
 
 
             });
