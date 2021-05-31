@@ -92,6 +92,7 @@ END //
 
 DELIMITER ; 
 -- CALL spUsuarios (6, null, null, null,' ', ' ', null, null, null);
+-- CALL spUsuarios (7, 2, null, null,null,'Villa1234567(', null, null, null);
 -- SP CATEGORIAS --
 DROP PROCEDURE IF EXISTS sp_categorias;
 
@@ -356,16 +357,18 @@ BEGIN
     END IF; 
     
     IF pOpc = 2 THEN #Traer todos los comentarios de un curso
-		SELECT id_comentario,id_usuario,id_curso, comentario, calificacion, fecha_com
-		FROM Comentarios
-        WHERE id_curso = pid_curso;
+		SELECT co.id_comentario, co.id_usuario, co.id_curso , u.username, u.imagen, co.comentario, co.calificacion, co.fecha_com
+		FROM Comentarios co
+        INNER JOIN Usuarios u
+        WHERE id_curso = pid_curso
+        AND u.id_usuario = co.id_usuario;
     END IF;
 END //
 
 DELIMITER ; 
-
-CALL sp_comentarios (1, null,1, 4, 'Que buen curso', 100, 0);
-CALL sp_comentarios (2, null,1, 4, 'Que buen curso', 100, 0);
+-- select  * from Comentarios;
+-- CALL sp_comentarios (1, null,3, 1, 'Que bue curso', 1, 0);
+-- CALL sp_comentarios (2, null,null, 1, null, 0, 0);
 
 
 
@@ -574,27 +577,30 @@ WHERE Total >= 500;
 
 -- INTENTO DE FUNCIONES -- -- Total de cursos que tiene puede ser una -- 
 
--- [Funcion para obtener id usuario]
-DROP FUNCTION IF EXISTS getID;
+-- [Funcion para obtener nombre y foto del usuario]
+DROP FUNCTION IF EXISTS getData;
 DELIMITER //
-CREATE FUNCTION getID(
-	pNombre VARCHAR(30)
+CREATE FUNCTION getData(
+	pId INT
 )
-RETURNS INT 
+RETURNS VARCHAR(30) 
 READS SQL DATA
 BEGIN 
-	declare TotalAlumnos int;
+	declare nameAlumno VARCHAR(30);
     
-    SELECT Id_usuario INTO TotalAlumnos
+    SELECT username INTO nameAlumno
     FROM Usuarios u
-    WHERE u.Username = pNombre;
+    WHERE u.id_usuario = pId;
     
-    return TotalAlumnos;
+    return nameAlumno;
 END //
 
 DELIMITER ; 
+select getData(3);
 
-SELECT getID('Itzel009');
+
+
+-- SELECT getID('Itzel009');
 
 -- [Funcion para obtener costo de curso] 
 DROP FUNCTION IF EXISTS getCosto; 

@@ -17,6 +17,8 @@ DROP TABLE IF EXISTS Usuarios;
 
 -- select * from Mensajes;
 -- select * from Usuarios;
+-- select * from Comentarios;
+-- select * from Cursos;
 CREATE TABLE IF NOT EXISTS Usuarios
 (
 	id_usuario 		INT 			AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT 'Identificador del usuario', 
@@ -79,7 +81,7 @@ CREATE TABLE IF NOT EXISTS Comentarios
     id_usuario 		INT 		NOT NULL COMMENT 'Usuario que hizo el comentario', 
     id_curso		INT 		NOT NULL COMMENT 'Curso en donde se hizo el comentario',
     comentario		VARCHAR(200) NULL COMMENT 'Contenido del comentario',
-    calificacion	FLOAT		NOT NULL COMMENT 'Califiacion del curso',
+    calificacion	FLOAT		NOT NULL COMMENT 'Califiacion del curso 0-Negativo , 1-Positivo',
     fecha_com		DATETIME 	NULL COMMENT 'Fecha en la que se publico el comentario',
 
 	 FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
