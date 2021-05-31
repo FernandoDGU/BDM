@@ -100,7 +100,7 @@ and open the template in the editor.
             <input id="txtId" type="text" value="<?php echo $idUser ?>" class="d-none invisible" name="idusario">
 
             <!-- Cambiar al id del curso cuando lo tengamos-->
-            <input id="txtIdCurso" type="text" value="1" class="d-none invisible" name="idCurso">
+            <input id="txtIdCurso" type="text" value="2" class="d-none invisible" name="idCurso">
 
                 <h1>Photoshop desde cero para principiantes</h1>
                 <h5>Programas de diseño</h5>
