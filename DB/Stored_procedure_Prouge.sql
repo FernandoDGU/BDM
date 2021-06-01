@@ -142,7 +142,7 @@ CALL sp_categorias (4,null ,null,null);
 CALL sp_categorias (5,null ,null,'A');
 
 -- SP CURSOS -- 
-
+-- call sp_cursos(6, null, 3,  null, null, null, null, null, null, null);
 DROP PROCEDURE IF EXISTS sp_cursos;
 DELIMITER // 
 CREATE PROCEDURE sp_cursos (
@@ -171,8 +171,10 @@ BEGIN
         END IF; 
         
         IF pOpc = 3 THEN #Traer un curso
-			SELECT id_curso, id_usuario, titulo, costo, imagen, descripcion, descripcion_corta, fecha_mod, curso_activo
-            FROM Cursos
+			SELECT id_curso, cursos.id_usuario, titulo, costo, cursos.imagen, descripcion, descripcion_corta, fecha_mod, curso_activo, usuario.nombrecomp
+            FROM Cursos as cursos
+            INNER JOIN usuarios as usuario
+            ON cursos.id_usuario = usuario.id_usuario
             WHERE id_curso = pIdCurso;
         END IF; 
         
@@ -195,6 +197,15 @@ BEGIN
             FROM Cursos
             WHERE id_curso =  (SELECT LAST_INSERT_ID());
         END IF; 
+        IF pOpc = 6 THEN #Cursos comprados
+			SELECT cursoComprado.id_curso, usuario.id_usuario, titulo, cursoComprado.imagen, curso_activo, usuario.nombrecomp
+            FROM usuarios as usuario
+            INNER JOIN ventas as venta
+            ON usuario.id_usuario = venta.id_usuario
+            INNER JOIN cursos as cursoComprado
+            ON venta.id_curso = cursoComprado.id_curso
+            WHERE usuario.id_usuario =  pId_user;
+        END IF; 
         
 END //
 
@@ -207,7 +218,7 @@ CALL sp_cursos (5, null, 1, 'Hola', '100', null, 'hola', 'holax2', 0, 1);
 CALL sp_cursos (3, 1, 2, 'Hola', '100', null, 'hola', 'holax2', 0, 1);
 
 
-
+-- call sp_curso_categoria(5, null, 2, null);
 -- SP CURSO CATEGORIA --
 DROP PROCEDURE IF EXISTS sp_curso_categoria;
 
@@ -240,6 +251,14 @@ BEGIN
 		SELECT id_curso_catg, id_curso, id_categoria
         FROM Curso_Categoria
         WHERE id_categoria = pId_categoria;
+	END IF;
+    
+      IF pOpc = 5 THEN #TRAER TODAS LAS CATEGORIAS DE UN CURSO
+		SELECT cursoCategoria.id_categoria, categoria.nombre
+        FROM Curso_Categoria as cursoCategoria
+        INNER JOIN categorias as categoria
+        ON cursoCategoria.id_categoria = categoria.id_categoria
+        WHERE id_curso =  pId_curso;
 	END IF;
 END //
 DELIMITER ;
@@ -432,8 +451,8 @@ DELIMITER ;
 -- select * from  Curso_Niveles;
 -- Call sp_curso_niveles(1, null, 1, 0, 300, 'Hola', 'desc', 'video/Hola/Hi');
 
-
-
+-- call sp_ventas(1, null, 3,2,null, 13);
+-- select * from ventas;
 -- SP Ventas --
 DROP PROCEDURE IF EXISTS sp_ventas;
 
@@ -526,6 +545,9 @@ INNER JOIN Comentarios co
 ON c.id_curso = co.id_curso
 group by c.id_curso;
 
+
+
+
 select * FROM vCursos_promedio;
 -- Select * from Cursos;
 -- Select * from Comentarios;
@@ -545,7 +567,7 @@ DROP VIEW IF EXISTS vCursos_Actuales;
 CREATE VIEW vCursos_Actuales AS
 SELECT  id_curso, id_usuario, titulo, costo, imagen, descripcion, descripcion_corta, fecha_mod, curso_activo
 FROM Cursos
-WHERE fecha_mod = date(now());
+ORDER BY fecha_mod DESC LIMIT 10;
 
 SELECT * FROM vCursos_Actuales;
 

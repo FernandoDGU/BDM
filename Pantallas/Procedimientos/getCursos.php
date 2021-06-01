@@ -11,11 +11,11 @@ $userId = $_SESSION['idUser'];
 // Lista de usuarios
 $query = "select * from vCursos_Actuales;";
 $result = $newConn2->ExecuteQuery($query);
-$rowuser = mysqli_fetch_all($result, MYSQLI_ASSOC);
-if($rowuser == NULL){
+$rowCurRec = mysqli_fetch_all($result, MYSQLI_ASSOC);
+if($rowCurRec == NULL){
 }else{
-    if(count($rowuser) != 0){
-        foreach($rowuser as $key => $value){
+    if(count($rowCurRec) != 0){
+        foreach($rowCurRec as $key => $value){
             $listaUsuarios[] = $value;
              //echo $listaUsuarios;
         }

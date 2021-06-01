@@ -4,24 +4,39 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 6/03/2021, 04:54:33 AM
+    Created on : 31/05/2021, 11:36:59 AM
     Author     : FamiliaMoreno
 */
-#aCursosA{
-    color: #f1f1f1;
-    background-color: #151515;
-    border-left: 0.5rem solid #b02a1f;
-}
-.box{
-    margin-left: 15%!important;
+
+.bg-light {
+    background-color: #171717 !important;
 }
 
-#tituloMisCursos{
-    font-family: 'Anton', sans-serif;
-    color: #cf6955;
+
+#Infocursos{
+    background-color: #3c3b3b;
+    /* width: 1536px; */
+    width: auto;
+    height: 20%;
+
 }
+
+#Infocursos2{
+    background-color: #333232;
+    /* width: 1536px; */
+    width: auto;
+    height: 400px;
+    position: relative;
+
+}
+
+.row{
+    margin-right:0!important;
+    margin-left:0!important;
+}
+
  .card{
-    width: 245px;
+    width: 100%;
     height: 330px;
     padding: 0;
     border-radius: 8px;
@@ -35,16 +50,16 @@ and open the template in the editor.
     box-shadow: 5px 5px 5px rgba(0,0,0,0.2) ;
 } 
 
+
 .imagen{
     /* width: 330px;*/
     width: 100%;
-    height: 10rem;
+    height: 20rem;
     object-fit: cover;
     /*display: flex;*/
     position: relative;   
     transition: all 0.25s;
 }
-
 
 .contenido{
     height: 100% !important;
@@ -74,6 +89,10 @@ and open the template in the editor.
         overflow: hidden;
     text-overflow: ellipsis;
 }
+.precioCard{
+    font-weight: bold;
+    color: #cf6955;
+}
 
 .imagen:hover{
     transform: scale(1.2);
@@ -81,38 +100,54 @@ and open the template in the editor.
     opacity: 0.6;
 }
 
-.cajaProgresoTotal{
-    width: 100%;
-    height: 5px;
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    margin-top: 1rem;
+.vl {
+    border-left: 3px solid #972e25;
+    height: 300px;
+    margin-top: 43px;
+}
+.info{
+    padding: 2rem!important;
+    align-self: center;
+border-left:  3px solid #972e25;
+    
+
+}
+.info2{
+    padding: 10px;
+    align-self: center;
+    margin-left: 20rem;
+}
+.info h1, .info2 h1{
+    font-family: 'Anton', sans-serif;
+    color: #972e25;
 }
 
-.cajaProgresoActual{
-    width: 25%;
-    height: 5px;
-    background-color: #b02a1f;
-    border-radius: 5px;
-}
-.progresoLabel{
-    font-size: smaller;
-    color: #171717;
+.info h5, .info2 h5{
+    color:#E6E6E6;
 }
 
-.enlaceCurso{
-    color: #cf6955;
-    position: absolute;
-    bottom: 1rem;
+#imgM  {
+    height: 300px;
+    width:300px;
+    border-radius: 400px;
+    margin:30px;
+    margin-left:5%;
+    margin-right: 15rem;
+    object-fit: fill;
 }
 
-.enlaceCurso:hover{
-    text-decoration: none;
-    color: #d2998e;
+#btnInicio{
+    width:100%!important;
+    height: 50px;
+    background-color: #972e25!important;
+    border-color: #972e25;
+    margin-top: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    padding:10px;
 }
 
-.page-link{
-    background-color:#E6E6E6!important;
-    color: #972e25!important;
-    margin-top: 2rem;
+.container-info{
+    margin-top:0!important;
 }
