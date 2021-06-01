@@ -35,7 +35,8 @@ and open the template in the editor.
                                 </div>
                                 <div class=" row">
                                      <div class="card">
-                                        <a href="cursoCompleto.php"> <img src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>"  class="imagen"> </a>
+                                     <!-- Redirrecion -->
+                                        <a href="cursoCompleto.php?id=<?php echo $id_curso?>"> <img src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>"  class="imagen"> </a>
                                         <div class="contenido" >
                                             <h4 class="titulo">  <?php echo $titulo ?> </h4>
                                             <h6 class="autorCard"> <?php echo $autor ?> </h6>
@@ -45,12 +46,14 @@ and open the template in the editor.
                                                 </div>
                                                 <label class="progresoLabel">25% Completado</label>
                                             </div>
-                                            <a class="enlaceCurso" href="cursoCompleto.php">Continuar curso</a>
+                                            <a class="enlaceCurso" href="cursoCompleto.php?id=<?php echo $id_curso?>">Continuar curso</a>
                                         </div>                  
                                     </div>
                                 <?php } else { ?>
+
+                                <!-- Es por lo de los 4 -->
                                     <div class="card">
-                                        <a href="cursoCompleto.php"> <img src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>"  class="imagen"> </a>
+                                        <a href="cursoCompleto.php?id=<?php echo $id_curso?>"> <img src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>"  class="imagen"> </a>
                                         <div class="contenido" >
                                             <h4 class="titulo">  <?php echo $titulo ?> </h4>
                                             <h6 class="autorCard"> <?php echo $autor ?> </h6>
@@ -60,7 +63,8 @@ and open the template in the editor.
                                                 </div>
                                                 <label class="progresoLabel">25% Completado</label>
                                             </div>
-                                            <a class="enlaceCurso" href="cursoCompleto.php">Continuar curso</a>
+                                            <!-- Redirrecion -->
+                                            <a class="enlaceCurso" href="cursoCompleto.php?id=<?php echo $id_curso?>">Continuar curso</a>
                                         </div>                  
                                     </div>
                                     <?php

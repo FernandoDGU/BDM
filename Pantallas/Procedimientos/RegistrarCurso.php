@@ -15,6 +15,11 @@ $idUsuario = $_POST["idusario"];
 $image = $_FILES['fileupload']['tmp_name'];
 $imgContent = addslashes(file_get_contents($image));
 
+// $gratis = $_POST["cbPrecioCurso"];
+
+if(isset($_POST["cbPrecioCurso"])){
+    $precio = 0;
+}
 // $query = "CALL sp_cursos (1, 'null', '$idUsuario', '$tituloCurso', '$precio',
 //  '$imgContent', '$descLarga', '$desCorta', 0, 1);";
 $query = "CALL sp_cursos (1, null, '$idUsuario', '$tituloCurso', '$precio', '$imgContent', '$descLarga', '$desCorta', 0, 1);";

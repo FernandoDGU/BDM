@@ -40,49 +40,6 @@
             </div>
 
             <div id="Infocursos">
-                <!-- <div class=" row">
-                    <div class="card col-xl col-md-4 col-sm-6 col-xs-12">
-                        <a href="CursoPrev.php"> <img src="images/ejemplos/imgEjemplo1.jpg" class="imagen"> </a>
-                        <div class="contenido">
-                            <h4 class="titulo"> HTML desde cero</h4>
-                            <h6 class="autorCard">Adrián Eras</h6>
-                            <div class="precioCard">$279.00MX</div>
-                        </div>
-                    </div>
-                    <div class="card col-xl col-md-4 col-sm-6 col-xs-12">
-                        <a href="CursoPrev.php"> <img src="images/ejemplos/imgEjemplo2.jpg" class="imagen"> </a>
-                        <div class="contenido">
-                            <h4 class="titulo"> Photoshop desde cero para principiantes</h4>
-                            <h6 class="autorCard">Patricia Salazar</h6>
-                            <div class="precioCard">$320.00MX</div>
-                        </div>
-                    </div>
-                    <div class="card col-xl col-md-4 col-sm-6 col-xs-12">
-                        <a href="CursoPrev.php"> <img src="images/ejemplos/imgEjemplo3.jpg" class="imagen"> </a>
-                        <div class="contenido">
-                            <h4 class="titulo"> Desarrollo de videojuegos con Unreal Engine 4 </h4>
-                            <h6 class="autorCard">Mariano Rivas</h6>
-                            <div class="precioCard">$1,699.00MX</div>
-                        </div>
-                    </div>
-                    <div class="card col-xl col-md-4 col-sm-6 col-xs-12">
-                        <a href="CursoPrev.php"> <img src="images/ejemplos/imgEjemplo4.jpg" class="imagen"> </a>
-                        <div class="contenido">
-                            <h4 class="titulo"> El arte del retrato. Dibujo y pintura </h4>
-                            <h6 class="autorCard">Antonio García Villarán</h6>
-                            <div class="precioCard">$549.00MX</div>
-                        </div>
-                    </div>
-                    <div class="card col-xl col-md-4 col-sm-6 col-xs-12">
-                        <a href="CursoPrev.php"> <img src="images/ejemplos/imgEjemplo5.jpg" class="imagen"> </a>
-                        <div class="contenido">
-                            <h4 class="titulo"> Canta desde cero </h4>
-                            <h6 class="autorCard">Escuela de Audio y Sonido Colombia</h6>
-                            <div class="precioCard">$429.00MX</div>
-                        </div>
-                    </div>
-                    <div class="vl"></div> -->
-
                 <!-- </div> -->
                 <div class="text-center">
                     <div class="container-xx p-3">
@@ -103,10 +60,16 @@
                                     ?>
                                     <div class="card col-xl col-md-4 col-sm-6 col-xs-12">
                                         <div class="cursoImg">
-                                            <a href="CursoPrev.php?id=<?php echo $id_curso?>"><img src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>" 
+
+                                        <?php if($idUser == null){?>
+                                            <a href="Registro.php"><img src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>" 
                                                     class="imagen"> </a>
-                                            <h3 class="d-none"><?php echo$id_curso ?></h3>
-                                        </div>
+                                        <?php } else{ ?>    
+                                          <a href="CursoPrev.php?id=<?php echo $id_curso?>"><img src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>" 
+                                                    class="imagen"> </a>
+                                          <?php }?>    
+                                          <h3 class="d-none"><?php echo$id_curso ?></h3>
+                                          </div>
                                         <div class="contenido">
                                             <h4 class="titulo"> <?php echo $titulo ?> </h4>
                                             <h6 class="autorCard"><?php echo $descCorta ?></h6>

@@ -4,6 +4,52 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
+<?php 
+
+$id_curso = isset($_GET["id"]) ? $_GET["id"] : 0;
+if ($id_curso <= 0) {
+    header("Location: /index.php");
+    exit();
+} else {
+    error_reporting(E_ERROR | E_PARSE);
+    require("./Connection_db/classConecction.php");
+    $newConn2 = new ConnectionMySQL();
+    $newConn2->CreateConnection();
+    $query = " CALL sp_cursos(3, $id_curso,null, null, null, null, null,null, null, null);";
+    $result = $newConn2->ExecuteQuery($query);
+
+    if ($result) {
+
+        while ($rowCursos = mysqli_fetch_assoc($result)) {
+            $arrayDatosc[] = $rowCursos;
+        }
+        $tituloCurso = $arrayDatosc[0]['titulo'];
+        $descLarga = $arrayDatosc[0]['descripcion'];
+        $nombreAutor = $arrayDatosc[0]['nombrecomp'];
+        $idAutor = $arrayDatosc[0]['id_usuario'];
+
+        // CARGAR IMAGEN
+        $newConn2->CreateConnection();
+        $queryImagen = "CALL spUsuarios (4, $idAutor, null, null,null,null, null, null, null);";
+        $resultImagen = $newConn2->ExecuteQuery($queryImagen);
+        $rowImagen =  mysqli_fetch_all($resultImagen, MYSQLI_ASSOC);
+
+        // CARGAR CAPITULOS
+        $newConn2->CreateConnection();
+        $queryCapitulos = "Call sp_curso_niveles(2, null, $id_curso, null, null, null, null, null);";
+        $resultCapitulos = $newConn2->ExecuteQuery($queryCapitulos);
+        $rowCapitulos =  mysqli_fetch_all($resultCapitulos, MYSQLI_ASSOC);
+
+    }else{
+        echo "Nada esta bien :(";
+    }
+    $newConn2->CloseConnection();
+}
+?>
+
+
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -57,7 +103,6 @@ and open the template in the editor.
                     frmData.append("IdAlumno", $('#txtId').val());
                     frmData.append("IdProfesor", $('#txtIdProfe').val());
                     frmData.append("nombreCurso", $('#NombreCurso').val());
-                    NombreCurso
                     $.ajax({
                         url: 'Procedimientos/MensajeProfesor.php',
                         contentType: false,
@@ -66,6 +111,54 @@ and open the template in the editor.
                         type: 'POST',
                         data: frmData,
                         success: function (res) {
+                        }
+                    });
+                });
+
+
+                // OBTENER EL VIDEO Y LOS ARCHIVOS
+                $(".tituloCapitulo").click(function(e){
+                    let frmData = new FormData();
+                    frmData.append("idCapitulo", e.currentTarget.id);
+                    $.ajax({
+                        url: 'Procedimientos/getDatosCapitulo.php',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        type: 'POST',
+                        data: frmData,
+                        success: function (res) {
+                            $('.listaRecursos').html("");
+                            $('.listaRecursos').append(res);
+
+                            let frmData = new FormData();
+                            frmData.append("idCapitulo", e.currentTarget.id);
+
+                            $.ajax({ 
+                                url: 'Procedimientos/showVideos.php',
+                                contentType: false,
+                                processData: false,
+                                cache: false,
+                                type: 'POST',
+                                data: frmData,
+                                success: function (ress) {
+                                    
+                                    if (ress === undefined || ress === "") {
+                                                return;
+                                    }
+
+                                    // se parsea
+                                    // let multimedia = JSON.parse(ress);
+                                    let videoContainer = $("#videoCapitulo");
+                                    let blobsPathIdx = multimedia.ruta.indexOf("archivos"); //Nombre de carpeta archivos 
+                                    let relativePath = multimedia.ruta.substr(blobsPathIdx, ress); //multimedia ruta es la ruta del archivo
+                                    let finalPath = decodeURI(location.host) + "\\" + decodeURI(relativePath);
+
+                                    videoContainer.html("");
+                                    videoContainer.attr('src', "http://" + finalPath);
+                                    debugger;
+                                }
+                            });
                         }
                     });
                 });
@@ -79,56 +172,80 @@ and open the template in the editor.
         <div class="row">
         
         <input id="txtId" type="text" value="<?php echo $idUser ?>" class="d-none invisible" name="idusario">
+        <input id="txtIdCurso" type="text" value="<?php echo $id_curso ?>" class="d-none invisible" name="idCurso">
+
             <div class="col-4" id="boxListaCapitulos">
                 <h5 id="contenidoCursoTitulo">Contenido del curso</h5>
+
+                <!-- LISTA CAPITULOS -->
                 <ul id="listaCapitulos">
-                    <li >
-                        <input type="checkbox" class="cbCapituloCurso" checked >
-                        <label class="tituloCapitulo">Capitulo 1: Conoce la Interfaz de Photoshop</label>                       
+
+                <?php if ($rowCapitulos == NULL) { ?>
+                    <li>
+                        <label class="tituloCapitulo">No tiene capitulos</label>                       
                     </li>
-                    <li class="capituloSeleccionado">
+                <?php } else {?>
+                    <?php foreach ($rowCapitulos as $key => $value) {?>
+                    <!-- PONER UN scrollbar -->
+                        <li>
+                            <input type="checkbox" class="cbCapituloCurso" >
+                            <label class="tituloCapitulo" id="<?php echo $value['id_curso_nivel'] ?>">Capitulo <?php echo $key?>  <?php echo $value['titulo'] ?> </label>                       
+                        </li>
+                    <?php }?>
+                <?php }?>
+                   
+                    <!-- <li class="capituloSeleccionado">
                         <input type="checkbox" class="cbCapituloCurso">
                         <label class="tituloCapitulo">Capitulo 2: Herramientas de Photoshop ( Parte 1)</label>                       
-                    </li>
-                    <li>
-                        <input type="checkbox" class="cbCapituloCurso">
-                        <label class="tituloCapitulo">Capitulo 3: Herramientas de Photoshop ( Parte 2)</label>                       
-                    </li>
-                      <li>
-                        <input type="checkbox" class="cbCapituloCurso">
-                        <label class="tituloCapitulo">Capitulo 4: Herramientas de Photoshop ( Parte 3)</label>                       
-                    </li>
+                    </li> -->
                     
                 </ul>
             </div>
+
             <div class="col-8" id="cursoVideo">
-                <video src="images/videos/intro-KawaiiPosting.mp4" preload controls poster="images/ejemplos/imgEjemplo2.jpg">
+                <video id = "videoCapitulo" controls >
                     Lo sentimos. Este vídeo no puede ser reproducido en tu navegador.
                 </video>
                 <div id="boxInformacionCurso">
+
                     <div class="menuCurso">
                         <h6 class="decoracion" id="menuInformacionCurso">Información del curso</h6>
                         <h6 id="menuInformaciónProfesor">Información del Profesor</h6>
                         <h6 id="menuRecursosCurso">Recursos del curso</h6>
                     </div>
+                    <!-- DATOS DEL CURSO -->
                     <div class="contenidosCurso">
                         <div  id="informacionCurso">
-                            <h4 id= "NombreCurso">Photoshop desde cero para principiantes</h4>
-                            <p>Aprende los tres pilares de Photoshop: capas, máscaras y selecciones. Entonces crea fotomontajes profesionales.</p>
+                            <h4 id= "NombreCurso"><?php echo $tituloCurso ?></h4>
+                            <p><?php echo $descLarga ?></p>
                         </div>
+
+                        <!--DATOS DEL PROFESOR -->
                         <div class="hide"  id="informaciónProfesor">                          
                                  <div  class="infoProfesor" style="display: flex">
+                                 
+                                 <?php if ($rowImagen == NULL) { ?>
                                     <img class="imgProfesorCurso" src="images/icn1.png">
-                                    <h4>Nombre del profesor</h4>
-                                 </div>
+                                    <?php } else { ?>
+                                        <?php foreach ($rowImagen as $key => $value) {?>
+                                            <img class="imgProfesorCurso" src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($value['Imagen']) ?>" alt="">
+                                        <?php }?>
+                                    <?php }?>
+                                        
+                                        <h4><?php echo $nombreAutor ?></h4>
+                                    </div>
                                     <a href="Chat.php" class="btn btn-secondary" id="ProfesorMensaje">Enviarle un mensaje</a>
+
                                     <!-- Cambiar al id del profesor -->
-                                    <input id="txtIdProfe" type="text" value="2" class="d-none invisible" name="idProfesor">
+                                    <input id="txtIdProfe" type="text" value="<?php echo $idAutor ?>" class="d-none invisible" name="idProfesor">
                         </div>
+
+                        <!-- RECURSOS POR CAPITULO -->
                         <div class="hide"  id="recursosCurso">
-                            <h4>Recursos compartidos</h4><hr style="background-color: whitesmoke">
+
+                            <h4>Recursos compartidos, selecciona un nivel</h4><hr style="background-color: whitesmoke">
                             <ul class="listaRecursos">
-                                <li>
+                                <!-- <li>
                                      <a class="archivoCurso" href="#">imagen.jpg</a>
                                 </li>
                                 <li>
@@ -139,7 +256,7 @@ and open the template in the editor.
                                 </li>
                                 <li>
                                     <a class="archivoCurso" href="#">Página de referencia</a>
-                                </li>
+                                </li> -->
                             </ul>       
                         </div>
                     </div>

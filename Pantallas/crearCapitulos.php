@@ -52,6 +52,9 @@ if (isset($_GET['action'])) {
         <div class="box">
             <div class="container mt-5 mb-5">
 
+                <!-- ID DEL NIVEL O CAPITULO -->
+                <input id="levelId" type="text" class="d-none invisible" name="levelId">
+
                 <div class="form-box">
                     <div class="menuAuto">
                         <h6 id="menuCrearCurso">Informacion del curso</h6>
@@ -86,7 +89,6 @@ if (isset($_GET['action'])) {
                         </form>
 
 
-
                         <h5>Recursos extra</h5>
                         <form class="needs-validation mt-4" id="formRecursosCurso" novalidate method="post" action='Procedimientos/RegistrarCategoria.php' enctype="multipart/form-data">
                             <div class="form-group">
@@ -95,10 +97,6 @@ if (isset($_GET['action'])) {
                                         <div id="boxRecursosGuardados">
                                             <label>Recursos guardados:</label>
                                             <ul class="listaCategorias" id="recGuardadas">
-                                                <!--<li class="itemCategoria">
-                                                    <a class="EliminarCategoria" onclick="EliminarCategoria(this)"> x </a>
-                                                    <h6 class="nombreCateg">Categoria</h6>
-                                                </li>-->
 
                                             </ul>
                                         </div>
@@ -107,27 +105,14 @@ if (isset($_GET['action'])) {
 
                                         <div class="">
                                             <label for="videoCapitulo">Agregar recurso multimedia:</label><br>
-                                            <!-- <div class="input-group mb-3 w-100"> -->
-                                                <!-- <div class="input-group-prepend"> -->
-                                                    <!-- <label class="input-group-text" for="inputGroupSelect01">Tipo de archivo</label> -->
-                                                <!-- </div> -->
-                                                <!-- <select class="custom-select" id="inputGroupSelect01">
-                                                    <option selected>Elige</option>
-                                                    <option value="1">Imagen</option>
-                                                    <option value="2">Video</option>
-                                                    <option value="3">PDF</option>
-                                                    <option value="3">TXT</option>
-                                                </select> -->
-
-                                            <!-- </div> -->
                                             <ul id="listaRecursos">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="Archivo" lang="es">
-                                                    <label class="custom-file-label" for="customFileLang1">Seleccionar Archivo</label>
+                                                    <input type="file" class="custom-file-input" id="Archivo" lang="es" disabled>
+                                                    <label class="custom-file-label" for="Archivo" >Seleccionar Archivo</label>
                                                 </div>
                                             </ul>
                                             <div class="text-right">
-                                                <a id="agregarRecurso" class="btn btn-secondary">+</a>
+                                                <button id="agregarRecurso" class="btn btn-secondary" disabled>+</button>
                                             </div>
                                         </div>
                                         <div class="">
@@ -135,76 +120,25 @@ if (isset($_GET['action'])) {
                                             <ul id="listaEnlaces">
                                                 <div class="boxEnlace">
                                                     <label for="tituloEnlace">Titulo:</label>
-                                                    <input class="form-control" type="text" placeholder="Ingrese el titulo del enlace" maxlength="150">
-                                                    <label class="mt-3" for="enlaceURL">URL:</label>
-                                                    <input class="form-control" type="text" placeholder="Ingrese la URL" maxlength="150">
+                                                    <input class="form-control" type="text" id = "idTitulo" name="Titulo" placeholder="Ingrese el titulo del enlace" maxlength="150" disabled>
+                                                    <label class="mt-3" for="enlaceURL" >URL:</label>
+                                                    <input class="form-control" type="text" id="idUrl" name= "Url" placeholder="Ingrese la URL" maxlength="150" disabled>
                                                 </div>
                                             </ul>
-                                            <div class="text-right">
-                                                <a id="agregarEnlace" class="btn btn-secondary">+</a>
+                                            <div class="text-right" >
+                                                <button id="agregarEnlace" class="btn btn-secondary" disabled >+</button>
                                             </div>
                                         </div>
                                         <div class="text-right mt-5">
-                                            <button type="submit" id="btnAgregarMultimedia" class="btn btn-primary ">Agregar multimedia</button>
+                                            <!-- <button type="submit" id="btnAgregarOtroCurso" class="btn btn-primary ">Agregar otro capitulo</button> -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
-
                         </form>
-                       <!-- <div class="CapitulosAgregados">
-                            <h5>Capitulos Guardados </h5>
-                            <ul class="listaprueba">
-                             <li class="cap">test</li>
-                             <li class="cap">test</li>
-                             <li class="cap">test</li>
-                             </ul>
-                            <ul id="listaCapitulosAgregados">
-                                <?php /*
-                                $contador = 0;
-
-                                foreach ($capitulos as $key => &$cap) {
-
-                                    $contador++;*/
-                                    ?>
-                                    <li id="<?php // echo $cap->Id ?>">
-                                        <div class="row wom">
-                                            <div class="col-2 columNumeroCapitulo">
-                                                <p class="">
-                                                    Capitulo <?php //echo $contador ?>
-                                                </p>
-                                            </div>
-                                            <div class="col-10 columInfoCapitulo">
-                                                <input class="inputCapituloTitulo  mb-2" id="" name="capituloTitulo" type="text" value="<?php //echo $cap->Titulo ?>">
-                                                <br>
-                                                <p class="inputCapituloDescripcion  mb-2"></p>
-                                                <textarea class="textareaCapituloDescripcion form-control  mb-2" id="" name="capituloDescripcion"> <?php // echo $cap->Descripcion ?></textarea>
-                                                <input type="file" class="videoCapituloAgregado  mb-2" id="" name="capituloVideo" accept="video/*" pattern="[A-Za-z0-9]" title="Sube un archivo"> 
-                                                <div class="custom-file mb-2">
-                                                    <input type="file" class="custom-file-input" id="customFile" name="filename">
-                                                    <label class="custom-file-label lblCapitulos" for="customFile" value="<?php //echo $cap->video ?>"><?php //echo $cap->video ?></label>
-                                                </div>
-                                                <input class="cbPrecioCapituloAgregado mb-2" type="checkbox"><label>Gratis</label>
-                                                <div class="text-right">
-                                                    <a class="btn btn-secondary btnEliminarCapitulo" href="crearCurso.php?id=<?php //echo $key ?>&action=delete">
-                                                        Retirar
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </li>
-                                    <?php
-                                //}
-                                ?>
-                            </ul>
-
-                        </div>-->
                         <div class="text-right">
-                            <input type="button" id="btnAgregarCapitulosCompletos" class="btn btn-primary" value="Guardar Capitulos">
+                            <input type="button" id="btnAgregarCapitulosCompletos" class="btn btn-primary" value="Agregar otro capitulo" disabled>
+                            <input type="button" id="btnTerminar" class="btn btn-primary" value="Terminar" disabled>
                         </div>
                     </div>
                 </div>
@@ -244,7 +178,29 @@ if (isset($_GET['action'])) {
                             type: 'POST',
                             data: frmData,
                             success: function (res) {
-                                alert(res);
+                                alert("Capitulo agregado");
+                                $('#levelId').val(res);
+                                
+                                // disable to able
+                                document.getElementById("agregarEnlace").disabled = false;
+                                document.getElementById("idUrl").disabled = false;
+                                document.getElementById("idTitulo").disabled = false;
+                                document.getElementById("Archivo").disabled = false;
+                                document.getElementById("agregarRecurso").disabled = false;
+                                document.getElementById("btnAgregarCapitulosCompletos").disabled = false;
+                                document.getElementById("btnTerminar").disabled = false;
+                               
+
+                                // able to disable
+                                document.getElementById("tituloCapitulo").disabled = true;
+                                document.getElementById("descripcionCapitulo").disabled = true;
+                                document.getElementById("cbPrecioCapitulo").disabled = true;
+                                document.getElementById("customFileLang1").disabled = true;
+                                document.getElementById("btnAgregarCapitulo").disabled = true;
+
+                                // window.scrollTo(0,document.body.scrollHeight);
+                                window.scrollTo({top: 1000, behavior: 'smooth'});
+                                
                             },error: function(XHR,text,errorthrow){
                                 debugger;
                             }
@@ -255,33 +211,76 @@ if (isset($_GET['action'])) {
 
                 $('#agregarRecurso').click(function(){
                     let frmData = new FormData();
-                    frmData.append("archivo", $('#Archivo').val());
-
+                    frmData.append('archivo', $('#Archivo')[0].files[0]);
+                    frmData.append("idNivel",  $('#levelId').val())
                     $.ajax({
-                        url: 'Procedimientos/RegistrarCategoria.php',
+                        url: 'Procedimientos/addArchivos.php',
                         contentType: false,
                         processData: false,
                         cache: false,
                         type: 'POST',
                         data: frmData,
                         success: function (res) {
-                            $('#catGuardadas').append(res);
-                            // $('#sbCategorias').load(location.href+" #sbCategorias>*","");
-                            //alert(res);
+                            alert("Recurso guardado con exito");
+                            document.getElementById("Archivo").value = "";
                         }
                     });
                     return false;
                 });
 
                 $('#agregarEnlace').click(function(){       
-                    alert("Boton agregar Enlace")
+                    let frmData = new FormData();
+                    frmData.append("idNivel",  $('#levelId').val())
+                    frmData.append("Titulo",  $('#idTitulo').val())
+                    frmData.append("Url",  $('#idUrl').val())
+                    $.ajax({
+                        url: 'Procedimientos/addEnlaces.php',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        type: 'POST',
+                        data: frmData,
+                        success: function (res) {
+                            alert(res);
+                            document.getElementById("idTitulo").value = "";
+                            document.getElementById("idUrl").value = "";
+                        }
+                    });
+                    return false;
+                });
 
+                $("#btnAgregarCapitulosCompletos").click(function(){
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                    document.getElementById("tituloCapitulo").value = "";
+                    document.getElementById("descripcionCapitulo").value = "";
+                    document.getElementById("customFileLang1").value = "";
+                    document.getElementById("cbPrecioCapitulo").checked = false;
+                    document.getElementById("idUrl").value = "";
+                    document.getElementById("idTitulo").value = "";
+                    document.getElementById("Archivo").value = "";
+                    alert("Datos limpiados");
+
+                    // able to disable
+                    document.getElementById("agregarEnlace").disabled = true;
+                    document.getElementById("idUrl").disabled = true;
+                    document.getElementById("idTitulo").disabled = true;
+                    document.getElementById("Archivo").disabled = true;
+                    document.getElementById("agregarRecurso").disabled = true;
+                    document.getElementById("btnAgregarCapitulosCompletos").disabled = true;
+                    document.getElementById("btnTerminar").disabled = true;
+
+                    //disable to able
+                    document.getElementById("tituloCapitulo").disabled = false;
+                    document.getElementById("descripcionCapitulo").disabled = false;
+                    document.getElementById("cbPrecioCapitulo").disabled = false;
+                    document.getElementById("customFileLang1").disabled = false;
+                    document.getElementById("btnAgregarCapitulo").disabled = false;
 
                 });
 
-                
-
-
+                $("#btnTerminar").click(function(){
+                    window.location.href = "index.php";
+                });
 
             });
         </script>

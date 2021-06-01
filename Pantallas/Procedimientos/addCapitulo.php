@@ -1,5 +1,6 @@
 <?php
     session_start();
+    error_reporting(E_ERROR | E_PARSE);
     require("../Connection_db/classConecction.php");
 
     $newConn = new ConnectionMySQL();
@@ -32,13 +33,12 @@
 
     $costovar;
 
-    if($costo){
+    if(isset($_POST["cbPrecioCapitulo"])){
         $costovar = 0;
     }else{
         $costovar = 1;
     }
-
-    $query = " Call sp_curso_niveles(1, null, $id_curso , 0, $costovar , '$titulo', '$descripcion', '$filePath3');";
+    $query = "Call sp_curso_niveles(1, null, $id_curso , 0, $costovar , '$titulo', '$descripcion', '$filePath3');";
     $result = $newConn->ExecuteQuery($query);
 
     if($result){
@@ -46,6 +46,16 @@
             return false;
         }
     }
+    if ($result) {
+        mysqli_data_seek($result, 0);
+        $row = mysqli_fetch_row($result);
+        echo $row[0];
+
+    } else {
+    echo "Nada esta bien :(";
+    }
+
+
 
 
     

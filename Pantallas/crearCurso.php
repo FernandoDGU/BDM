@@ -218,7 +218,6 @@ and open the template in the editor.
                 });
 
                 //Ajax curso             
-
                 $('#btnGuardarCurso').click(function () {
 
                     if (checarValidacion(this.form)) {
@@ -230,6 +229,12 @@ and open the template in the editor.
                         frmData.append("idusario", $('#txtId').val());
                         frmData.append("Precio", $('#precioCurso').val());
                         frmData.append("fileupload", imageData);
+
+                        if (document.getElementsByName('cbPrecioCurso')[0].checked)
+                        {
+                            frmData.append('cbPrecioCurso', $('input[name=cbPrecioCurso]').val());
+                        }
+
                         $.ajax({
                             url: 'Procedimientos/RegistrarCurso.php',
                             contentType: false,
@@ -363,7 +368,7 @@ and open the template in the editor.
                                         <input type="number" min="1" max="99999" step="1" class="form-control" id="precioCurso" maxlength="10" required pattern="[0-9]{10}" title="Ingresa un precio máximo de 99999" name="Precio">
                                         <div class="valid-feedback">Válido.</div>
                                         <div class="invalid-feedback">Campo obligatorio</div>
-                                        <input id="cbPrecioCurso" type="checkbox" /><label>Gratis</label>
+                                        <input id="cbPrecioCurso" type="checkbox" name  = "cbPrecioCurso" /><label>Gratis</label>
                                     </div>
 
                                 </div>
@@ -435,7 +440,7 @@ and open the template in the editor.
                                                         </div>
 
 
-                                                                                                                                <!--<option value="<?php // $i          ?>"> <?php // echo $i, $value['nombre'];          ?></option>-->
+                                                        <!--<option value="<?php // $i          ?>"> <?php // echo $i, $value['nombre'];          ?></option>-->
                                                         <!-- <option value="1">Otro</option>-->
 
                                                         <?php

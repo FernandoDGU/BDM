@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS Usuarios;
 -- select * from Mensajes;
 -- select * from Usuarios;
 -- select * from Comentarios;
--- select * from Cursos;
+-- select * from ;
 CREATE TABLE IF NOT EXISTS Usuarios
 (
 	id_usuario 		INT 			AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT 'Identificador del usuario', 

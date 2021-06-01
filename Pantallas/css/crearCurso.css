@@ -245,6 +245,16 @@ html{
     background-image: none!important;
 }
 
+#btnTerminar{
+    background-color: #cf6955;
+    border: none;
+}
+
+#btnTerminar:hover, #btnAgregarCurso:hover{
+    background-color: #d2998e;
+    border: none;
+}
+
 #btnAgregarCapitulosCompletos{
     background-color: #cf6955;
     border: none;

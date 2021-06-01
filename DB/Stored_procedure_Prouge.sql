@@ -91,8 +91,9 @@ BEGIN
 END //
 
 DELIMITER ; 
--- CALL spUsuarios (6, null, null, null,' ', ' ', null, null, null);
+-- CALL spUsuarios (6, null, 3, null,' ', ' ', null, null, null);
 -- CALL spUsuarios (7, 2, null, null,null,'Villa1234567(', null, null, null);
+-- CALL spUsuarios (4, 2, null, null,null,null, null, null, null);
 -- SP CATEGORIAS --
 DROP PROCEDURE IF EXISTS sp_categorias;
 
@@ -135,11 +136,11 @@ BEGIN
 END //
 DELIMITER ; 
 -- Select * from categorias;
-CALL sp_categorias (1,null ,"Itzel","Una crack");
-CALL sp_categorias (2,null ,null,null);
-CALL sp_categorias (3,2 ,null,null);
-CALL sp_categorias (4,null ,null,null);
-CALL sp_categorias (5,null ,null,'A');
+-- CALL sp_categorias (1,null ,"Itzel","Una crack");
+-- CALL sp_categorias (2,null ,null,null);
+-- CALL sp_categorias (3,2 ,null,null);
+-- CALL sp_categorias (4,null ,null,null);
+-- CALL sp_categorias (5,null ,null,'A');
 
 -- SP CURSOS -- 
 -- call sp_cursos(6, null, 3,  null, null, null, null, null, null, null);
@@ -197,6 +198,7 @@ BEGIN
             FROM Cursos
             WHERE id_curso =  (SELECT LAST_INSERT_ID());
         END IF; 
+        
         IF pOpc = 6 THEN #Cursos comprados
 			SELECT cursoComprado.id_curso, usuario.id_usuario, titulo, cursoComprado.imagen, curso_activo, usuario.nombrecomp
             FROM usuarios as usuario
@@ -212,10 +214,7 @@ END //
 DELIMITER ;
 -- Select id_curso from Cursos where id_curso = (SELECT LAST_INSERT_ID());
 -- SELECT * FROM Cursos;
- -- SELECT LAST_INSERT_ID(), titulo FROM Cursos;
-CALL sp_cursos (1, null, 1, 'Hola', '100', null, 'hola', 'holax2', 0, 1);
-CALL sp_cursos (5, null, 1, 'Hola', '100', null, 'hola', 'holax2', 0, 1);
-CALL sp_cursos (3, 1, 2, 'Hola', '100', null, 'hola', 'holax2', 0, 1);
+ -- CALL sp_cursos(3, 9, null,  null, null, null, null, null, null, null);
 
 
 -- call sp_curso_categoria(5, null, 2, null);
@@ -382,15 +381,32 @@ BEGIN
         WHERE id_curso = pid_curso
         AND u.id_usuario = co.id_usuario;
     END IF;
+    
+    IF pOpc = 3 THEN #Traer la suma de todos los likes
+		SELECT co.id_curso, count(co.calificacion) as likes, co.fecha_com 
+		FROM Comentarios co
+        WHERE co.id_curso = pid_curso
+        AND co.calificacion = 1;
+    END IF;
+    
+    IF pOpc = 4 THEN #Traer la suma de todos los dislikes
+		SELECT co.id_curso, count(co.calificacion) as dislikes, co.fecha_com 
+		FROM Comentarios co
+        WHERE co.id_curso = pid_curso
+        AND co.calificacion = 0;
+    END IF;
+    
 END //
 
 DELIMITER ; 
 -- select  * from Comentarios;
 -- CALL sp_comentarios (1, null,3, 1, 'Que bue curso', 1, 0);
 -- CALL sp_comentarios (2, null,null, 1, null, 0, 0);
+-- CALL sp_comentarios (3, null,null, 9, null, 0, 0);
+-- CALL sp_comentarios (4, null,null, 1, null, 0, 0);
 
 
-
+-- select * from Multimedia;
 -- Sp Multimedia -- 
 DROP PROCEDURE IF EXISTS sp_multimedia;
 
@@ -398,27 +414,39 @@ DELIMITER //
 CREATE PROCEDURE sp_multimedia(
 	pOpc INT, 
     pid_multimedia 	INT, 
-    pid_nivel 		INT,
+    pid_curso_nivel INT,
     pnombre_archivo	VARCHAR(100),
     ptipo_archivo	VARCHAR(30),
+    pextencion		VARCHAR(25),
     pdireccion_archivo VARCHAR(200)
 )
 BEGIN 
 	
     IF pOpc = 1 THEN #INSERTAR DATOS
-		INSERT INTO Multimedia(id_curso_nivel, nombre_archivo, tipo_archivo, direccion_archivo)
-        VALUES (pid_nivel, pnombre_archivo, ptipo_archivo, pdireccion_archivo);
+		INSERT INTO Multimedia(id_curso_nivel, nombre_archivo, tipo_archivo, extension , direccion_archivo)
+        VALUES (pid_curso_nivel, pnombre_archivo, ptipo_archivo, pextencion, pdireccion_archivo);
 	END IF;
     
     IF pOpc = 2 THEN #TRAER TODA LA MULTIMEDIA POR CURSO
-		SELECT id_multimedia, id_curso_nivel, nombre_archivo, tipo_archivo, direccion_archivo
+		SELECT id_multimedia, id_curso_nivel, nombre_archivo, tipo_archivo, extension, direccion_archivo
         FROM Multimedia
         WHERE id_multimedia = pid_multimedia
-        AND id_curso_nivel = pid_curso;
-        
+        AND id_curso_nivel = pid_curso_nivel;
     END IF; 
+    
+     IF pOpc = 3 THEN #TRAER TODOS LOS DATOS DE UN ARCHIVO
+		SELECT id_multimedia, id_curso_nivel, nombre_archivo, tipo_archivo, extension, direccion_archivo
+        FROM Multimedia
+        WHERE id_multimedia = pid_multimedia;
+    END IF; 
+    
 END //
 DELIMITER ;
+-- SELECT * FROM Cursos;
+-- SELECT * FROM Curso_Niveles;
+-- SELECT * FROM Multimedia;
+-- CALL sp_multimedia (1, null, 1, 'nombrearchivo', 'tipoarchivo', 'extension', 'direccionarchivo');
+-- CALL sp_multimedia (3, 6, null, 'nombrearchivo', 'tipoarchivo', 'extension', 'direccionarchivo');
 
 -- Sp Curso_Niveles -- 
 DROP PROCEDURE IF EXISTS sp_curso_niveles;
@@ -438,18 +466,35 @@ BEGIN
 	 IF pOpc = 1 THEN #INSERTAR DATOS
 		INSERT INTO Curso_Niveles (id_curso, no_nivel, costo, titulo, descripcion, video)
         VALUES (pid_curso,pno_nivel,pcosto, ptitulo, pdescripcion, pvideo );
+		SELECT LAST_INSERT_ID() as id_curso_nivel;
 	END IF;
     
     IF pOpc = 2 THEN #TRAER TODOS LOS NIVELES POR CURSO
 		SELECT id_curso_nivel, id_curso, no_nivel, costo, titulo, descripcion, video
         FROM Curso_Niveles
-        WHERE id_curso_nivel = pid_curso_nivel
-        AND id_curso = pid_curso;
+        WHERE  id_curso = pid_curso
+        order by id_curso;
     END IF;
+    
+    IF pOpc = 3 THEN #TRAER EL VIDEO Y TODA LA MULTIMEDIA POR NIVEL
+		SELECT cn.id_curso_nivel, cn.id_curso,m.id_multimedia , cn.video, m.nombre_archivo, m.tipo_archivo, m.extension, m.direccion_archivo
+        FROM Curso_Niveles cn
+        INNER JOIN Multimedia m
+        WHERE cn.id_curso_nivel = pid_curso_nivel
+        AND  m.id_curso_nivel = pid_curso_nivel;
+    END IF;
+    
 END //
 DELIMITER ;
+-- select * from  multimedia;
 -- select * from  Curso_Niveles;
 -- Call sp_curso_niveles(1, null, 1, 0, 300, 'Hola', 'desc', 'video/Hola/Hi');
+-- Call sp_curso_niveles(2, null, 9, null, null, null, null, null);
+-- Call sp_curso_niveles(3, 37, null, null, null, null, null, null);
+
+-- SELECT * FROM Cursos;
+-- SELECT * FROM Ventas;
+
 
 -- call sp_ventas(1, null, 3,2,null, 13);
 -- select * from ventas;
@@ -493,7 +538,7 @@ DELIMITER ;
 
 -- SELECT * FROM Cursos;
 -- SELECT * FROM Ventas;
-CALL sp_ventas(1, null, 2, 3, 0,  getCosto(3))
+-- CALL sp_ventas(1, null, 2, 3, 0,  getCosto(3))
 -- SELECT * FROM vCursos_best_vendidos;
 
 -- SP PROGRESO USUARIO -- 
@@ -534,7 +579,7 @@ CREATE VIEW view_prueba AS
 SELECT Id_usuario, Nombrecomp, Username, Correo, Pass, Imagen, Rol, Fecha
 FROM Usuarios;
 
-SELECT * FROM view_prueba;
+-- SELECT * FROM view_prueba;
 
 -- [Vista traer calificacion] -- HOME
 DROP VIEW IF EXISTS vCursos_promedio; 
@@ -548,7 +593,7 @@ group by c.id_curso;
 
 
 
-select * FROM vCursos_promedio;
+-- select * FROM vCursos_promedio;
 -- Select * from Cursos;
 -- Select * from Comentarios;
 -- [Vista cursos mejor calificados] -- HOME Cambios para que se cuenten los likes 
@@ -569,7 +614,7 @@ SELECT  id_curso, id_usuario, titulo, costo, imagen, descripcion, descripcion_co
 FROM Cursos
 ORDER BY fecha_mod DESC LIMIT 10;
 
-SELECT * FROM vCursos_Actuales;
+-- SELECT * FROM vCursos_Actuales;
 
 -- [Vista traer cursos activos] --  HOME
 DROP VIEW IF EXISTS vCursos_activos;
@@ -579,7 +624,7 @@ SELECT  id_curso, id_usuario, titulo, costo, imagen, descripcion, descripcion_co
 FROM 	Cursos
 WHERE 	curso_activo = 1; 
 
-SELECT * FROM vCursos_activos;
+-- SELECT * FROM vCursos_activos;
 
 -- [Vista Ventas curso] id del ultimo usuario que compro el curso HOME
 DROP VIEW IF EXISTS vCursos_vendidos;
@@ -591,7 +636,7 @@ INNER JOIN Ventas v
 WHERE c.id_curso = v.id_curso
 group by c.id_curso;
 
-SELECT * FROM Cursos;
+-- SELECT * FROM Cursos;
 -- SELECT * FROM vCursos_vendidos;
 
 -- [Vista Cursos Mas Vendidos] HOME
@@ -625,7 +670,7 @@ BEGIN
 END //
 
 DELIMITER ; 
-select getData(3);
+-- select getData(3);
 
 
 
@@ -749,8 +794,3 @@ CALL spUsuarios (7, 4, null, null, 'LOLOSUPERDUPERCUL', null, null, null); -- CA
 
 CALL spUsuarios (7, 2,NULL ,NULL, 'HI', NULL, NULL, NULL); -- MISMA CONTRASEÑA PARA VER QUE NO PASE NADA 
 CALL spUsuarios (8, 2,NULL ,NULL, 'HO', NULL, NULL, NULL); -- DEVUELVE 1 SI LA CONTRASEÑA ES LA MISMA Y UN CERO SI NO ES LA MISMA
-
-SELECT * FROM Usuarios;
-
-
-

@@ -43,6 +43,26 @@ if ($id_curso <= 0) {
         $queryCateg = " call sp_curso_categoria(5, null, $id_curso, null);";
         $resultCateg = $newConn2->ExecuteQuery($queryCateg);
         $rowCateg = mysqli_fetch_all($resultCateg, MYSQLI_ASSOC);
+
+
+        //TRAER LIKES 
+        $newConn2->CreateConnection();
+        $querylikes = " CALL sp_comentarios (3, null,null, $id_curso, null, 0, 0);";
+        $resullikes = $newConn2->ExecuteQuery($querylikes);
+        $rowlikes = mysqli_fetch_all($resullikes, MYSQLI_ASSOC);
+
+        // TRAER DISLIKES
+        $newConn2->CreateConnection();
+        $querydislike = "CALL sp_comentarios (4, null,null, $id_curso, null, 0, 0);";
+        $resultdislike = $newConn2->ExecuteQuery($querydislike);
+        $rowdislike = mysqli_fetch_all($resultdislike, MYSQLI_ASSOC);
+
+        // CARGAR CAPITULOS
+        $newConn2->CreateConnection();
+        $queryCapitulos = "Call sp_curso_niveles(2, null, $id_curso, null, null, null, null, null);";
+        $resultCapitulos = $newConn2->ExecuteQuery($queryCapitulos);
+        $rowCapitulos =  mysqli_fetch_all($resultCapitulos, MYSQLI_ASSOC);
+
     } else {
         echo "Nada esta bien :(";
     }
@@ -96,26 +116,57 @@ if ($id_curso <= 0) {
                         <?php } ?>
                     </div>
 
-
+                   
                     <h6><?php echo $nombreAutor ?></h6>
-                    <small id="smallLikes">3,739</small>
-                    <i
+
+                    <!-- LIKES  -->
+                    <?php if ($rowlikes == NULL) { ?>
+                        <small id="smallLikes">0</small>
+                        <i
                         class="fa fa-thumbs-up" 
                         id="likesCurso"
                         ></i>
-                    <small id="smallDislikes">345</small>
-                    <i  
+                    <?php } else { ?> <?php ?>
+                        <?php foreach ($rowlikes as $key => $value) {?>
+                            <small id="smallLikes"> <?php echo $value['likes']?> </small>
+                                    <i
+                                    class="fa fa-thumbs-up" 
+                                    id="likesCurso"
+                                    ></i>
+                        <?php } ?>
+                       
+                    <?php } ?>
+
+                    <!-- DISLIKES  -->
+                    <?php if ($rowdislike == NULL) { ?>
+
+                        <small id="smallDislikes">0</small>
+                        <i  
                         class="fa fa-thumbs-down" 
                         id="dislikesCurso"
                         ></i>
+
+                    <?php } else { ?> <?php ?>
+                        <?php foreach ($rowdislike as $key => $value) {?>
+                            <small id="smallDislikes"><?php echo $value['dislikes']?></small>
+                                <i  
+                                class="fa fa-thumbs-down" 
+                                id="dislikesCurso"
+                                ></i>
+                        <?php } ?>
+                        
+                    <?php } ?>
+                    
 
                     <hr style="background-color: #5d5d5d;">
                     <p><?php echo $descCorta ?></p>
                      <p><?php echo $descLarga ?></p>
                     <h3><?php echo $costo ?></h3>
-                    <?php if($idUser != $idAutor || $rol != 0){ ?>
+
+                    <!-- Validación para usuarios -->
+                    <?php if($idUser != $idAutor &&  $rol != 0){?>
                     <a id="btnComprar" href="carritoPago.php?id=<?php echo $id_curso?>" class="btn btn-primary btn-block">Comprar</a>
-                    <?php}else{ ?>
+                    <?php } else{ ?>
                     <a id="btnComprar" disabled class="btn btn-primary btn-block">Comprar</a>
                     <?php }?>
                 </div> 
@@ -124,39 +175,31 @@ if ($id_curso <= 0) {
                         <h6  class="decoracion"  id="menuPresentacion">Presentación</h6>
                         <h6 id="menuCapitulos">Capitulos</h6>
                     </div>
+
+
+                    <!-- Cargar capitulos -->
                     <img id="imagenP" src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>">
                     <div class="contenedorCapitulos hide">
                         <ul class="capitulosCurso">
-                            <li class="capitulo">
-                                <h4>Capitulo 1: Conoce la Interfaz de Photoshop</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                    Quisque ultricies ut nunc et cursus. Quisque euismod sapien
-                                    nunc. Morbi sed ante quis lectus viverra bibendum id et ante.</p>
-                            </li>
-                            <li class="capitulo">
-                                <h4>Capitulo 2: Herramientas de Photoshop ( Parte 1)</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                    Quisque ultricies ut nunc et cursus. Quisque euismod sapien
-                                    nunc. Morbi sed ante quis lectus viverra bibendum id et ante.</p>
-                            </li>
-                            <li class="capitulo">
-                                <h4>Capitulo 3: Herramientas de Photoshop ( Parte 2)</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                    Quisque ultricies ut nunc et cursus. Quisque euismod sapien
-                                    nunc. Morbi sed ante quis lectus viverra bibendum id et ante.</p>
-                            </li>
-                            <li class="capitulo">
-                                <h4>Capitulo 4: Herramientas de Photoshop ( Parte 3)</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                    Quisque ultricies ut nunc et cursus. Quisque euismod sapien
-                                    nunc. Morbi sed ante quis lectus viverra bibendum id et ante.</p>
-                            </li>
-
+                        <?php ?>
+                        <?php if($rowCapitulos == NULL){?>
+                            <?php } else{ ?>
+                                <?php
+                                foreach ($rowCapitulos as $key => $value) { 
+                                    ?>
+                                    <li class="capitulo">
+                                        <h4>Capitulo <?php echo $key?> : <?php echo $value['titulo'] ?></h4>
+                                        <p><?php echo $value['descripcion'] ?></p>
+                                    </li>
+                                    <?php }?>
+                            <?php }?>
                         </ul>
                     </div>
                 </div> 
             </div>
             <!-- Ingresar comentarios -->
+
+
             <form class="needs-validation"  id="formComentar" novalidate method="POST" enctype="multipart/form-data">
                 <div class="calCurso">
                     <h3 id="tituloCalificar">¡Califica el curso!</h3>
@@ -173,7 +216,7 @@ if ($id_curso <= 0) {
                             class="d-none" 
                             type="checkbox" 
                             checked name = "CheckLikes">
-                        <input type="text" id = "txtComentario" placeholder="Escribe un comentario">
+                        <input type="text" id = "txtComentario" placeholder="Escribe un comentario" required>
                         <button id="btnComentar">Comentar</button>
                     </div>
                 </div>
@@ -284,29 +327,32 @@ if ($id_curso <= 0) {
                 });
 
                 $('#btnComentar').click(function () {
-                    let frmData = new FormData();
-                    frmData.append("comentario", $('#txtComentario').val());
-                    frmData.append("id_usuario", $('#txtId').val());
-                    frmData.append("id_curso", $('#txtIdCurso').val());
-                    // frData.append("voto", $('#checkLike').checkdate());
-                    if (document.getElementsByName('CheckLikes')[0].checked)
-                    {
-                        frmData.append('CheckLikes', $('input[name=CheckLikes]').val());
-                    }
-                    $.ajax({
-                        url: 'Procedimientos/Comentario.php',
-                        contentType: false,
-                        processData: false,
-                        cache: false,
-                        type: 'POST',
-                        data: frmData,
-                        success: function (res) {
-                            alert(res);
-                            $('#txtComentario').val("");
-                            window.location.reload();
-                        }
-                    });
-                    return false;
+                    
+                            let frmData = new FormData();
+                            frmData.append("comentario", $('#txtComentario').val());
+                            frmData.append("id_usuario", $('#txtId').val());
+                            frmData.append("id_curso", $('#txtIdCurso').val());
+                            // frData.append("voto", $('#checkLike').checkdate());
+                            if (document.getElementsByName('CheckLikes')[0].checked)
+                            {
+                                frmData.append('CheckLikes', $('input[name=CheckLikes]').val());
+                            }
+                            $.ajax({
+                                url: 'Procedimientos/Comentario.php',
+                                contentType: false,
+                                processData: false,
+                                cache: false,
+                                type: 'POST',
+                                data: frmData,
+                                success: function (res) {
+                                    alert(res);
+                                    $('#txtComentario').val("");
+                                    
+                                    window.location.reload();
+                                }
+                            });
+                            return false;
+                        
                 });
 
             });

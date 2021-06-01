@@ -16,14 +16,20 @@ if($voto == true){
     $votoresult = "0";
 }
 
-// Mensajes carga
-// $query2 = "CALL sp_comentarios (1, null,$id_Usuario, $id_Curso, '$comentario', 1, 0);";
-$query2 = "CALL sp_comentarios (1, null,$id_Usuario, $id_Curso, '$comentario ', $votoresult, 0);";
-$result2 = $newConn->ExecuteQuery($query2);
-if($result2){
-    echo "¡Comentario añadido con éxito!";
+
+if($comentario == NULL){
+    echo "Ingrese un comentario";
 }else{
-    echo "Algo salió mal, intentalo más tarde.";
+    // Mensajes carga
+    // $query2 = "CALL sp_comentarios (1, null,$id_Usuario, $id_Curso, '$comentario', 1, 0);";
+    $query2 = "CALL sp_comentarios (1, null,$id_Usuario, $id_Curso, '$comentario ', $votoresult, 0);";
+    $result2 = $newConn->ExecuteQuery($query2);
+    if($result2){
+        echo "¡Comentario añadido con éxito!";
+    }else{
+        echo "Algo salió mal, intentalo más tarde.";
+    }
 }
+
  $newConn->CloseConnection();
 ?>

@@ -107,8 +107,8 @@ if ($id_curso <= 0) {
         <script type="text/javascript">
             document.getElementById("btnCarritoPago").addEventListener("click", function () {
                 var form = document.getElementById("formDatos");
-                var isValidForm = form.checkValidity();
-                if (isValidForm) {
+                // var isValidForm = form.checkValidity();
+                if (checarValidacionNotAlert(form)) {
                     let frmData = new FormData();
                     frmData.append("idUsuario", $('#txtId').val());
                     frmData.append("idCurso", $('#txtIdCurso').val());
@@ -122,13 +122,12 @@ if ($id_curso <= 0) {
                         data: frmData,
                         success: function (res) {
                             alert(res);
+                            form.submit();
                         }, error: function (XHR, text, errorthrow) {
                             debugger;
                         }
                     });
                     return false;
-                } else {
-                    alert("Faltan campos de validar");
                 }
             });
         </script>
