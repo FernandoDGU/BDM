@@ -32,7 +32,7 @@ and open the template in the editor.
     font-weight: bold;
     margin: 0;
     border-bottom: 0.1rem solid #171717;
-    
+
 }
 
 #boxListaCapitulos{
@@ -41,7 +41,7 @@ and open the template in the editor.
     overflow-y: scroll;
 }
 #boxListaCapitulos::-webkit-scrollbar {
-    width: 10px;
+    width: 2px;
 }
 #boxListaCapitulos::-webkit-scrollbar-track {
     background: #585757;
@@ -63,11 +63,29 @@ and open the template in the editor.
 .cbCapituloCurso:checked{
     background-color: white;
 }
+.liCapitulo{
+    border-left: 0.5rem solid transparent;
+}
 .tituloCapitulo{
     margin-left: 1rem;
     font-size: larger;
+    color: #9c9c9c;
+}
+.tituloCapitulo:hover{
+    cursor: pointer;
+    color: #f1f1f1;    
+}
+.capituloActual{
+    background-color: #333333;
+    border-left: 0.5rem solid #cf6955!important;
+}
+.tituloActual{
+    color: #f1f1f1;    
 }
 
+.liCapitulo:hover{   
+    background-color: #333333;
+}
 .capituloSeleccionado{
     background: #171717;
 }
@@ -90,7 +108,7 @@ and open the template in the editor.
     color: #7b4135;
     padding-left: 1rem;
     background-color: #272626;
-    
+
 }
 .menuCurso h6{
     cursor:pointer;
@@ -148,4 +166,14 @@ and open the template in the editor.
 .listaRecursos{
     list-style: none;
     padding:0;
+}
+
+.btn-dark{
+    background-color: #171717!important;
+    border-color: #171717!important;
+}
+
+.btn-dark:hover{
+    background-color: #1b1b1b!important;
+    border-color: #1b1b1b!important;
 }

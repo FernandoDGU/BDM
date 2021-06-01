@@ -298,7 +298,7 @@ and open the template in the editor.
                             'arrayLargo': array.length
                         },
                         success: function (res) {
-                            alert(res);
+                            alert("¡Categorías guardadas con éxito!");
                             window.location = "crearCapitulos.php";
                         }
                     });

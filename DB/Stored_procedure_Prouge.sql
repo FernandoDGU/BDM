@@ -144,6 +144,8 @@ DELIMITER ;
 
 -- SP CURSOS -- 
 -- call sp_cursos(6, null, 3,  null, null, null, null, null, null, null);
+-- select * from usuarios;
+-- call sp_cursos(7, null, 3,  null, null, null, null, null, null, null);
 DROP PROCEDURE IF EXISTS sp_cursos;
 DELIMITER // 
 CREATE PROCEDURE sp_cursos (
@@ -209,8 +211,23 @@ BEGIN
             WHERE usuario.id_usuario =  pId_user;
         END IF; 
         
+        IF pOpc = 7 THEN #Traer los cursos del usuario profesor
+			SELECT id_curso, cursos.id_usuario, titulo, costo, cursos.imagen, descripcion, descripcion_corta, fecha_mod, curso_activo, usuario.nombrecomp
+            FROM Cursos as cursos
+            INNER JOIN usuarios as usuario
+            ON cursos.id_usuario = usuario.id_usuario
+            WHERE cursos.id_usuario = 3;
+        END IF; 
+         IF pOpc = 7 THEN #Traer los cursos del usuario profesor
+			SELECT count(cursos.id_curso) as numCursos, sum(venta.total_ventas) as totalVentas, count(venta.id_usuario)
+            FROM Cursos as cursos
+            INNER JOIN ventas as venta
+            ON cursos.id_curso = venta.id_curso
+            WHERE cursos.id_usuario = 3;
+        END IF; 
 END //
-
+-- select * from ventas
+-- select * from cursos
 DELIMITER ;
 -- Select id_curso from Cursos where id_curso = (SELECT LAST_INSERT_ID());
 -- SELECT * FROM Cursos;
@@ -486,11 +503,12 @@ BEGIN
     
 END //
 DELIMITER ;
+
 -- select * from  multimedia;
 -- select * from  Curso_Niveles;
 -- Call sp_curso_niveles(1, null, 1, 0, 300, 'Hola', 'desc', 'video/Hola/Hi');
 -- Call sp_curso_niveles(2, null, 9, null, null, null, null, null);
--- Call sp_curso_niveles(3, 37, null, null, null, null, null, null);
+-- Call sp_curso_niveles(3, 3, null, null, null, null, null, null);
 
 -- SELECT * FROM Cursos;
 -- SELECT * FROM Ventas;
@@ -594,6 +612,7 @@ group by c.id_curso;
 
 
 -- select * FROM vCursos_promedio;
+-- select * FROM vCursos_best;
 -- Select * from Cursos;
 -- Select * from Comentarios;
 -- [Vista cursos mejor calificados] -- HOME Cambios para que se cuenten los likes 
@@ -601,7 +620,7 @@ DROP VIEW IF EXISTS vCursos_best;
 CREATE VIEW vCursos_best AS
 SELECT id_curso, id_usuario, titulo, costo, imagen, descripcion, descripcion_corta, fecha_mod, curso_activo, calificacion
 FROM vCursos_promedio
-order by calificacion LIMIT 10;
+order by calificacion desc LIMIT 10;
 -- WHERE calificacion >= 7;
 -- SELECT * FROM vCursos_best;
 

@@ -18,7 +18,6 @@ foreach ($data as $key => $value) {
     $result = $newConn->ExecuteQuery($sql);
     echo $data[$key];
 }
-echo $idCurso;
 
 
 /* echo $data[0];

@@ -7,6 +7,38 @@ and open the template in the editor.
     Created on : 31/05/2021, 11:36:59 AM
     Author     : FamiliaMoreno
 */
+.decoracion{
+    border-bottom: solid 2px #cf6955;
+    color:#cf6955!important;
+}
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+.menuCurso{
+    display: flex;
+    color: #7b4135;
+    padding-left: 1rem;
+    background-color: #272626;
+
+}
+.menuCurso a{
+    margin: 1rem 1rem 0 0 ;
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+    color: #7b4135;
+}
+.menuCurso a:hover{
+    text-decoration: none;
+     color:#cf6955;
+}
+.boxMC{
+    background-color: #333232;
+}
+
 
 .bg-light {
     background-color: #171717 !important;
@@ -23,16 +55,16 @@ and open the template in the editor.
 
 #Infocursos2{
     background-color: #333232;
-    /* width: 1536px; */
+    /* width: 1536px; 
     width: auto;
     height: 400px;
-    position: relative;
+    position: relative;*/
 
 }
 
 .row{
-    margin-right:0!important;
-    margin-left:0!important;
+   /* margin-right:0!important;
+    margin-left:0!important;*/
 }
 
  .card{
@@ -105,24 +137,26 @@ and open the template in the editor.
     height: 300px;
     margin-top: 43px;
 }
-.info{
-    padding: 2rem!important;
+.boxSlide{
+    margin:1rem!important;
+}
+.boxInfo{
     align-self: center;
-border-left:  3px solid #972e25;
-    
-
 }
 .info2{
     padding: 10px;
     align-self: center;
     margin-left: 20rem;
 }
-.info h1, .info2 h1{
+.infoMC, .info{
+     border-right:   3px solid #972e25;
+}
+.info h3, .info2 h1, .infoMC h3{
     font-family: 'Anton', sans-serif;
     color: #972e25;
 }
 
-.info h5, .info2 h5{
+.info h5, .info2 h5, .infoMC h5{
     color:#E6E6E6;
 }
 

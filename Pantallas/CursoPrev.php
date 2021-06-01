@@ -188,7 +188,7 @@ if ($id_curso <= 0) {
                                 foreach ($rowCapitulos as $key => $value) { 
                                     ?>
                                     <li class="capitulo">
-                                        <h4>Capitulo <?php echo $key?> : <?php echo $value['titulo'] ?></h4>
+                                        <h4>Capitulo <?php echo $key + 1?> : <?php echo $value['titulo'] ?></h4>
                                         <p><?php echo $value['descripcion'] ?></p>
                                     </li>
                                     <?php }?>

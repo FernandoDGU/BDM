@@ -1,40 +1,39 @@
 <?php
+/* class Capitulo {
 
-/*class Capitulo {
+  public $Id = 0;
+  public $Titulo = "";
+  public $Descripcion = "";
+  public $EsGratis = false;
 
-    public $Id = 0;
-    public $Titulo = "";
-    public $Descripcion = "";
-    public $EsGratis = false;
+  function __construct(int $id, string $titulo, string $descripcion, string $video, string $esGratis) {
+  $this->Id = $id;
+  $this->Titulo = $titulo;
+  $this->Descripcion = $descripcion;
+  $this->video = $video;
+  $this->EsGratis = $esGratis;
+  }
 
-    function __construct(int $id, string $titulo, string $descripcion, string $video, string $esGratis) {
-        $this->Id = $id;
-        $this->Titulo = $titulo;
-        $this->Descripcion = $descripcion;
-        $this->video = $video;
-        $this->EsGratis = $esGratis;
-    }
+  }
 
-}
-
-$capitulos = array(
-    new Capitulo(1, "Introducción", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies ut nunc et cursus.", "video.mp4", false),
-    new Capitulo(2, "Teoría", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies ut nunc et cursus.", "video.mp4", false),
-    new Capitulo(3, "Capacitación", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies ut nunc et cursus.", "video.mp4", true),
-    new Capitulo(10, "Recursos", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies ut nunc et cursus.", "video.mp4", true),
-);
-
+  $capitulos = array(
+  new Capitulo(1, "Introducción", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies ut nunc et cursus.", "video.mp4", false),
+  new Capitulo(2, "Teoría", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies ut nunc et cursus.", "video.mp4", false),
+  new Capitulo(3, "Capacitación", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies ut nunc et cursus.", "video.mp4", true),
+  new Capitulo(10, "Recursos", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies ut nunc et cursus.", "video.mp4", true),
+  );
 
 
 
-if (isset($_GET['action'])) {
-    $action = $_GET['action'];
 
-    if ($action == "delete" && isset($_GET['id'])) {
-        $id = $_GET['id'];
-        unset($capitulos[$id]);
-    }
-}*/
+  if (isset($_GET['action'])) {
+  $action = $_GET['action'];
+
+  if ($action == "delete" && isset($_GET['id'])) {
+  $id = $_GET['id'];
+  unset($capitulos[$id]);
+  }
+  } */
 ?>
 
 <html>
@@ -43,7 +42,7 @@ if (isset($_GET['action'])) {
         <title>Crear capitulos</title>
         <!--Css  -->
         <link rel="stylesheet" href="css/crearCurso.css">
-        
+
 
     </head>
     <body>
@@ -74,9 +73,9 @@ if (isset($_GET['action'])) {
                             </div>
                             <div class="inputInfoCurso">
                                 <label>Video:</label>
-                                <div class="">
-                                    <input type="file" class="" id="customFileLang1" lang="es">
-                                    <!-- <label class="" for="customFileLang">Seleccionar Archivo</label> -->
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFileLang1" lang="es">
+                                    <label class="custom-file-label" for="Archivo" >Seleccionar Archivo</label>
                                 </div>
                             </div>
                             <div class="inputInfoCurso">
@@ -92,48 +91,38 @@ if (isset($_GET['action'])) {
                         <h5>Recursos extra</h5>
                         <form class="needs-validation mt-4" id="formRecursosCurso" novalidate method="post" action='Procedimientos/RegistrarCategoria.php' enctype="multipart/form-data">
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div id="boxRecursosGuardados">
-                                            <label>Recursos guardados:</label>
-                                            <ul class="listaCategorias" id="recGuardadas">
 
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-8">
 
-                                        <div class="">
-                                            <label for="videoCapitulo">Agregar recurso multimedia:</label><br>
-                                            <ul id="listaRecursos">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="Archivo" lang="es" disabled>
-                                                    <label class="custom-file-label" for="Archivo" >Seleccionar Archivo</label>
-                                                </div>
-                                            </ul>
-                                            <div class="text-right">
-                                                <button id="agregarRecurso" class="btn btn-secondary" disabled>+</button>
-                                            </div>
+                                <div class="">
+                                    <label for="videoCapitulo">Agregar recurso multimedia:</label><br>
+                                    <ul id="listaRecursos">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="Archivo" lang="es" disabled>
+                                            <label class="custom-file-label" for="Archivo" >Seleccionar Archivo</label>
                                         </div>
-                                        <div class="">
-                                            <label for="videoCapitulo">Agregar enlace de referencia:</label><br>
-                                            <ul id="listaEnlaces">
-                                                <div class="boxEnlace">
-                                                    <label for="tituloEnlace">Titulo:</label>
-                                                    <input class="form-control" type="text" id = "idTitulo" name="Titulo" placeholder="Ingrese el titulo del enlace" maxlength="150" disabled>
-                                                    <label class="mt-3" for="enlaceURL" >URL:</label>
-                                                    <input class="form-control" type="text" id="idUrl" name= "Url" placeholder="Ingrese la URL" maxlength="150" disabled>
-                                                </div>
-                                            </ul>
-                                            <div class="text-right" >
-                                                <button id="agregarEnlace" class="btn btn-secondary" disabled >+</button>
-                                            </div>
-                                        </div>
-                                        <div class="text-right mt-5">
-                                            <!-- <button type="submit" id="btnAgregarOtroCurso" class="btn btn-primary ">Agregar otro capitulo</button> -->
-                                        </div>
+                                    </ul>
+                                    <div class="text-right">
+                                        <button id="agregarRecurso" class="btn btn-secondary" disabled>+</button>
                                     </div>
                                 </div>
+                                <div class="">
+                                    <label for="videoCapitulo">Agregar enlace de referencia:</label><br>
+                                    <ul id="listaEnlaces">
+                                        <div class="boxEnlace">
+                                            <label for="tituloEnlace">Titulo:</label>
+                                            <input class="form-control" type="text" id = "idTitulo" name="Titulo" placeholder="Ingrese el titulo del enlace" maxlength="150" disabled>
+                                            <label class="mt-3" for="enlaceURL" >URL:</label>
+                                            <input class="form-control" type="text" id="idUrl" name= "Url" placeholder="Ingrese la URL" maxlength="150" disabled>
+                                        </div>
+                                    </ul>
+                                    <div class="text-right" >
+                                        <button id="agregarEnlace" class="btn btn-secondary" disabled >+</button>
+                                    </div>
+                                </div>
+                                <div class="text-right mt-5">
+                                    <!-- <button type="submit" id="btnAgregarOtroCurso" class="btn btn-primary ">Agregar otro capitulo</button> -->
+                                </div>
+
                             </div>
                         </form>
                         <div class="text-right">
@@ -145,10 +134,10 @@ if (isset($_GET['action'])) {
             </div>
         </div>
 
-           <!--js -->
-            <script src="js/validaciones.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script type="text/javascript">
+        <!--js -->
+        <script src="js/validaciones.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
 
             $(document).ready(function () {
 
@@ -158,61 +147,63 @@ if (isset($_GET['action'])) {
                 });
 
 
-                $('#btnAgregarCapitulo').click(function(){
-                        let frmData = new FormData();
-                        // descripcionCapitulo customFileLang1
-                        frmData.append("tituloCapitulo", $('#tituloCapitulo').val());
-                        frmData.append("descripcionCapitulo", $('#descripcionCapitulo').val());
+                $('#btnAgregarCapitulo').click(function () {
+                    let frmData = new FormData();
+                    // descripcionCapitulo customFileLang1
+                    frmData.append("tituloCapitulo", $('#tituloCapitulo').val());
+                    frmData.append("descripcionCapitulo", $('#descripcionCapitulo').val());
 
-                        if(document.getElementsByName('cbPrecioCapitulo')[0].checked)
-                        {frmData.append( 'cbPrecioCapitulo', $('input[name=cbPrecioCapitulo]').val());}
+                    if (document.getElementsByName('cbPrecioCapitulo')[0].checked)
+                    {
+                        frmData.append('cbPrecioCapitulo', $('input[name=cbPrecioCapitulo]').val());
+                    }
 
-                        // frmData.append("customFileLang1", $('#customFileLang1').val());
-                        frmData.append('customFileLang1', $('#customFileLang1')[0].files[0]);
+                    // frmData.append("customFileLang1", $('#customFileLang1').val());
+                    frmData.append('customFileLang1', $('#customFileLang1')[0].files[0]);
 
-                        $.ajax({
-                            url: 'Procedimientos/addCapitulo.php',
-                            contentType: false,
-                            processData: false,
-                            cache: false,
-                            type: 'POST',
-                            data: frmData,
-                            success: function (res) {
-                                alert("Capitulo agregado");
-                                $('#levelId').val(res);
-                                
-                                // disable to able
-                                document.getElementById("agregarEnlace").disabled = false;
-                                document.getElementById("idUrl").disabled = false;
-                                document.getElementById("idTitulo").disabled = false;
-                                document.getElementById("Archivo").disabled = false;
-                                document.getElementById("agregarRecurso").disabled = false;
-                                document.getElementById("btnAgregarCapitulosCompletos").disabled = false;
-                                document.getElementById("btnTerminar").disabled = false;
-                               
+                    $.ajax({
+                        url: 'Procedimientos/addCapitulo.php',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        type: 'POST',
+                        data: frmData,
+                        success: function (res) {
+                            alert("Capitulo agregado");
+                            $('#levelId').val(res);
 
-                                // able to disable
-                                document.getElementById("tituloCapitulo").disabled = true;
-                                document.getElementById("descripcionCapitulo").disabled = true;
-                                document.getElementById("cbPrecioCapitulo").disabled = true;
-                                document.getElementById("customFileLang1").disabled = true;
-                                document.getElementById("btnAgregarCapitulo").disabled = true;
+                            // disable to able
+                            document.getElementById("agregarEnlace").disabled = false;
+                            document.getElementById("idUrl").disabled = false;
+                            document.getElementById("idTitulo").disabled = false;
+                            document.getElementById("Archivo").disabled = false;
+                            document.getElementById("agregarRecurso").disabled = false;
+                            document.getElementById("btnAgregarCapitulosCompletos").disabled = false;
+                            document.getElementById("btnTerminar").disabled = false;
 
-                                // window.scrollTo(0,document.body.scrollHeight);
-                                window.scrollTo({top: 1000, behavior: 'smooth'});
-                                
-                            },error: function(XHR,text,errorthrow){
-                                debugger;
-                            }
-                        });
-                        return false;
+
+                            // able to disable
+                            document.getElementById("tituloCapitulo").disabled = true;
+                            document.getElementById("descripcionCapitulo").disabled = true;
+                            document.getElementById("cbPrecioCapitulo").disabled = true;
+                            document.getElementById("customFileLang1").disabled = true;
+                            document.getElementById("btnAgregarCapitulo").disabled = true;
+
+                            // window.scrollTo(0,document.body.scrollHeight);
+                            window.scrollTo({top: 1000, behavior: 'smooth'});
+
+                        }, error: function (XHR, text, errorthrow) {
+                            debugger;
+                        }
+                    });
+                    return false;
 
                 });
 
-                $('#agregarRecurso').click(function(){
+                $('#agregarRecurso').click(function () {
                     let frmData = new FormData();
                     frmData.append('archivo', $('#Archivo')[0].files[0]);
-                    frmData.append("idNivel",  $('#levelId').val())
+                    frmData.append("idNivel", $('#levelId').val())
                     $.ajax({
                         url: 'Procedimientos/addArchivos.php',
                         contentType: false,
@@ -228,11 +219,11 @@ if (isset($_GET['action'])) {
                     return false;
                 });
 
-                $('#agregarEnlace').click(function(){       
+                $('#agregarEnlace').click(function () {
                     let frmData = new FormData();
-                    frmData.append("idNivel",  $('#levelId').val())
-                    frmData.append("Titulo",  $('#idTitulo').val())
-                    frmData.append("Url",  $('#idUrl').val())
+                    frmData.append("idNivel", $('#levelId').val())
+                    frmData.append("Titulo", $('#idTitulo').val())
+                    frmData.append("Url", $('#idUrl').val())
                     $.ajax({
                         url: 'Procedimientos/addEnlaces.php',
                         contentType: false,
@@ -249,7 +240,7 @@ if (isset($_GET['action'])) {
                     return false;
                 });
 
-                $("#btnAgregarCapitulosCompletos").click(function(){
+                $("#btnAgregarCapitulosCompletos").click(function () {
                     window.scrollTo({top: 0, behavior: 'smooth'});
                     document.getElementById("tituloCapitulo").value = "";
                     document.getElementById("descripcionCapitulo").value = "";
@@ -278,10 +269,11 @@ if (isset($_GET['action'])) {
 
                 });
 
-                $("#btnTerminar").click(function(){
+                $("#btnTerminar").click(function () {
                     window.location.href = "index.php";
                 });
-
+                
+              
             });
         </script>
     </body>
