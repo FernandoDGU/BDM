@@ -200,7 +200,7 @@ BEGIN
         END IF; 
         
         IF pOpc = 6 THEN #Cursos comprados
-			SELECT cursoComprado.id_curso, usuario.id_usuario, titulo, cursoComprado.imagen, curso_activo, usuario.nombrecomp, getProgreso(usuario.id_usuario,cursoComprado.id_curso) as Progreso
+			SELECT cursoComprado.id_curso, usuario.id_usuario, titulo, cursoComprado.imagen, curso_activo, usuario.nombrecomp
             FROM usuarios as usuario
             INNER JOIN ventas as venta
             ON usuario.id_usuario = venta.id_usuario
@@ -209,8 +209,26 @@ BEGIN
             WHERE usuario.id_usuario =  pId_user;
         END IF; 
         
+        IF pOpc = 7 THEN #Traer los cursos del usuario profesor
+			SELECT id_curso, cursos.id_usuario, titulo, costo, cursos.imagen, descripcion, fecha_mod, curso_activo
+            FROM Cursos as cursos
+            WHERE cursos.id_usuario = pId_user;
+        END IF; 
+         IF pOpc = 8 THEN #Reporte de ventas
+			SELECT sum(venta.total_ventas) as totalVentas, count(venta.id_usuario) as alumnos
+            FROM Cursos as cursos
+			INNER JOIN ventas as venta
+            ON cursos.id_curso = venta.id_curso
+            WHERE cursos.id_usuario = pId_user;
+        END IF;    
+         IF pOpc = 9 THEN #Conteo cursos por profesor
+			SELECT count(id_curso) as conteo
+            FROM Cursos as cursos
+            WHERE cursos.id_usuario = pId_user;
+        END IF;     
 END //
-
+-- select * from ventas
+-- select * from cursos
 DELIMITER ;
 -- Select id_curso from Cursos where id_curso = (SELECT LAST_INSERT_ID());
 -- SELECT * FROM Cursos;
@@ -533,8 +551,18 @@ BEGIN
         AND	id_curso = pid_curso;
     END IF;
     
+    #VENTAS POR CURSO
+    IF pOpc = 3 THEN 
+		SELECT sum(total_ventas) as totalVentas, count(v.id_usuario) as alumnos, c.titulo as titulo
+        FROM Ventas as v
+        INNER JOIN cursos as c
+        on v.id_curso = c.id_curso
+        WHERE v.id_curso = pid_curso;
+    END IF;
+    
 END//
 DELIMITER ;
+
 
 -- SELECT * FROM Cursos;
 -- SELECT * FROM Ventas;
@@ -542,7 +570,7 @@ DELIMITER ;
 -- SELECT * FROM vCursos_best_vendidos;
 
 -- SP PROGRESO USUARIO -- 
-DROP PROCEDURE IF EXISTS sp_progreso_usuario
+DROP PROCEDURE IF EXISTS sp_progreso_usuario;
 
 DELIMITER // 
 CREATE PROCEDURE sp_progreso_usuario(

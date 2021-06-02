@@ -10,6 +10,7 @@ and open the template in the editor.
         <title>Mis cursos</title>
         <!-- css -->
         <link rel="stylesheet" href="css/cursosEscuela.css">
+        <?php require("Procedimientos/cursosCreados.php"); ?>
     </head>
     <body>
         <!-- SideBar -->
@@ -19,101 +20,66 @@ and open the template in the editor.
                 <div class="row">                   
                     <div class="col-8 cursos">
                         <div class="cabeceraCursos">
-                            <h4>4 cursos en total</h4>
-                            <h5>10 alumnos en total</h5>
+                            <h4><?php echo $conteo ?> cursos en total</h4>
+                            <h5><?php echo $rowCursosTotal[0]['alumnos'] ?> alumnos en total</h5>
                             <small>
-                                GANANCIAS TOTALES: $89999.00MX
+                                GANANCIAS TOTALES: $<?php echo $rowCursosTotal[0]['totalVentas'] ?>.00MX
                             </small>                            
                         </div>
-                        <div class="card bg-secondary text-white">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <img class="imgCurso" src="images/ejemplos/imgEjemplo1.jpg">
-                                    </div>
-                                    <div class="col-8">
-                                        <h4>Titulo</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                            Quisque ultricies ut nunc et cursus. Quisque euismod sapien
-                                            nunc. Morbi sed ante quis lectus viverra bibendum id et ante.</p>
-                                        <small>PRECIO: $545.00MX</small>
-                                        <div class="text-right">
-                                            <a class="btn-primary btn btnVerMas" href="#">Ver más</a>
-                                        </div>
+                        <?php if ($rowCursosCreados == NULL) { ?>
+                            <div class='text-center'>
+                                <h5 style="color:whitesmoke">No has creado ningún curso.</h5>
+                            </div>
+                        <?php } else { ?>
+                            <?php
+                            foreach ($rowCursosCreados as $key => $value) {
+                                $titulo = $value['titulo'];
+                                $autor = $value['nombrecomp'];
+                                $imagen = $value['imagen'];
+                                $descripcion = $value['descripcion'];
+                                $costo = '$' . $value['costo'] . '.00MX';
+                                $id_curso = $value['id_curso'];
+                                ?>
 
+
+                                <div class="card bg-secondary text-white">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img class="imgCurso" src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>">
+                                            </div>
+                                            <div class="col-8">
+                                                <h4><?php echo $titulo ?> </h4>
+                                                <p><?php echo $descripcion ?></p>
+                                                <small>PRECIO: <?php echo $costo ?></small>
+                                                <div class="text-right">
+                                                    <button class="a btn-primary btn btnVerMas">
+                                                        <h6 class="d-none"><?php echo $id_curso ?> </h6>
+                                                        Ver más
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card bg-secondary text-white">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <img class="imgCurso" src="images/ejemplos/imgEjemplo1.jpg">
-                                    </div>
-                                    <div class="col-8">
-                                        <h4>Titulo</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                            Quisque ultricies ut nunc et cursus. Quisque euismod sapien
-                                            nunc. Morbi sed ante quis lectus viverra bibendum id et ante.</p>
-                                        <small>PRECIO: $545.00MX</small>
-                                        <div class="text-right">
-                                            <a class="btn-primary btn btnVerMas" href="#">Ver más</a>
-                                        </div>
+                                <?php
+                            }
+                        }
+                        ?>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card bg-secondary text-white">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <img class="imgCurso" src="images/ejemplos/imgEjemplo1.jpg">
-                                    </div>
-                                    <div class="col-8">
-                                        <h4>Titulo</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                            Quisque ultricies ut nunc et cursus. Quisque euismod sapien
-                                            nunc. Morbi sed ante quis lectus viverra bibendum id et ante.</p>
-                                        <small>PRECIO: $545.00MX</small>
-                                        <div class="text-right">
-                                            <a class="btn-primary btn btnVerMas" href="#">Ver más</a>
-                                        </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card bg-secondary text-white">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <img class="imgCurso" src="images/ejemplos/imgEjemplo1.jpg">
-                                    </div>
-                                    <div class="col-8">
-                                        <h4>Titulo</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                            Quisque ultricies ut nunc et cursus. Quisque euismod sapien
-                                            nunc. Morbi sed ante quis lectus viverra bibendum id et ante.</p>
-                                        <small>PRECIO: $545.00MX</small>
-                                        <div class="text-right">
-                                            <a class="btn-primary btn btnVerMas" href="#">Ver más</a>
-                                        </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="col-4 boxGanancias">
-                        <div class="cabeceraListaAlumnos">
-                            <h4>Titulo del curso</h4>
-                            <h5>6 alumnos inscritos</h5>
-                            <small>GANANCIAS TOTALES: $6767.00MX</small>
-                        </div>
+                        <!--<div class="cabeceraListaAlumnos">
+                            <h4 id="tituloCurso">Titulo del curso</h4>
+                            <h5 id="alumnosCurso">6 alumnos inscritos</h5>
+                            <small id="gananciasCurso">GANANCIAS TOTALES: $6767.00MX</small>
+                        </div>-->
                         <ul class="listaAlumnos">
-                            <li>
+                            <!--<li>
                                 <h6>Nombre del estudiante</h6>
                                 <div class="boxProgreso">
                                     <div class="cajaProgresoTotal">
@@ -166,12 +132,41 @@ and open the template in the editor.
                                     </div>
                                     <label class="progresoLabel">25% Completado</label>
                                 </div>
-                            </li>
+                            </li>-->
                         </ul>
 
                     </div>
                 </div>
             </div>
         </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('.btnVerMas').click(function () {
+                    let frmData = new FormData();
+                    frmData.append("id_curso", $(this).find('h6').text());
+                    $.ajax({
+                        url: 'Procedimientos/infoCursoProfesor.php',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        type: 'POST',
+                        data: frmData,
+                        success: function (res) {
+                            //$(".boxGanancias").append(res);
+                            alert(res);
+                            console.log(res);
+                            
+                        }
+                    });
+                    return false;
+                });
+
+            }
+            );
+
+        </script>
     </body>
 </html>
