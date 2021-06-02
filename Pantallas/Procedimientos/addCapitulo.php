@@ -42,7 +42,7 @@
     $result = $newConn->ExecuteQuery($query);
 
     if($result){
-        if (!move_uploaded_file($rutaTemporal, $filePath)) {
+        if (!move_uploaded_file($rutaTemporal, $filePath3)) {
             return false;
         }
     }

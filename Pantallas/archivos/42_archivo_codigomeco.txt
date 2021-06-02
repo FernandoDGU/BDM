@@ -1,0 +1,198 @@
+#include <iostream>
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <fstream>
+#include <malloc.h>
+#include <string>
+
+ 
+
+
+using namespace std;
+
+ 
+
+struct alumno {
+    alumno* atras;
+    int matricula;
+    char nombre[50];
+    alumno* siguiente;
+};
+
+ 
+
+int opcion;
+alumno* primero = NULL;
+alumno* ultimo = NULL;
+
+ 
+
+
+//DECLARACIONES DE void
+
+ 
+
+void agregar();
+void mostrar();
+void borrar();
+void guardar();
+
+ 
+
+ 
+
+//codigo
+
+ 
+
+void agregar() {
+    do {
+        alumno* nuevo = (alumno*)malloc(sizeof(alumno));
+        cout << "Nombre del alumno:\t";
+        cin >> nuevo->nombre;
+        cout << "Matricula:\t";
+        cin >> nuevo->matricula;
+        if (primero == NULL) {
+            primero = nuevo;
+            primero->siguiente = NULL;
+            primero->atras = NULL;
+            ultimo = primero;
+        }
+        else {
+            ultimo->siguiente = nuevo;
+            nuevo->siguiente = NULL;
+            nuevo->atras = ultimo;
+            ultimo = nuevo;
+        }
+        cout << "\nAlumno ingresado";
+        cout << "esta usted seguro de continuar?, si es asi ingrese 0, pero si no ingrese cualquier otro numero:\t";
+        cin >> opcion;
+    } while (opcion != 0);
+    system("cls");
+
+ 
+
+}
+
+ 
+
+void mostrar() {
+    alumno* actual = (alumno*)malloc(sizeof(alumno));
+    actual = primero;
+
+ 
+
+    if (primero != NULL) {
+        while (actual != NULL) {
+            cout << "Nombre del alumno" << actual->nombre << "Matricula:" << actual->matricula << endl;
+            actual = actual->siguiente;
+        }
+    }
+    else {
+        cout << "La lista se encuentra vacia" << endl;
+    }
+    cout << "BORRADO DE PANTALLA!!!!" << endl;
+    cout << "\n-----------------------------------";
+    cout << "\n-----------------------------------" << endl;
+    cout << "digite (0) para hacer una limpieza de pantalla, digite cualquier numero para tener la pantalla como esta: ";
+    cin >> opcion;
+    if (opcion == 0) {
+        system("cls");
+    }
+    else {
+        cout << "\nentendido no se ah borrado la pantalla" << endl;
+    }
+    return;
+}
+void borrar()
+{
+    string alumnoeliminar;
+
+ 
+
+    alumno* actual = (alumno*)malloc(sizeof(alumno));
+    actual = primero;
+    alumno* anterior = (alumno*)malloc(sizeof(alumno));
+    anterior = NULL;
+
+ 
+
+    if (primero == NULL) {
+        cout << "la lsita esta vacia" << endl;
+        return;
+    }
+
+ 
+
+
+    cout << "ingrese el dato del alumno a buscar para elminar:";
+    cin >> alumnoeliminar;
+
+ 
+
+
+    while (actual != NULL) //faltan los casos de el primero segundo...
+    {
+        if (strcmp(actual->nombre, alumnoeliminar.c_str()) == 0) {
+
+ 
+
+            if (actual == primero) {
+                primero = primero->siguiente;
+                primero->atras = NULL;
+            }
+            else if (actual == ultimo) {
+                anterior->siguiente = NULL;
+                ultimo = anterior;
+            }
+            else {
+                anterior->siguiente = actual->siguiente;
+                actual->siguiente->atras = anterior;
+            }
+
+ 
+
+        }
+
+ 
+
+        anterior = actual;
+        actual = actual->siguiente;
+
+ 
+
+
+    }
+
+ 
+
+}
+
+ 
+
+void guardar()
+{
+    alumno * actual = (alumno*)malloc(sizeof(alumno));
+    if (primero == NULL) {
+        cout << "la lista esta vacia" << endl;
+        return;
+    }
+    char cadena[255];
+    cout << "Nombre del archivo:";
+    cin >> cadena;
+    ofstream escribir;
+    escribir.open(cadena, ios::out | ios::binary);
+    if (escribir.is_open()) {
+        while (actual != NULL) {
+            escribir.write(reinterpret_cast<char*>(actual), sizeof(alumno));
+            actual = actual->siguiente;
+        }
+    }
+ else {
+  cout << "No se pudo guardar la informacion" << endl;
+  system("PAUSE");
+  return;
+}
+escribir.close();
+}

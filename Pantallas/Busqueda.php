@@ -17,27 +17,52 @@ and open the template in the editor.
 
 
         <div class="Busqueda">
-            <div class="titulo">
+            <!-- <div class="titulo">
                 4 Resultados para "blah blah"
-            </div>
+            </div> -->
             <div class="row">
 
-                <div class="boxCategorias col-2">
+                <div class="boxCategorias col-3">
                     <div class="boxFiltros">
                         <small>FILTRAR POR</small>
+
+                        
                         <div class=" btn-group-toggle btnFiltros w-100" data-toggle="buttons">
+
+                            <!-- TITULO -->
                             <label class=" mb-1 btnFiltroItem btn btn-secondary active w-100">
                                 <input type="radio" name="options" id="opTitulo" autocomplete="off" checked> Titulo
                             </label>
+                            <div class = "input-group">
+                            <input type="text" class="form-control" id="BusquedaTitulo" placeholder="Ingrese el titulo" name="BusquedaTitulo"
+                                   required>
+                            <button id="btnBuscarTitulo">Buscar</button>
+                            </div>
+                            <br>
+
+                            <!-- Categorias -->
                             <label class=" mb-1 btnFiltroItem btn btn-secondary w-100">
                                 <input type="radio" name="options" id="opCategoria" autocomplete="off"> Categoria
                             </label>
+                            <div class = "input-group">
+                            <input type="text" class="form-control" id="BusquedaCateg" placeholder="Ingrese la categoria" name="BusquedaTitulo"
+                                   required>
+                            <button id="btnBuscarCateg">Buscar</button>
+                            </div>
+                            <br>
+                            <!-- Usuarios -->
                             <label class=" mb-1 btnFiltroItem btn btn-secondary w-100">
                                 <input type="radio" name="options" id="opUsuario" autocomplete="off"> Usuario
                             </label>
+                            <div class = "input-group">
+                            <input type="text" class="form-control" id="BusquedaUser" placeholder="Nombre del profesor" name="BusquedaTitulo"
+                                   required>
+                            <button id="btnBuscarUser">Buscar</button>
+                            </div>
+                            <br>
                         </div>
                     </div>
-                    <p>Categorias</p>
+                    <!-- <p>Categorias</p>
                     <ul class="listaCategorias" id="boxCatergorias" >
                         <li>
                             <a href="#">categoría</a>
@@ -60,11 +85,13 @@ and open the template in the editor.
                         <li>
                             <a href="#">categoría</a>
                         </li>                     
-                    </ul>
+                    </ul> -->
 
                 </div>
-                <div class="productos col-10">
-                    <div class="item">
+                <div class="productos col-9" id = "Cursos">
+                    <!-- TRAER CURSOS -->
+                    <!-- <div class="item">
+                    
                         <a href="CursoPrev.php"><img class="imgCursoBusqueda" src="images/ejemplos/imgEjemplo1.jpg"></a>
 
                         <div class="description">
@@ -110,7 +137,9 @@ and open the template in the editor.
                         </div>
 
                         <div class="total-price">$549.00MX</div>
-                    </div>
+                    </div> -->
+
+
                     <nav class="navPaginacion" aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
@@ -132,6 +161,124 @@ and open the template in the editor.
 
         </div>
 
+        <!-- AJAX -->
+        <script type="text/javascript"> 
+        $(document).ready(function(){
+            // Ocultar todos
+            document.getElementById("BusquedaTitulo").style.display = "none";
+            document.getElementById("btnBuscarTitulo").style.display = "none";
+
+            document.getElementById("BusquedaCateg").style.display = "none";
+            document.getElementById("btnBuscarCateg").style.display = "none";
+
+            document.getElementById("BusquedaUser").style.display = "none";
+            document.getElementById("btnBuscarUser").style.display = "none";
+
+            // Mostrar ocultar
+            $("#opTitulo").click(function(){
+                document.getElementById("BusquedaTitulo").style.display = "block";
+                document.getElementById("btnBuscarTitulo").style.display = "block";
+                document.getElementById("BusquedaCateg").style.display = "none";
+                document.getElementById("btnBuscarCateg").style.display = "none";
+                document.getElementById("BusquedaUser").style.display = "none";
+                document.getElementById("btnBuscarUser").style.display = "none";
+            });
+            
+            $("#opCategoria").click(function(){
+                document.getElementById("BusquedaCateg").style.display = "block";
+                document.getElementById("btnBuscarCateg").style.display = "block";
+
+                document.getElementById("BusquedaUser").style.display = "none";
+                document.getElementById("btnBuscarUser").style.display = "none";
+
+                document.getElementById("BusquedaTitulo").style.display = "none";
+                document.getElementById("btnBuscarTitulo").style.display = "none";
+            });
+
+            $("#opUsuario").click(function(){
+
+                document.getElementById("BusquedaCateg").style.display = "none";
+                document.getElementById("btnBuscarCateg").style.display = "none";
+
+                document.getElementById("BusquedaUser").style.display = "block";
+                document.getElementById("btnBuscarUser").style.display = "block";
+
+                document.getElementById("BusquedaTitulo").style.display = "none";
+                document.getElementById("btnBuscarTitulo").style.display = "none";
+            });
+
+
+            $("#btnBuscarTitulo").click(function(){
+                let frmData = new FormData();
+                frmData.append("Titulo", $('#BusquedaTitulo').val());
+                frmData.append("Categ", "");
+                frmData.append("User", "");
+                frmData.append("Opcion", 1);
+                $.ajax({
+                        url: 'Procedimientos/BusquedaProc.php',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        type: 'POST',
+                        data: frmData,
+                        success: function (res) {
+                            // alert(res); 
+                            $('#Cursos').html("");
+                            $('#Cursos').append(res);
+                            document.getElementById("BusquedaTitulo").value = "";
+                        }
+                    });
+                return false;
+            });
+
+            
+            $("#btnBuscarCateg").click(function(){
+                let frmData = new FormData();
+                frmData.append("Titulo","" );
+                frmData.append("Categ", $('#BusquedaCateg').val());
+                frmData.append("User", "");
+                frmData.append("Opcion", 2);
+                $.ajax({
+                        url: 'Procedimientos/BusquedaProc.php',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        type: 'POST',
+                        data: frmData,
+                        success: function (res) {
+                            $('#Cursos').html("");
+                            $('#Cursos').append(res);
+                            document.getElementById("BusquedaCateg").value = "";
+                           
+                        }
+                    });
+                return false;
+            });
+
+            
+            $("#btnBuscarUser").click(function(){
+                let frmData = new FormData();
+                frmData.append("Titulo", "");
+                frmData.append("Categ", "");
+                frmData.append("User", $('#BusquedaUser').val());
+                frmData.append("Opcion", 3);
+                $.ajax({
+                        url: 'Procedimientos/BusquedaProc.php',
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        type: 'POST',
+                        data: frmData,
+                        success: function (res) {
+                            $('#Cursos').html("");
+                            $('#Cursos').append(res);
+                            document.getElementById("BusquedaUser").value = "";
+                        }
+                    });
+                return false;
+            });
+        });
+        </script>
 
         <!-- Footer -->
         <?php include("footer.php"); ?>        

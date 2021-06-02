@@ -30,6 +30,7 @@ and open the template in the editor.
                             $autor = $value['nombrecomp'];
                             $imagen = $value['imagen'];
                             $id_curso = $value['id_curso'];
+                            $progreso = $value['Progreso'];
                             if ($key % 4 == 0) {
                                 ?>
                                 </div>
@@ -41,10 +42,7 @@ and open the template in the editor.
                                             <h4 class="titulo">  <?php echo $titulo ?> </h4>
                                             <h6 class="autorCard"> <?php echo $autor ?> </h6>
                                             <div class="boxProgreso">
-                                                <div class="cajaProgresoTotal">
-                                                    <div class="cajaProgresoActual"></div>
-                                                </div>
-                                                <label class="progresoLabel">25% Completado</label>
+                                                <label class="progresoLabel"><?php echo $progreso ?>% Completado</label>
                                             </div>
                                             <a class="enlaceCurso" href="cursoCompleto.php?id=<?php echo $id_curso?>">Continuar curso</a>
                                         </div>                  
@@ -58,10 +56,7 @@ and open the template in the editor.
                                             <h4 class="titulo">  <?php echo $titulo ?> </h4>
                                             <h6 class="autorCard"> <?php echo $autor ?> </h6>
                                             <div class="boxProgreso">
-                                                <div class="cajaProgresoTotal">
-                                                    <div class="cajaProgresoActual"></div>
-                                                </div>
-                                                <label class="progresoLabel">25% Completado</label>
+                                                <label class="progresoLabel"><?php echo $progreso ?>% Completado</label>
                                             </div>
                                             <!-- Redirrecion -->
                                             <a class="enlaceCurso" href="cursoCompleto.php?id=<?php echo $id_curso?>">Continuar curso</a>

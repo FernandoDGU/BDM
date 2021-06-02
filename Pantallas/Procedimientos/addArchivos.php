@@ -22,8 +22,8 @@ if (!is_dir($path)) {
 }
 
 $nombre_archivo = str_replace(" " , "" , $nombre_archivo);
-$nombre_archivo = '_archivo_' . $nombre_archivo;
-$filePath = $path . "\\" . $id_capitulo . $nombre_archivo;
+$nombre_archivo = $id_capitulo .'_archivo_' . $nombre_archivo;
+$filePath = $path . "\\" . $nombre_archivo;
 $filePath2 = str_replace("\\" , "\\\\" , $filePath);
 $filePath3 = str_replace(" " , "" , $filePath2);
 

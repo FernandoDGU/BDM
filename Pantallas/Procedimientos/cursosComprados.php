@@ -16,5 +16,10 @@ $result = $newConn2->ExecuteQuery($query);
 //echo $userId;
 $rowCursosC = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+
+
+
+
+
 $newConn2->CloseConnection();
 ?>

@@ -18,7 +18,9 @@ DROP TABLE IF EXISTS Usuarios;
 -- select * from Mensajes;
 -- select * from Usuarios;
 -- select * from Comentarios;
--- select * from ;
+-- select * from Cursos;
+-- select * from Progreso_usuario_curso;
+-- select * from Curso_Niveles
 CREATE TABLE IF NOT EXISTS Usuarios
 (
 	id_usuario 		INT 			AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT 'Identificador del usuario', 
@@ -129,11 +131,13 @@ CREATE TABLE IF NOT EXISTS Progreso_usuario_curso
 (
 	id_progreso			INT 	AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT 'Identificador del progreso',
     id_usuario			INT 	NOT NULL COMMENT 'Identificador del usuario',
-    id_curso_nivel 		INT 	NOT NULL COMMENT 'Identificador del curso nivel', 
+    id_curso_nivel 		INT 	NOT NULL COMMENT 'Identificador del curso nivel',
+    id_curso 			INT 	NOT NULL COMMENT 'Identificador del curso ', 
     fecha_visto			DATETIME NULL COMMENT 'Fecha en la que vio el capitulo o nivel',
     
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) , 
-    FOREIGN KEY (id_curso_nivel) REFERENCES Curso_Niveles(id_curso_nivel)
+    FOREIGN KEY (id_curso_nivel) REFERENCES Curso_Niveles(id_curso_nivel),
+    FOREIGN KEY (id_curso) REFERENCES  Cursos(id_curso)
 );
 
 

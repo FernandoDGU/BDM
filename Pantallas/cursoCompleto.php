@@ -263,13 +263,14 @@ if ($id_curso <= 0) {
                                     // se parsea
                                     // let multimedia = JSON.parse(ress);
                                     let videoContainer = $("#videoCapitulo");
-                                    let blobsPathIdx = multimedia.ruta.indexOf("archivos"); //Nombre de carpeta archivos 
-                                    let relativePath = multimedia.ruta.substr(blobsPathIdx, ress); //multimedia ruta es la ruta del archivo
+                                    let blobsPathIdx = ress.indexOf("archivos"); //Nombre de carpeta archivos 
+                                    let relativePath = ress.substr(blobsPathIdx, ress.length); //multimedia ruta es la ruta del archivo
                                     let finalPath = decodeURI(location.host) + "\\" + decodeURI(relativePath);
 
                                     videoContainer.html("");
                                     videoContainer.attr('src', "http://" + finalPath);
                                     debugger;
+                                    alert(ress);
                                 }
                             });
                         }

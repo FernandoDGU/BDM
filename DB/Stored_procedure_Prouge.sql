@@ -144,8 +144,6 @@ DELIMITER ;
 
 -- SP CURSOS -- 
 -- call sp_cursos(6, null, 3,  null, null, null, null, null, null, null);
--- select * from usuarios;
--- call sp_cursos(7, null, 3,  null, null, null, null, null, null, null);
 DROP PROCEDURE IF EXISTS sp_cursos;
 DELIMITER // 
 CREATE PROCEDURE sp_cursos (
@@ -202,7 +200,7 @@ BEGIN
         END IF; 
         
         IF pOpc = 6 THEN #Cursos comprados
-			SELECT cursoComprado.id_curso, usuario.id_usuario, titulo, cursoComprado.imagen, curso_activo, usuario.nombrecomp
+			SELECT cursoComprado.id_curso, usuario.id_usuario, titulo, cursoComprado.imagen, curso_activo, usuario.nombrecomp, getProgreso(usuario.id_usuario,cursoComprado.id_curso) as Progreso
             FROM usuarios as usuario
             INNER JOIN ventas as venta
             ON usuario.id_usuario = venta.id_usuario
@@ -211,27 +209,12 @@ BEGIN
             WHERE usuario.id_usuario =  pId_user;
         END IF; 
         
-        IF pOpc = 7 THEN #Traer los cursos del usuario profesor
-			SELECT id_curso, cursos.id_usuario, titulo, costo, cursos.imagen, descripcion, descripcion_corta, fecha_mod, curso_activo, usuario.nombrecomp
-            FROM Cursos as cursos
-            INNER JOIN usuarios as usuario
-            ON cursos.id_usuario = usuario.id_usuario
-            WHERE cursos.id_usuario = 3;
-        END IF; 
-         IF pOpc = 7 THEN #Traer los cursos del usuario profesor
-			SELECT count(cursos.id_curso) as numCursos, sum(venta.total_ventas) as totalVentas, count(venta.id_usuario)
-            FROM Cursos as cursos
-            INNER JOIN ventas as venta
-            ON cursos.id_curso = venta.id_curso
-            WHERE cursos.id_usuario = 3;
-        END IF; 
 END //
--- select * from ventas
--- select * from cursos
+
 DELIMITER ;
 -- Select id_curso from Cursos where id_curso = (SELECT LAST_INSERT_ID());
 -- SELECT * FROM Cursos;
- -- CALL sp_cursos(3, 9, null,  null, null, null, null, null, null, null);
+ -- CALL sp_cursos(6, null, 3,  null, null, null, null, null, null, null);
 
 
 -- call sp_curso_categoria(5, null, 2, null);
@@ -503,12 +486,11 @@ BEGIN
     
 END //
 DELIMITER ;
-
 -- select * from  multimedia;
 -- select * from  Curso_Niveles;
 -- Call sp_curso_niveles(1, null, 1, 0, 300, 'Hola', 'desc', 'video/Hola/Hi');
 -- Call sp_curso_niveles(2, null, 9, null, null, null, null, null);
--- Call sp_curso_niveles(3, 3, null, null, null, null, null, null);
+-- Call sp_curso_niveles(3, 37, null, null, null, null, null, null);
 
 -- SELECT * FROM Cursos;
 -- SELECT * FROM Ventas;
@@ -568,25 +550,166 @@ CREATE PROCEDURE sp_progreso_usuario(
     pid_progreso 	INT,
     pid_usuario		INT,
     pid_curso_nivel INT,
+    pid_curso 		INT,	
     pfecha_visto	DATETIME
 )
 BEGIN 
+	DECLARE x1 INT DEFAULT 0; DECLARE x2 INT DEFAULT 0; DECLARE total INT DEFAULT 0;
+
 	IF pOpc = 1 THEN #Insertar datos
-		INSERT INTO Progreso_usuario_curso(id_usuario, id_curso_nivel, fecha_visto)
-        VALUES(pid_usuario, pid_curso_nivel, NOW());
+		INSERT INTO Progreso_usuario_curso(id_usuario, id_curso_nivel, id_curso, fecha_visto)
+        VALUES(pid_usuario, pid_curso_nivel, pid_curso, NOW());
     END IF;
     
     #Progreso de un usuario 
 	IF pOpc = 2 THEN 
-		SELECT id_progreso, id_usuario, id_curso_nivel, fecha_visto
+		SELECT id_progreso, id_usuario, id_curso_nivel, id_curso, fecha_visto
         FROM Progreso_usuario_curso
-        WHERE id_progreso = pid_progreso
+        WHERE id_curso = pid_curso
         AND	id_usuario = pid_usuario;
     END IF;
-    #Progreso por curso_nivel ?
+    
+    IF pOpc = 3 THEN
+    SET x1 = (SELECT getNivelesCurso(pid_curso));
+    SET x2 = (SELECT getDataLvlUser(pid_usuario,pid_curso));
+    SET total = ((x2 / x1) * 100);
+    SELECT total;
+    END IF;
 END//
 
 DELIMITER ;
+-- SELECT * FROM Progreso_usuario_curso;
+-- SELECT * FROM Cursos;
+-- select * from Curso_Niveles
+-- select getNivelesCurso(9);
+-- select getDataLvlUser(3,9)
+-- CALL sp_progreso_usuario(1, null,3, 7, 9, null)
+-- Call sp_progreso_usuario(2, null, 3, null, 9, null)
+-- Call sp_progreso_usuario(3, null, 3, null, 9, null)
+
+
+DROP PROCEDURE IF EXISTS sp_busqueda;
+
+DELIMITER // 
+CREATE PROCEDURE sp_busqueda 
+(
+	pOpc 		INT,
+	pTitulo		VARCHAR(100),
+    pUsername	VARCHAR(30),
+    pCategoria	VARCHAR(80)
+)
+BEGIN
+	 IF pOpc = 1 THEN #BUSQUEDA POR TITULO DEL CURSO 
+		SELECT cu.id_curso, cu.id_usuario, cu.titulo, cu.imagen, cu.costo, cu.descripcion, cu.descripcion_corta, cu.fecha_mod, us.username
+        FROM Cursos cu
+        INNER JOIN Usuarios us
+        WHERE cu.titulo = pTitulo
+        AND us.id_usuario = cu.id_usuario
+        order by fecha_mod;
+    END IF;
+    
+    IF pOpc = 2 THEN #BUSQUEDA POR NOMBRE DEL PROFESOR
+		SELECT cu.id_curso, cu.id_usuario, cu.titulo, cu.imagen, cu.costo, cu.descripcion, cu.descripcion_corta, cu.fecha_mod, us.username
+        FROM Cursos cu
+        INNER JOIN Usuarios us
+        WHERE cu.id_usuario = us.id_usuario
+        AND	us.username = pUsername;
+    END IF;
+    
+    IF pOpc = 3 THEN #BUSQUEDA POR CATEGORIA
+		SELECT cu.id_curso, cu.id_usuario, cu.titulo, cu.imagen, cu.costo, cu.descripcion, cu.descripcion_corta, cu.fecha_mod, ca.nombre, us.username
+        FROM Cursos cu
+        INNER JOIN Categorias ca
+        JOIN Curso_Categoria cuca
+        JOIN Usuarios us
+        WHERE cu.id_curso = cuca.id_curso
+        AND  ca.id_categoria = cuca.id_categoria
+        AND ca.nombre = pCategoria
+        AND cu.id_usuario = us.id_usuario;
+    END IF;
+
+END //
+
+DELIMITER ;
+-- select * from Cursos;
+-- select * from Categorias;
+-- CALL sp_busqueda (1, 'Nuevo Curso', null, null);
+-- CALL sp_busqueda (2, "", 'Villa', null);
+-- CALL sp_busqueda (3, null, null, 'sad');
+
+-- funcion cantidad de niveles por curso
+DROP FUNCTION IF EXISTS getNivelesCurso;
+
+DELIMITER // 
+ CREATE FUNCTION getNivelesCurso(
+		pidCurso 	INT
+ )
+ RETURNS INT
+ READS SQL DATA
+ BEGIN 
+	DECLARE totalVl	INT;
+    
+    SELECT count(id_curso_nivel) INTO totalVl
+    FROM Curso_Niveles cn
+    WHERE id_curso = pidCurso;
+ 
+	return totalVl;
+ END//
+DELIMITER ;
+
+-- select getNivelesCurso(9);
+
+-- funcion cantidad de niveles por curso ---
+DROP FUNCTION IF EXISTS getDataLvlUser;
+
+DELIMITER //
+
+CREATE FUNCTION getDataLvlUser(
+	pid_user	INT,
+    pid_curso	INT
+)
+RETURNS INT
+READS SQL DATA
+BEGIN 
+	DECLARE capitulosVistos	INT;
+    
+    SELECT count(id_progreso) INTO capitulosVistos
+    FROM Progreso_usuario_curso
+    WHERE id_usuario = pid_user
+    AND id_curso = pid_curso;
+
+	return capitulosVistos;
+END //
+
+DELIMITER ;
+-- select getDataLvlUser(3,9)
+
+-- funcion progreso ---
+DROP FUNCTION IF EXISTS getProgreso;
+
+DELIMITER //
+
+CREATE FUNCTION getProgreso(
+	pid_user	INT,
+    pid_curso	INT
+)
+RETURNS INT
+READS SQL DATA
+BEGIN 
+	DECLARE x1 INT DEFAULT 0; DECLARE x2 INT DEFAULT 0; DECLARE total INT DEFAULT 0;
+    SET x1 = (SELECT getNivelesCurso(pid_curso));
+    SET x2 = (SELECT getDataLvlUser(pid_user,pid_curso));
+    SET total = ((x2 / x1) * 100);
+    
+    return total;
+END //
+
+DELIMITER ;
+
+-- SELECT getProgreso(3,9);
+
+
+
 
 
 -- INTENTO DE VISTAS -- -- EN ESTAS SE PUEDEN HACER LOS JOINS PARA TRAER LOS DATOS De los cursos mejores calificados, recientes y eso-- 
@@ -612,7 +735,6 @@ group by c.id_curso;
 
 
 -- select * FROM vCursos_promedio;
--- select * FROM vCursos_best;
 -- Select * from Cursos;
 -- Select * from Comentarios;
 -- [Vista cursos mejor calificados] -- HOME Cambios para que se cuenten los likes 
@@ -620,7 +742,7 @@ DROP VIEW IF EXISTS vCursos_best;
 CREATE VIEW vCursos_best AS
 SELECT id_curso, id_usuario, titulo, costo, imagen, descripcion, descripcion_corta, fecha_mod, curso_activo, calificacion
 FROM vCursos_promedio
-order by calificacion desc LIMIT 10;
+order by calificacion LIMIT 10;
 -- WHERE calificacion >= 7;
 -- SELECT * FROM vCursos_best;
 
