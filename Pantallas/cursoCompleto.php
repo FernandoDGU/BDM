@@ -84,13 +84,12 @@ if ($id_curso <= 0) {
                             if ($key == 0) {
                                 ?>
                                 <li class="liCapitulo capituloActual">
-                                    <input type="checkbox" class="cbCapituloCurso" >
+                                    <!-- <input type="checkbox" class="cbCapituloCurso" > -->
                                     <label class="tituloCapitulo tituloActual" id="<?php echo $value['id_curso_nivel'] ?>">Capitulo <?php echo $key + 1 ?>:  <?php echo $value['titulo'] ?> </label>                       
                                 </li>
                                 <!-- PONER UN scrollbar -->
                             <?php } else { ?>
                                 <li class="liCapitulo">
-                                    <input type="checkbox" class="cbCapituloCurso" >
                                     <label class="tituloCapitulo" id="<?php echo $value['id_curso_nivel'] ?>">Capitulo <?php echo $key + 1 ?>:  <?php echo $value['titulo'] ?> </label>                       
                                 </li>
                                 <?php
@@ -98,13 +97,10 @@ if ($id_curso <= 0) {
                         }
                     }
                     ?>
-
                     <!-- <li class="capituloSeleccionado">
                         <input type="checkbox" class="cbCapituloCurso">
                         <label class="tituloCapitulo">Capitulo 2: Herramientas de Photoshop ( Parte 1)</label>                       
                     </li>-->
-
-
                 </ul>
             </div>
 

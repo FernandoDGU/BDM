@@ -233,9 +233,10 @@ DELIMITER ;
 -- Select id_curso from Cursos where id_curso = (SELECT LAST_INSERT_ID());
 -- SELECT * FROM Cursos;
  -- CALL sp_cursos(6, null, 3,  null, null, null, null, null, null, null);
-
-
 -- call sp_curso_categoria(5, null, 2, null);
+
+
+
 -- SP CURSO CATEGORIA --
 DROP PROCEDURE IF EXISTS sp_curso_categoria;
 
@@ -569,8 +570,9 @@ DELIMITER ;
 -- CALL sp_ventas(1, null, 2, 3, 0,  getCosto(3))
 -- SELECT * FROM vCursos_best_vendidos;
 
+
 -- SP PROGRESO USUARIO -- 
-DROP PROCEDURE IF EXISTS sp_progreso_usuario;
+DROP PROCEDURE IF EXISTS sp_progreso_usuario
 
 DELIMITER // 
 CREATE PROCEDURE sp_progreso_usuario(
@@ -585,9 +587,13 @@ BEGIN
 	DECLARE x1 INT DEFAULT 0; DECLARE x2 INT DEFAULT 0; DECLARE total INT DEFAULT 0;
 
 	IF pOpc = 1 THEN #Insertar datos
-		INSERT INTO Progreso_usuario_curso(id_usuario, id_curso_nivel, id_curso, fecha_visto)
-        VALUES(pid_usuario, pid_curso_nivel, pid_curso, NOW());
+		-- IF NOT EXISTS (SELECT * FROM Progreso_usuario_curso WHERE id_curso_nivel = pid_curso_nivel) 
+			-- BEGIN
+				INSERT INTO Progreso_usuario_curso(id_usuario, id_curso_nivel, id_curso, fecha_visto)
+				VALUES(pid_usuario, pid_curso_nivel, pid_curso, NOW());
+			-- END
     END IF;
+    
     
     #Progreso de un usuario 
 	IF pOpc = 2 THEN 
@@ -759,9 +765,6 @@ INNER JOIN Comentarios co
 ON c.id_curso = co.id_curso
 group by c.id_curso;
 
-
-
-
 -- select * FROM vCursos_promedio;
 -- Select * from Cursos;
 -- Select * from Comentarios;
@@ -912,6 +915,30 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+-- Funcón para traer si un usuario ya compro un curso --
+DROP FUNCTION IF EXISTS CursoComprado;
+DELIMITER //
+CREATE FUNCTION CursoComprado(
+	pid_user 	INT, 
+    pid_curso	INT
+)
+RETURNS INT
+READS SQL DATA
+BEGIN 
+	DECLARE Comprado INT;
+	SELECT 	v.id_venta INTO Comprado
+    FROM 	Ventas v
+    WHERE 	v.id_usuario = pid_user
+    AND 	v.id_curso = pid_curso;
+    
+    return Comprado;
+END //
+
+DELIMITER ;
+ 
+ -- select CursoComprado(3, 5);
 
 -- SELECT 1 FROM Usuarios WHERE correo = 'fer_2delunaghotmail.com'
 -- SELECT getCorreoRepetido('prueba@gmail.com');

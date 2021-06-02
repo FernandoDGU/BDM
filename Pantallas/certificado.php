@@ -4,6 +4,20 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
+<?php
+$id_curso = isset($_GET["id"]) ? $_GET["id"] : 0;
+if ($id_curso <= 0) {
+    header("Location: /index.php");
+    exit();
+} else {
+    error_reporting(E_ERROR | E_PARSE);
+    require("./Connection_db/classConecction.php");
+
+    
+}
+?>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -80,6 +94,10 @@ and open the template in the editor.
             }
         </style>
     </head>
+
+    
+
+
     <body>
         <img class="imagen" src="images/certificadoProuge_p1_PLANTILLA.png">
         <div class="text-center margin-gde">            

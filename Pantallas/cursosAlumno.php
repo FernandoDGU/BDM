@@ -41,10 +41,18 @@ and open the template in the editor.
                                         <div class="contenido" >
                                             <h4 class="titulo">  <?php echo $titulo ?> </h4>
                                             <h6 class="autorCard"> <?php echo $autor ?> </h6>
-                                            <div class="boxProgreso">
-                                                <label class="progresoLabel"><?php echo $progreso ?>% Completado</label>
-                                            </div>
-                                            <a class="enlaceCurso" href="cursoCompleto.php?id=<?php echo $id_curso?>">Continuar curso</a>
+                                            <?php if($progreso < 100){?>
+                                                <div class="boxProgreso">
+                                                    <label class="progresoLabel"><?php echo $progreso ?>% Completado</label>
+                                                </div>
+                                                <a class="enlaceCurso" href="cursoCompleto.php?id=<?php echo $id_curso?>">Continuar curso</a>
+                                            <?php } else { ?>
+                                                <div class="boxProgreso">
+                                                    <label class="progresoLabel"><?php echo $progreso ?>% Completado</label>
+                                                </div>
+                                                <!-- Cambiar por el php donde va a estar el diploma -->
+                                                <a class="enlaceCurso" href="certificado.php?id=<?php echo $id_curso?>" target="_blank">Obtener diploma</a>
+                                           <?php }?>
                                         </div>                  
                                     </div>
                                 <?php } else { ?>

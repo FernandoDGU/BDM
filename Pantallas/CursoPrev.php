@@ -63,6 +63,19 @@ if ($id_curso <= 0) {
         $resultCapitulos = $newConn2->ExecuteQuery($queryCapitulos);
         $rowCapitulos =  mysqli_fetch_all($resultCapitulos, MYSQLI_ASSOC);
 
+        // TRAER SI YA COMPRASTE ESTE CURSO
+        $newConn2->CreateConnection();
+        $queryFunction = "select CursoComprado(3, 5);";
+        $resultFunction = $newConn2->ExecuteQuery($queryFunction);
+        $rowCapFunction =  mysqli_fetch_all($resultFunction, MYSQLI_ASSOC);
+
+        // error meco
+        if(!$resultFunction){
+            echo "NULL";
+        }else{
+            echo "NO NULL";
+        }
+        
     } else {
         echo "Nada esta bien :(";
     }
@@ -162,12 +175,22 @@ if ($id_curso <= 0) {
                     <p><?php echo $descCorta ?></p>
                      <p><?php echo $descLarga ?></p>
                     <h3><?php echo $costo ?></h3>
-
                     <!-- Validación para usuarios -->
                     <?php if($idUser != $idAutor &&  $rol != 0){?>
-                    <a id="btnComprar" href="carritoPago.php?id=<?php echo $id_curso?>" class="btn btn-primary btn-block">Comprar</a>
+
+                        <!-- No tienes el curso -->
+                        <?php if($rowCapFunction == NULL){?> 
+                                
+                                <a id="btnComprar" href="carritoPago.php?id=<?php echo $id_curso?>" class="btn btn-primary btn-block">Comprar</a>
+                        <?php }else{?>   
+                                <a id="btnComprar" disabled class="btn btn-primary btn-block">Comprar</a>
+                                <h4 style="color: red; text-align: center">Ya cuentas con este curso</h4>
+                        <?php }?>
+                    <!-- <h4 style="color: red; text-align: center">Ya cuentas con este curso >:(</h4> -->
                     <?php } else{ ?>
                     <a id="btnComprar" disabled class="btn btn-primary btn-block">Comprar</a>
+                    
+                        
                     <?php }?>
                 </div> 
                 <div class="imagenCurso col-lg-6 col-sm-12">
