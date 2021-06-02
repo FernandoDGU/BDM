@@ -22,21 +22,23 @@ and open the template in the editor.
             </div> -->
             <div class="row">
 
-                <div class="boxCategorias col-3">
+                <div class="boxCategorias col-4">
                     <div class="boxFiltros">
-                        <small>FILTRAR POR</small>
+                        <small >FILTRAR POR</small>
 
-                        
-                        <div class=" btn-group-toggle btnFiltros w-100" data-toggle="buttons">
+
+                        <div class="mt-3 btn-group-toggle btnFiltros w-100" data-toggle="buttons">
 
                             <!-- TITULO -->
                             <label class=" mb-1 btnFiltroItem btn btn-secondary active w-100">
                                 <input type="radio" name="options" id="opTitulo" autocomplete="off" checked> Titulo
                             </label>
                             <div class = "input-group">
-                            <input type="text" class="form-control" id="BusquedaTitulo" placeholder="Ingrese el titulo" name="BusquedaTitulo"
-                                   required>
-                            <button id="btnBuscarTitulo">Buscar</button>
+                                <input type="text" class="form-control" id="BusquedaTitulo" placeholder="Ingrese el titulo" name="BusquedaTitulo"
+                                       required>
+                                <div class="input-group-append">
+                                    <button id="btnBuscarTitulo" class="btn btn-dark" type="button">Buscar</button>
+                                </div>
                             </div>
                             <br>
 
@@ -45,9 +47,11 @@ and open the template in the editor.
                                 <input type="radio" name="options" id="opCategoria" autocomplete="off"> Categoria
                             </label>
                             <div class = "input-group">
-                            <input type="text" class="form-control" id="BusquedaCateg" placeholder="Ingrese la categoria" name="BusquedaTitulo"
-                                   required>
-                            <button id="btnBuscarCateg">Buscar</button>
+                                <input type="text" class="form-control" id="BusquedaCateg" placeholder="Ingrese la categoria" name="BusquedaTitulo"
+                                       required>
+                                <div class="input-group-append">
+                                    <button id="btnBuscarCateg" class="btn btn-dark" type="button">Buscar</button>
+                                </div>
                             </div>
                             <br>
                             <!-- Usuarios -->
@@ -55,9 +59,12 @@ and open the template in the editor.
                                 <input type="radio" name="options" id="opUsuario" autocomplete="off"> Usuario
                             </label>
                             <div class = "input-group">
-                            <input type="text" class="form-control" id="BusquedaUser" placeholder="Nombre del profesor" name="BusquedaTitulo"
-                                   required>
-                            <button id="btnBuscarUser">Buscar</button>
+                                <input type="text" class="form-control" id="BusquedaUser" placeholder="Nombre del profesor" name="BusquedaTitulo"
+                                       required>
+                                <div class="input-group-append">
+                                    <button id="btnBuscarUser" class="btn btn-dark" type="button">Buscar</button>
+                                </div>
+                                
                             </div>
                             <br>
                         </div>
@@ -88,7 +95,7 @@ and open the template in the editor.
                     </ul> -->
 
                 </div>
-                <div class="productos col-9" id = "Cursos">
+                <div class="productos col-8" id = "Cursos">
                     <!-- TRAER CURSOS -->
                     <!-- <div class="item">
                     
@@ -137,22 +144,7 @@ and open the template in the editor.
                         </div>
 
                         <div class="total-price">$549.00MX</div>
-                    </div> -->
-
-
-                    <nav class="navPaginacion" aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Anterior</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Siguiente</a>
-                            </li>
-                        </ul>
-                    </nav>
+                    </div> -->                   
                 </div>
 
 
@@ -162,59 +154,60 @@ and open the template in the editor.
         </div>
 
         <!-- AJAX -->
-        <script type="text/javascript"> 
-        $(document).ready(function(){
-            // Ocultar todos
-            document.getElementById("BusquedaTitulo").style.display = "none";
-            document.getElementById("btnBuscarTitulo").style.display = "none";
-
-            document.getElementById("BusquedaCateg").style.display = "none";
-            document.getElementById("btnBuscarCateg").style.display = "none";
-
-            document.getElementById("BusquedaUser").style.display = "none";
-            document.getElementById("btnBuscarUser").style.display = "none";
-
-            // Mostrar ocultar
-            $("#opTitulo").click(function(){
-                document.getElementById("BusquedaTitulo").style.display = "block";
-                document.getElementById("btnBuscarTitulo").style.display = "block";
-                document.getElementById("BusquedaCateg").style.display = "none";
-                document.getElementById("btnBuscarCateg").style.display = "none";
-                document.getElementById("BusquedaUser").style.display = "none";
-                document.getElementById("btnBuscarUser").style.display = "none";
-            });
-            
-            $("#opCategoria").click(function(){
-                document.getElementById("BusquedaCateg").style.display = "block";
-                document.getElementById("btnBuscarCateg").style.display = "block";
-
-                document.getElementById("BusquedaUser").style.display = "none";
-                document.getElementById("btnBuscarUser").style.display = "none";
-
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // Ocultar todos
                 document.getElementById("BusquedaTitulo").style.display = "none";
                 document.getElementById("btnBuscarTitulo").style.display = "none";
-            });
-
-            $("#opUsuario").click(function(){
 
                 document.getElementById("BusquedaCateg").style.display = "none";
                 document.getElementById("btnBuscarCateg").style.display = "none";
 
-                document.getElementById("BusquedaUser").style.display = "block";
-                document.getElementById("btnBuscarUser").style.display = "block";
+                document.getElementById("BusquedaUser").style.display = "none";
+                document.getElementById("btnBuscarUser").style.display = "none";
 
-                document.getElementById("BusquedaTitulo").style.display = "none";
-                document.getElementById("btnBuscarTitulo").style.display = "none";
-            });
+                // Mostrar ocultar
+                $("#opTitulo").click(function () {
+                    document.getElementById("BusquedaTitulo").style.display = "block";
+                    document.getElementById("btnBuscarTitulo").style.display = "block";
+                    document.getElementById("BusquedaCateg").style.display = "none";
+                    document.getElementById("btnBuscarCateg").style.display = "none";
+                    document.getElementById("BusquedaUser").style.display = "none";
+                    document.getElementById("btnBuscarUser").style.display = "none";
+                });
+
+                $("#opCategoria").click(function () {
+                    document.getElementById("BusquedaCateg").style.display = "block";
+                    document.getElementById("btnBuscarCateg").style.display = "block";
+
+                    document.getElementById("BusquedaUser").style.display = "none";
+                    document.getElementById("btnBuscarUser").style.display = "none";
+
+                    document.getElementById("BusquedaTitulo").style.display = "none";
+                    document.getElementById("btnBuscarTitulo").style.display = "none";
+                });
+
+                $("#opUsuario").click(function () {
+
+                    document.getElementById("BusquedaCateg").style.display = "none";
+                    document.getElementById("btnBuscarCateg").style.display = "none";
+
+                    document.getElementById("BusquedaUser").style.display = "block";
+                    document.getElementById("btnBuscarUser").style.display = "block";
+
+                    document.getElementById("BusquedaTitulo").style.display = "none";
+                    document.getElementById("btnBuscarTitulo").style.display = "none";
+                });
 
 
-            $("#btnBuscarTitulo").click(function(){
-                let frmData = new FormData();
-                frmData.append("Titulo", $('#BusquedaTitulo').val());
-                frmData.append("Categ", "");
-                frmData.append("User", "");
-                frmData.append("Opcion", 1);
-                $.ajax({
+                $("#btnBuscarTitulo").click(function () {
+                    let frmData = new FormData();
+                    frmData.append("Titulo", $('#BusquedaTitulo').val());
+                    frmData.append("Categ", "");
+                    frmData.append("User", "");
+                    frmData.append("Opcion", 1);
+                    
+                    $.ajax({
                         url: 'Procedimientos/BusquedaProc.php',
                         contentType: false,
                         processData: false,
@@ -228,17 +221,17 @@ and open the template in the editor.
                             document.getElementById("BusquedaTitulo").value = "";
                         }
                     });
-                return false;
-            });
+                    return false;
+                });
 
-            
-            $("#btnBuscarCateg").click(function(){
-                let frmData = new FormData();
-                frmData.append("Titulo","" );
-                frmData.append("Categ", $('#BusquedaCateg').val());
-                frmData.append("User", "");
-                frmData.append("Opcion", 2);
-                $.ajax({
+
+                $("#btnBuscarCateg").click(function () {
+                    let frmData = new FormData();
+                    frmData.append("Titulo", "");
+                    frmData.append("Categ", $('#BusquedaCateg').val());
+                    frmData.append("User", "");
+                    frmData.append("Opcion", 2);
+                    $.ajax({
                         url: 'Procedimientos/BusquedaProc.php',
                         contentType: false,
                         processData: false,
@@ -249,20 +242,20 @@ and open the template in the editor.
                             $('#Cursos').html("");
                             $('#Cursos').append(res);
                             document.getElementById("BusquedaCateg").value = "";
-                           
+
                         }
                     });
-                return false;
-            });
+                    return false;
+                });
 
-            
-            $("#btnBuscarUser").click(function(){
-                let frmData = new FormData();
-                frmData.append("Titulo", "");
-                frmData.append("Categ", "");
-                frmData.append("User", $('#BusquedaUser').val());
-                frmData.append("Opcion", 3);
-                $.ajax({
+
+                $("#btnBuscarUser").click(function () {
+                    let frmData = new FormData();
+                    frmData.append("Titulo", "");
+                    frmData.append("Categ", "");
+                    frmData.append("User", $('#BusquedaUser').val());
+                    frmData.append("Opcion", 3);
+                    $.ajax({
                         url: 'Procedimientos/BusquedaProc.php',
                         contentType: false,
                         processData: false,
@@ -275,9 +268,9 @@ and open the template in the editor.
                             document.getElementById("BusquedaUser").value = "";
                         }
                     });
-                return false;
+                    return false;
+                });
             });
-        });
         </script>
 
         <!-- Footer -->

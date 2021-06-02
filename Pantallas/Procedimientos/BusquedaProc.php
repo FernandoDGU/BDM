@@ -20,7 +20,7 @@
         $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         if ($row == NULL) {
-            echo "<p> No hay resultados <p>";
+            echo "<div class='text-center text-white'><h3> No se encontraron resultados para '$titulo'. <h3></div>";
         }  else {
             if (count($row) != 0) {
                 foreach ($row as $key => $value) {
@@ -47,13 +47,12 @@
     // BUSQUEDA POR CATEGORIA
     if($Opcion == 2){
         $newConn2->CreateConnection(); 
-        echo "categoria buscado";
         $query = "CALL sp_busqueda (3, null, null, '$categoria');";
         $result = $newConn2->ExecuteQuery($query);
         $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         if ($row == NULL) {
-            echo "<p> No hay resultados <p>";
+            echo "<div class='text-center text-white'><h3> No se encontraron resultados para '$categoria'. <h3></div>";
         }  else {
             if (count($row) != 0) {
                 foreach ($row as $key => $value) {
@@ -80,13 +79,12 @@
     // BUSQUEDA POR USUARIO
     if($Opcion == 3){
         $newConn2->CreateConnection(); 
-        echo "Profesor buscado";
         $query = "CALL sp_busqueda (2, null, '$profesor_name', null);";
         $result = $newConn2->ExecuteQuery($query);
         $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         if ($row == NULL) {
-            echo "<p> No hay resultados <p>";
+            echo "<div class='text-center text-white'><h3> No se encontraron resultados para '$profesor_name'. <h3></div>";
         }  else {
             if (count($row) != 0) {
                 foreach ($row as $key => $value) {

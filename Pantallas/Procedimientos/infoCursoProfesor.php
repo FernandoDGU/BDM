@@ -8,22 +8,30 @@ $newConn2 = new ConnectionMySQL();
 $newConn2->CreateConnection();
 $userId = $_SESSION['idUser'];
 $idCurso = $_POST['id_curso'];
-// Obtener el id del usuario registrado que obviamente es el emisor, es decir el que manda mensajes
-// $id_emisor = $_SESSION['idUser'];
-// Lista de usuarios
+
 $queryC = "CALL sp_ventas(3, null,  null, $idCurso, null, null);";
 $resultC = $newConn2->ExecuteQuery($queryC);
-$rowInfoCurso = mysqli_fetch_all($resultC, MYSQLI_ASSOC);
-
-if ($rowInfoCurso == NULL) {
-    echo $idCurso;
-} else {
-    foreach ($rowInfoCurso as $key => $value) {
-       /* echo "<h4 id='tituloCurso'>$value[titulo]</h4>
-              <h5 id='alumnosCurso'>$value[alumnos] alumnos inscritos</h5>
-              <small id='gananciasCurso'>GANANCIAS TOTALES: $ $value[totalVentas].00MX</small>";*/
-        echo $value['titulo'];
+//$rowInfoCurso = mysqli_fetch_all($resultC, MYSQLI_ASSOC);
+if ($resultC) {
+    $i = 0;
+    while ($rowInfoCurso = mysqli_fetch_assoc($resultC)) {
+        $arrayDatosc[] = $rowInfoCurso;
+        $i = 2;
     }
+    $tituloCurso = $arrayDatosc[0]['titulo'];
+    echo $i;
+    /* if ($rowInfoCurso == NULL) {
+      echo $rowInfoCurso;
+      } else {
+      foreach ($rowInfoCurso as $key => $value) {
+      /* echo "<h4 id='tituloCurso'>$value[titulo]</h4>
+      <h5 id='alumnosCurso'>$value[alumnos] alumnos inscritos</h5>
+      <small id='gananciasCurso'>GANANCIAS TOTALES: $ $value[totalVentas].00MX</small>";
+      echo $value['titulo'];
+      }
+      } */
+} else {
+    echo "no jalo :C";
 }
 
 //echo $userId;

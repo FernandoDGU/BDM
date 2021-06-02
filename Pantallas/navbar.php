@@ -45,24 +45,19 @@ and open the template in the editor.
                         </a>
                 </ul>
 
-                <form class="form-inline my-lg-6 ml-auto">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" id="Search"  >
-                    <a id="btnBuscar" href="Busqueda.php">    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 48 48">
-                        <circle id="Elipse_1" data-name="Elipse 1" cx="24" cy="24" r="24" fill="#972e25"/>
-                        <path id="Unión_1" data-name="Unión 1" d="M7.619,31.619V19.546A9.909,9.909,0,0,1,2.9,2.9,9.9,9.9,0,1,1,16.908,16.908a9.856,9.856,0,0,1-3.957,2.427q0,.047,0,.093V31.619a2.667,2.667,0,0,1-5.333,0ZM5.333,10.286a4.952,4.952,0,1,0,4.953-4.953A4.957,4.957,0,0,0,5.333,10.286Z" transform="translate(6.701 21.471) rotate(-45)" fill="#cf6955"/>
-                        </svg> </a> 
-                </form>
-
-
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                    </li>
+
                     <?php if ($validate == 0) { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="Registro.php">Iniciar sesión</a>
                         </li>
                     <?php } else { ?>
-
+                        <li class="nav-item active mr-3">
+                            <a id="btnBuscar" class="text-right" href="Busqueda.php">    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 48 48">
+                                <circle id="Elipse_1" data-name="Elipse 1" cx="24" cy="24" r="24" fill="#972e25"/>
+                                <path id="Unión_1" data-name="Unión 1" d="M7.619,31.619V19.546A9.909,9.909,0,0,1,2.9,2.9,9.9,9.9,0,1,1,16.908,16.908a9.856,9.856,0,0,1-3.957,2.427q0,.047,0,.093V31.619a2.667,2.667,0,0,1-5.333,0ZM5.333,10.286a4.952,4.952,0,1,0,4.953-4.953A4.957,4.957,0,0,0,5.333,10.286Z" transform="translate(6.701 21.471) rotate(-45)" fill="#cf6955"/>
+                                </svg> </a>
+                        </li>
                         <!-- Si está registrado -->
                         <li class="nav-item">
                             <div class="dropdown">
