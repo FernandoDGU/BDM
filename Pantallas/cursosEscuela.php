@@ -26,105 +26,60 @@ and open the template in the editor.
                                 GANANCIAS TOTALES: $<?php echo $rowCursosTotal[0]['totalVentas'] ?>.00MX
                             </small>                            
                         </div>
-                        <?php if ($rowCursosCreados == NULL) { ?>
-                            <div class='text-center'>
-                                <h5 style="color:whitesmoke">No has creado ningún curso.</h5>
-                            </div>
-                        <?php } else { ?>
-                            <?php
-                            foreach ($rowCursosCreados as $key => $value) {
-                                $titulo = $value['titulo'];
-                                $autor = $value['nombrecomp'];
-                                $imagen = $value['imagen'];
-                                $descripcion = $value['descripcion'];
-                                $costo = '$' . $value['costo'] . '.00MX';
-                                $id_curso = $value['id_curso'];
-                                ?>
+                        <div id="boxCursos">
+                            <?php if ($rowCursosCreados == NULL) { ?>
+                                <div class='text-center'>
+                                    <h5 style="color:whitesmoke">No has creado ningún curso.</h5>
+                                </div>
+                            <?php } else { ?>
+                                <?php
+                                foreach ($rowCursosCreados as $key => $value) {
+                                    $titulo = $value['titulo'];
+                                    $autor = $value['nombrecomp'];
+                                    $imagen = $value['imagen'];
+                                    $descripcion = $value['descripcion'];
+                                    $costo = '$' . $value['costo'] . '.00MX';
+                                    $id_curso = $value['id_curso'];
+                                    ?>
 
 
-                                <div class="card bg-secondary text-white">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img class="imgCurso" src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>">
-                                            </div>
-                                            <div class="col-8">
-                                                <h4><?php echo $titulo ?> </h4>
-                                                <p><?php echo $descripcion ?></p>
-                                                <small>PRECIO: <?php echo $costo ?></small>
-                                                <div class="text-right">
-                                                    <button class="a btn-primary btn btnVerMas">
-                                                        <h6 class="d-none"><?php echo $id_curso ?> </h6>
-                                                        Ver más
-                                                    </button>
+                                    <div class="card bg-secondary text-white">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <img class="imgCurso" src="data:image/png|jpg|jpeg;base64,<?php echo base64_encode($imagen) ?>">
                                                 </div>
-
+                                                <div class="col-8">
+                                                    <h4><?php echo $titulo ?> </h4>
+                                                    <p><?php echo $descripcion ?></p>
+                                                    <small>PRECIO: <?php echo $costo ?></small>
+                                                    <div class="text-right">
+                                                        <button class="a btn-primary btn btnVerMas">
+                                                            <h6 class="d-none"><?php echo $id_curso ?> </h6>
+                                                            Ver más
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <?php
+                                    <?php
+                                }
                             }
-                        }
-                        ?>
+                            ?>
+
+                        </div>
 
 
 
 
                     </div>
-                    <div class="col-4 boxGanancias">
-                        <!--<div class="cabeceraListaAlumnos">
-                            <h4 id="tituloCurso">Titulo del curso</h4>
-                            <h5 id="alumnosCurso">6 alumnos inscritos</h5>
-                            <small id="gananciasCurso">GANANCIAS TOTALES: $6767.00MX</small>
-                        </div>-->
+                    <div class="col-4 boxGanancias invisible">
+                        <div class="boxCabecera">
+                            
+                        </div>
                         <ul class="listaAlumnos">
                             <!--<li>
-                                <h6>Nombre del estudiante</h6>
-                                <div class="boxProgreso">
-                                    <div class="cajaProgresoTotal">
-                                        <div class="cajaProgresoActual"></div>
-                                    </div>
-                                    <label class="progresoLabel">25% Completado</label>
-                                </div>
-                            </li>
-                            <li>
-                                <h6>Nombre del estudiante</h6>
-                                <div class="boxProgreso">
-                                    <div class="cajaProgresoTotal">
-                                        <div class="cajaProgresoActual"></div>
-                                    </div>
-                                    <label class="progresoLabel">25% Completado</label>
-                                </div>
-                            </li>
-                            <li>
-                                <h6>Nombre del estudiante</h6>
-                                <div class="boxProgreso">
-                                    <div class="cajaProgresoTotal">
-                                        <div class="cajaProgresoActual"></div>
-                                    </div>
-                                    <label class="progresoLabel">25% Completado</label>
-                                </div>
-                            </li>
-                            <li>
-                                <h6>Nombre del estudiante</h6>
-                                <div class="boxProgreso">
-                                    <div class="cajaProgresoTotal">
-                                        <div class="cajaProgresoActual"></div>
-                                    </div>
-                                    <label class="progresoLabel">25% Completado</label>
-                                </div>
-                            </li>
-                            <li>
-                                <h6>Nombre del estudiante</h6>
-                                <div class="boxProgreso">
-                                    <div class="cajaProgresoTotal">
-                                        <div class="cajaProgresoActual"></div>
-                                    </div>
-                                    <label class="progresoLabel">25% Completado</label>
-                                </div>
-                            </li>
-                            <li>
                                 <h6>Nombre del estudiante</h6>
                                 <div class="boxProgreso">
                                     <div class="cajaProgresoTotal">
@@ -155,10 +110,22 @@ and open the template in the editor.
                         type: 'POST',
                         data: frmData,
                         success: function (res) {
-                            //$(".boxGanancias").append(res);
-                            alert(res);
-                            console.log(res);
-                            
+                            $(".cabeceraListaAlumnos").remove();
+                            $(".boxCabecera").append(res);
+                            $(".boxGanancias").removeClass("invisible");
+                            $.ajax({
+                                url: 'Procedimientos/alumnosPorCurso.php',
+                                contentType: false,
+                                processData: false,
+                                cache: false,
+                                type: 'POST',
+                                data: frmData,
+                                success: function (res) {
+                                    $(".alumnosItem").remove();
+                                    $(".listaAlumnos").append(res);                              
+                                }
+                            });
+
                         }
                     });
                     return false;

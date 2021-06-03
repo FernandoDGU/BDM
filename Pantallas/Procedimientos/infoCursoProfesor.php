@@ -3,44 +3,37 @@
 // Con este se trae la lista de usuarios con los que tienes mensajes
 session_start();
 error_reporting(E_ERROR | E_PARSE);
+
 require("../Connection_db/classConecction.php");
-$newConn2 = new ConnectionMySQL();
-$newConn2->CreateConnection();
+
+$conn = new ConnectionMySQL();
+$conn->CreateConnection();
+
 $userId = $_SESSION['idUser'];
 $idCurso = $_POST['id_curso'];
 
-$queryC = "CALL sp_ventas(3, null,  null, $idCurso, null, null);";
-$resultC = $newConn2->ExecuteQuery($queryC);
-//$rowInfoCurso = mysqli_fetch_all($resultC, MYSQLI_ASSOC);
-if ($resultC) {
-    $i = 0;
-    while ($rowInfoCurso = mysqli_fetch_assoc($resultC)) {
-        $arrayDatosc[] = $rowInfoCurso;
-        $i = 2;
-    }
-    $tituloCurso = $arrayDatosc[0]['titulo'];
-    echo $i;
-    /* if ($rowInfoCurso == NULL) {
-      echo $rowInfoCurso;
-      } else {
-      foreach ($rowInfoCurso as $key => $value) {
-      /* echo "<h4 id='tituloCurso'>$value[titulo]</h4>
-      <h5 id='alumnosCurso'>$value[alumnos] alumnos inscritos</h5>
-      <small id='gananciasCurso'>GANANCIAS TOTALES: $ $value[totalVentas].00MX</small>";
-      echo $value['titulo'];
-      }
-      } */
-} else {
-    echo "no jalo :C";
+$query = "Call sp_ventas(4, null,  null, $idCurso, null, null);";
+$result = $conn->ExecuteQuery($query);
+$rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// no trae nada la consulta
+if ($result == NULL || count($rows) <= 0) {
+    echo "";
+    $conn->CloseConnection();
+    exit();
 }
 
-//echo $userId;
-/* if ($result) {
-  while ($rowInfoCurso = mysqli_fetch_assoc($result)) {
-  $arrayDatosc[] = $rowCursos;
-  }
-  } */
+// si trae registros creamos elemento por valor
+foreach ($rows as $key => $value) {
 
-
-$newConn2->CloseConnection();
+    if ($value['titulo'] == null) {
+        echo "<div class='cabeceraListaAlumnos text-center'><h4 id='tituloCurso'>No se han generado ventas</h4></div>";
+        $conn->CloseConnection();
+        exit();
+    } else {
+        echo "  <div class='cabeceraListaAlumnos'><h4 id='tituloCurso'>$value[titulo]</h4>
+                <h5 id='alumnosCurso'>$value[alumnos] alumnos inscritos</h5>
+                <small id='gananciasCurso'>GANANCIAS TOTALES: $ $value[totalVentas].00MX</small></div>";
+    }
+}
 ?>

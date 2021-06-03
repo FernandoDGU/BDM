@@ -28,6 +28,7 @@ and open the template in the editor.
     font-size: 25px;
     color: #818181;
     display: block;
+    border-left: 0.5rem solid transparent;
 }
 
 .sidenav a:hover {
@@ -37,8 +38,8 @@ and open the template in the editor.
 }
 
 .main {
-    margin-left: 15%; /* Same as the width of the sidenav */
-    font-size: 28px; /* Increased text to enable scrolling */
+    margin-left: 15%; 
+    font-size: 28px; 
     padding: 0px 10px;
 }
 

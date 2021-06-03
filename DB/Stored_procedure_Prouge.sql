@@ -538,21 +538,36 @@ BEGIN
         AND id_usuario = pid_usuario;
 	END IF;
     
-    #VENTAS POR CURSO
+     /*
     IF pOpc = 3 THEN 
 		SELECT id_venta, id_usuario, id_curso, fecha_compra, total_ventas
         FROM Ventas
         WHERE id_venta = pid_venta
         AND	id_curso = pid_curso;
     END IF;
+    */
+      #Usuarios registrados a cursos
+     IF pOpc = 3 THEN 
+		SELECT u.username, u.id_usuario
+        FROM usuarios as u
+        INNER JOIN ventas as v
+        ON u.id_usuario = v.id_usuario
+        AND	id_curso = pid_curso;
+    END IF;
     
     #VENTAS POR CURSO
-    IF pOpc = 4 THEN 
-		SELECT sum(total_ventas) as totalVentas, count(v.id_usuario) as alumnos, c.titulo as titulo
-        FROM Ventas as v
-        INNER JOIN cursos as c
-        on v.id_curso = c.id_curso
-        WHERE v.id_curso = pid_curso;
+    IF pOpc = 4 THEN
+    
+		SELECT		ifnull(sum(total_ventas), 0) 	totalVentas,
+					ifnull(count(v.id_usuario), 0) 	alumnos,
+					c.titulo as titulo
+        FROM		Ventas as v
+        
+        LEFT  JOIN	cursos as c
+					on v.id_curso = c.id_curso              
+		
+        WHERE 		v.id_curso = pid_curso;
+    
     END IF;
     
 END//
@@ -768,8 +783,8 @@ END //
 
 DELIMITER ;
 
--- SELECT getProgreso(3,9);
-
+-- SELECT getProgreso(8,9);
+-- getProgreso(4, 8);
 
 
 
