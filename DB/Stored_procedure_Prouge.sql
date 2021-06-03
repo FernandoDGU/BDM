@@ -200,7 +200,7 @@ BEGIN
         END IF; 
         
         IF pOpc = 6 THEN #Cursos comprados
-			SELECT cursoComprado.id_curso, usuario.id_usuario, titulo, cursoComprado.imagen, curso_activo, usuario.nombrecomp
+			SELECT cursoComprado.id_curso, usuario.id_usuario, titulo, cursoComprado.imagen, curso_activo, usuario.nombrecomp, getProgreso(usuario.id_usuario,cursoComprado.id_curso) as Progreso
             FROM usuarios as usuario
             INNER JOIN ventas as venta
             ON usuario.id_usuario = venta.id_usuario
@@ -670,6 +670,38 @@ DELIMITER ;
 -- CALL sp_busqueda (1, 'Nuevo Curso', null, null);
 -- CALL sp_busqueda (2, "", 'Villa', null);
 -- CALL sp_busqueda (3, null, null, 'sad');
+
+
+DROP PROCEDURE IF EXISTS sp_certificado;
+
+DELIMITER // 
+CREATE PROCEDURE sp_certificado
+(
+	pOpc 		INT,
+	pid_curso	INT,
+    pid_usuario	INT
+)
+BEGIN 
+		IF pOpc = 1 THEN #Traer datos alumno
+			SELECT us.nombrecomp
+			FROM Usuarios us
+            WHERE us.id_usuario = pid_usuario;
+		END IF;
+        
+		IF pOpc = 2 THEN #Traer Datos Curso y Nombre Profresor
+			SELECT us.nombrecomp, cu.titulo
+            FROM  Usuarios us
+            INNER JOIN Cursos cu
+            WHERE cu.id_curso = pid_curso
+            AND us.id_usuario = cu.id_usuario;
+        END IF;
+END // 
+DELIMITER ;
+
+-- CALL sp_certificado(1, null, 3);
+-- CALL sp_certificado(2, 15, null);
+
+
 
 -- funcion cantidad de niveles por curso
 DROP FUNCTION IF EXISTS getNivelesCurso;

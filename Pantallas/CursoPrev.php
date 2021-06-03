@@ -255,7 +255,6 @@ if ($id_curso <= 0) {
                         <div class='text-center'>
                             <h5 style="color:whitesmoke">No hay ningún comentario acerca de este curso.</h5>
                         </div>
-
                     <?php } else { ?>
                         <?php
                         foreach ($rowComent as $key => $value) {

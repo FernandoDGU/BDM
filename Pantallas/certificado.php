@@ -6,15 +6,33 @@ and open the template in the editor.
 -->
 
 <?php
-$id_curso = isset($_GET["id"]) ? $_GET["id"] : 0;
+$id_curso = isset($_GET["id_curso"]) ? $_GET["id_curso"] : 0;
+$Nombre = isset($_GET["Nombre"]) ? $_GET["Nombre"] : 0;
 if ($id_curso <= 0) {
-    header("Location: /index.php");
+    // header("Location: /index.php");
     exit();
 } else {
     error_reporting(E_ERROR | E_PARSE);
     require("./Connection_db/classConecction.php");
+    $newConn2 = new ConnectionMySQL();
+    $newConn2->CreateConnection();
 
-    
+    // id curso
+    $query = " CALL sp_certificado(2, $id_curso, null)";
+    $result = $newConn2->ExecuteQuery($query);
+    if($result){
+        while ($rowCursos = mysqli_fetch_assoc($result)) {
+            $arrayDatosc[] = $rowCursos;
+        }
+        $NombreMaestro = $arrayDatosc[0]['nombrecomp'];
+        $NombreCurso = $arrayDatosc[0]['titulo'];
+    }
+
+    // Nombre del alumno
+    $newConn2->CreateConnection();
+    $queryAlumno = "CALL sp_certificado(1, null, $Nombre);";
+    $resultAlumno = $newConn2->ExecuteQuery($queryAlumno);
+    $rowAlumno = mysqli_fetch_all($resultAlumno, MYSQLI_ASSOC);
 }
 ?>
 
@@ -94,20 +112,24 @@ if ($id_curso <= 0) {
             }
         </style>
     </head>
-
-    
-
-
     <body>
         <img class="imagen" src="images/certificadoProuge_p1_PLANTILLA.png">
         <div class="text-center margin-gde">            
             <p class="certificado margin-chiquito">CERTIFICADO</p>
             <p class="texto margin-chiquito">Este documento certifica que</p>
-            <h1 class="nombre margin-chiquito">Pepito pica papas</h1>
+
+            <?php if($rowAlumno == NULL){ ?>
+            <?php } else {?>
+                <?php foreach ($rowAlumno as $key => $value) {?>
+
+                <h1 class="nombre margin-chiquito"> <?php echo $value['nombrecomp'];?> </h1>
+                <?php }?>
+            <?php }?>
+            <?php ?>
             <p class="texto margin-chiquito">ha concluido exitosamente el curso de</p>
-            <p class="texto-bold margin-chiquito">Photoshop para principiantes</p>
-            <p class="texto margin-chiquito">el día 09/03/21.</p>
-            <p class="texto margin-mediano">Itzel Yaressi Moreno Tiznado</p>
+            <p class="texto-bold margin-chiquito"> <?php echo $NombreCurso;?> </p>
+            <p class="texto margin-chiquito">el día <?php echo date("d/m/Y") ?>.</p>
+            <p class="texto margin-mediano"> <?php echo $NombreMaestro;?> </p>
             <hr>
             <p class="texto texto-chiquito margin-chiquito">Instructor encargado</p>
             <p class="texto margin-chiquito">&</p>

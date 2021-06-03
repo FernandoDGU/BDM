@@ -51,7 +51,8 @@ and open the template in the editor.
                                                     <label class="progresoLabel"><?php echo $progreso ?>% Completado</label>
                                                 </div>
                                                 <!-- Cambiar por el php donde va a estar el diploma -->
-                                                <a class="enlaceCurso" href="certificado.php?id=<?php echo $id_curso?>" target="_blank">Obtener diploma</a>
+                                                <!-- certificado.php?id_curso=<?php //echo $id_curso?> -->
+                                                <a class="enlaceCurso" href="certificado.php?id_curso=<?php echo $id_curso?>&Nombre=<?php echo $idUser?>" target="_blank">Obtener diploma</a>
                                            <?php }?>
                                         </div>                  
                                     </div>
