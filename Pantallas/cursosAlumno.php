@@ -41,6 +41,7 @@ and open the template in the editor.
                                         <div class="contenido" >
                                             <h4 class="titulo">  <?php echo $titulo ?> </h4>
                                             <h6 class="autorCard"> <?php echo $autor ?> </h6>
+                                            <!-- Progreso -->
                                             <?php if($progreso < 100){?>
                                                 <div class="boxProgreso">
                                                     <label class="progresoLabel"><?php echo $progreso ?>% Completado</label>
@@ -54,6 +55,7 @@ and open the template in the editor.
                                                 <!-- certificado.php?id_curso=<?php //echo $id_curso?> -->
                                                 <a class="enlaceCurso" href="certificado.php?id_curso=<?php echo $id_curso?>&Nombre=<?php echo $idUser?>" target="_blank">Obtener diploma</a>
                                            <?php }?>
+                                           <!-- FIN PROGRESO -->
                                         </div>                  
                                     </div>
                                 <?php } else { ?>
@@ -64,11 +66,21 @@ and open the template in the editor.
                                         <div class="contenido" >
                                             <h4 class="titulo">  <?php echo $titulo ?> </h4>
                                             <h6 class="autorCard"> <?php echo $autor ?> </h6>
-                                            <div class="boxProgreso">
-                                                <label class="progresoLabel"><?php echo $progreso ?>% Completado</label>
-                                            </div>
-                                            <!-- Redirrecion -->
-                                            <a class="enlaceCurso" href="cursoCompleto.php?id=<?php echo $id_curso?>">Continuar curso</a>
+                                            
+                                            <?php if($progreso < 100){?>
+                                                <div class="boxProgreso">
+                                                    <label class="progresoLabel"><?php echo $progreso ?>% Completado</label>
+                                                </div>
+                                                <a class="enlaceCurso" href="cursoCompleto.php?id=<?php echo $id_curso?>">Continuar curso</a>
+                                            <?php } else { ?>
+                                                <div class="boxProgreso">
+                                                    <label class="progresoLabel"><?php echo $progreso ?>% Completado</label>
+                                                </div>
+                                                <!-- Cambiar por el php donde va a estar el diploma -->
+                                                <!-- certificado.php?id_curso=<?php //echo $id_curso?> -->
+                                                <a class="enlaceCurso" href="certificado.php?id_curso=<?php echo $id_curso?>&Nombre=<?php echo $idUser?>" target="_blank">Obtener diploma</a>
+                                           <?php }?>
+                                           
                                         </div>                  
                                     </div>
                                     <?php

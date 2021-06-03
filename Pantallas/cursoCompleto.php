@@ -267,8 +267,28 @@ if ($id_curso <= 0) {
                                     videoContainer.attr('src', "http://" + finalPath);
                                     debugger;
                                     alert(ress);
+
+                                     let frmData = new FormData();
+                                     frmData.append("idCapitulo", e.currentTarget.id);
+                                     frmData.append("idAlumno", $('#txtId').val());
+                                     frmData.append("idCurso", $('#txtIdCurso').val());
+
+                                         $.ajax({
+                                             url: 'Procedimientos/capituloCompletado.php',
+                                             contentType: false,
+                                             processData: false,
+                                             cache: false,
+                                             type: 'POST',
+                                             data: frmData,
+                                             success: function (resss) {
+
+                                                 alert(resss);
+                                             }
+                                         });   
                                 }
                             });
+                            
+
                         }
                     });
                 });

@@ -26,6 +26,7 @@ $newConn2->CreateConnection();
 $query2 = "select * from vCursos_best;";
 $result2 = $newConn2->ExecuteQuery($query2);
 $rowCurBest = mysqli_fetch_all($result2, MYSQLI_ASSOC);
+
 $newConn2->CreateConnection(); 
 $query3 = "select * from vCursos_best_vendidos;";
 $result3 = $newConn2->ExecuteQuery($query3);

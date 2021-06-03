@@ -91,9 +91,11 @@ BEGIN
 END //
 
 DELIMITER ; 
+
 -- CALL spUsuarios (6, null, 3, null,' ', ' ', null, null, null);
 -- CALL spUsuarios (7, 2, null, null,null,'Villa1234567(', null, null, null);
 -- CALL spUsuarios (4, 2, null, null,null,null, null, null, null);
+
 -- SP CATEGORIAS --
 DROP PROCEDURE IF EXISTS sp_categorias;
 
@@ -227,9 +229,12 @@ BEGIN
             WHERE cursos.id_usuario = pId_user;
         END IF;     
 END //
+
 -- select * from ventas
 -- select * from cursos
+
 DELIMITER ;
+
 -- Select id_curso from Cursos where id_curso = (SELECT LAST_INSERT_ID());
 -- SELECT * FROM Cursos;
  -- CALL sp_cursos(6, null, 3,  null, null, null, null, null, null, null);
@@ -418,12 +423,6 @@ BEGIN
 END //
 
 DELIMITER ; 
--- select  * from Comentarios;
--- CALL sp_comentarios (1, null,3, 1, 'Que bue curso', 1, 0);
--- CALL sp_comentarios (2, null,null, 1, null, 0, 0);
--- CALL sp_comentarios (3, null,null, 9, null, 0, 0);
--- CALL sp_comentarios (4, null,null, 1, null, 0, 0);
-
 
 -- select * from Multimedia;
 -- Sp Multimedia -- 
@@ -461,11 +460,6 @@ BEGIN
     
 END //
 DELIMITER ;
--- SELECT * FROM Cursos;
--- SELECT * FROM Curso_Niveles;
--- SELECT * FROM Multimedia;
--- CALL sp_multimedia (1, null, 1, 'nombrearchivo', 'tipoarchivo', 'extension', 'direccionarchivo');
--- CALL sp_multimedia (3, 6, null, 'nombrearchivo', 'tipoarchivo', 'extension', 'direccionarchivo');
 
 -- Sp Curso_Niveles -- 
 DROP PROCEDURE IF EXISTS sp_curso_niveles;
@@ -553,7 +547,7 @@ BEGIN
     END IF;
     
     #VENTAS POR CURSO
-    IF pOpc = 3 THEN 
+    IF pOpc = 4 THEN 
 		SELECT sum(total_ventas) as totalVentas, count(v.id_usuario) as alumnos, c.titulo as titulo
         FROM Ventas as v
         INNER JOIN cursos as c
@@ -587,13 +581,13 @@ BEGIN
 	DECLARE x1 INT DEFAULT 0; DECLARE x2 INT DEFAULT 0; DECLARE total INT DEFAULT 0;
 
 	IF pOpc = 1 THEN #Insertar datos
-		-- IF NOT EXISTS (SELECT * FROM Progreso_usuario_curso WHERE id_curso_nivel = pid_curso_nivel) 
+		IF NOT EXISTS (SELECT * FROM Progreso_usuario_curso WHERE id_curso_nivel = pid_curso_nivel) THEN
 			-- BEGIN
 				INSERT INTO Progreso_usuario_curso(id_usuario, id_curso_nivel, id_curso, fecha_visto)
 				VALUES(pid_usuario, pid_curso_nivel, pid_curso, NOW());
 			-- END
+            END IF;
     END IF;
-    
     
     #Progreso de un usuario 
 	IF pOpc = 2 THEN 
@@ -617,6 +611,8 @@ DELIMITER ;
 -- select * from Curso_Niveles
 -- select getNivelesCurso(9);
 -- select getDataLvlUser(3,9)
+-- idusuario, , id_cursonivel, id_curso
+
 -- CALL sp_progreso_usuario(1, null,3, 7, 9, null)
 -- Call sp_progreso_usuario(2, null, 3, null, 9, null)
 -- Call sp_progreso_usuario(3, null, 3, null, 9, null)
@@ -800,11 +796,13 @@ group by c.id_curso;
 -- select * FROM vCursos_promedio;
 -- Select * from Cursos;
 -- Select * from Comentarios;
+
 -- [Vista cursos mejor calificados] -- HOME Cambios para que se cuenten los likes 
 DROP VIEW IF EXISTS vCursos_best;
 CREATE VIEW vCursos_best AS
 SELECT id_curso, id_usuario, titulo, costo, imagen, descripcion, descripcion_corta, fecha_mod, curso_activo, calificacion
 FROM vCursos_promedio
+WHERE calificacion > 5
 order by calificacion LIMIT 10;
 -- WHERE calificacion >= 7;
 -- SELECT * FROM vCursos_best;
@@ -960,17 +958,17 @@ RETURNS INT
 READS SQL DATA
 BEGIN 
 	DECLARE Comprado INT;
-	SELECT 	v.id_venta INTO Comprado
+	SELECT 	v.id_venta INTO Comprado 
     FROM 	Ventas v
     WHERE 	v.id_usuario = pid_user
     AND 	v.id_curso = pid_curso;
     
-    return Comprado;
+    return Comprado ;
 END //
 
 DELIMITER ;
  
- -- select CursoComprado(3, 5);
+ -- select CursoComprado(3, 5) as datos;
 
 -- SELECT 1 FROM Usuarios WHERE correo = 'fer_2delunaghotmail.com'
 -- SELECT getCorreoRepetido('prueba@gmail.com');

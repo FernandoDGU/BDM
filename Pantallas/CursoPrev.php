@@ -11,12 +11,15 @@ if ($id_curso <= 0) {
     header("Location: /index.php");
     exit();
 } else {
+    session_start();
     error_reporting(E_ERROR | E_PARSE);
     require("./Connection_db/classConecction.php");
     $newConn2 = new ConnectionMySQL();
     $newConn2->CreateConnection();
     $query = " CALL sp_cursos(3, $id_curso,null, null, null, null, null,null, null, null);";
     $result = $newConn2->ExecuteQuery($query);
+
+    $userId = $_SESSION['idUser'];
     if ($result) {
         /* $rowCursos = mysqli_fetch_array($result, MYSQLI_ASSOC);        
           $tituloCurso = $rowCursos['titulo'];
@@ -65,17 +68,10 @@ if ($id_curso <= 0) {
 
         // TRAER SI YA COMPRASTE ESTE CURSO
         $newConn2->CreateConnection();
-        $queryFunction = "select CursoComprado(3, 5);";
+        $queryFunction = "select CursoComprado($userId, $id_curso) as datos;";
         $resultFunction = $newConn2->ExecuteQuery($queryFunction);
         $rowCapFunction =  mysqli_fetch_all($resultFunction, MYSQLI_ASSOC);
 
-        // error meco
-        if(!$resultFunction){
-            echo "NULL";
-        }else{
-            echo "NO NULL";
-        }
-        
     } else {
         echo "Nada esta bien :(";
     }
@@ -179,13 +175,19 @@ if ($id_curso <= 0) {
                     <?php if($idUser != $idAutor &&  $rol != 0){?>
 
                         <!-- No tienes el curso -->
-                        <?php if($rowCapFunction == NULL){?> 
+                        <?php if($rowCapFunction != NULL){?> 
+                                <?php foreach ($rowCapFunction as $key => $value){?>
+                                    <?php if ($value['datos'] == null){?>
+                                        <a id="btnComprar" href="carritoPago.php?id=<?php echo $id_curso?>" class="btn btn-primary btn-block">Comprar</a>
+
+                                    <?php }else{?>>
+                                        <a id="btnComprar" disabled class="btn btn-primary btn-block">Comprar</a>
+                                        <h4 style="color: red; text-align: center">Ya cuentas con este curso</h4>
+                                        <?php }?>
+                                <?php }?>
+
                                 
-                                <a id="btnComprar" href="carritoPago.php?id=<?php echo $id_curso?>" class="btn btn-primary btn-block">Comprar</a>
-                        <?php }else{?>   
-                                <a id="btnComprar" disabled class="btn btn-primary btn-block">Comprar</a>
-                                <h4 style="color: red; text-align: center">Ya cuentas con este curso</h4>
-                        <?php }?>
+                        <?php }?>   
                     <!-- <h4 style="color: red; text-align: center">Ya cuentas con este curso >:(</h4> -->
                     <?php } else{ ?>
                     <a id="btnComprar" disabled class="btn btn-primary btn-block">Comprar</a>
